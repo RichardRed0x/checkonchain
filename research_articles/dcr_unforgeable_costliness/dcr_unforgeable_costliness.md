@@ -117,7 +117,7 @@ As such, **Decreds's** initial distribution iterated on **Bitcoin's** ideals to 
 2. Permissionless application for community members with necessary screening for false entries given heightened market awareness. Appropriate staking and mining tools available at the time of launch.
 3. Awareness raised of those people most likely to nurture the protocol through the most vulnerable early years.
 4. Appropriately gradual reduction in the role of the founding team.
-5. A founders reward of 4% of DCR supply consistent with what public opinion deemed fair remuneration for Company 0's work (value of time and skill).
+5. A founders reward of 4% of DCR supply consistent with what public opinion deemed fair remuneration for Satoshi's work on Bitcoin (value of time and skill).
 
 
 
