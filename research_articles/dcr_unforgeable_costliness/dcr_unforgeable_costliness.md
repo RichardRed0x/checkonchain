@@ -110,8 +110,6 @@ In a very similar manner to Satoshi, the **Decred** founders have been appropria
 
 ![Decred Supply Dilution Curves](images/image_04.png)
 
-
-
 As such, **Decreds's** initial distribution iterated on **Bitcoin's** ideals to account for the new market dynamics and need to bootstrap the Hybrid PoW/PoS concensus mechanism:
 1. Complete transparency of the pre-mine one month in advance of releasing the code.
 2. Permissionless application for community members with necessary screening for false entries given heightened market awareness. Appropriate staking and mining tools available at the time of launch.
@@ -119,7 +117,9 @@ As such, **Decreds's** initial distribution iterated on **Bitcoin's** ideals to 
 4. Appropriately gradual reduction in the role of the founding team.
 5. A founders reward of 4% of DCR supply consistent with what public opinion deemed fair remuneration for Satoshi's work on Bitcoin (value of time and skill).
 
+It is well known that some in the cryptocurrency industry view premines as a dirty word which exist soley to unfairly benefit founding teams (with many unfortunate examples as evidence). The author has no expectation of changing those minds. 
 
+What is desireable is to impart on the more open minded reader that **Decred** was launched in very different circumstance to **Bitcoin**. By careful design, a small premine acted to both bootstrap network security during the most vulnerable years whilst rewarding the team for their skill and time at exactly the same rate to Satoshi.
 
 ## The Cost of Energy
 
