@@ -117,13 +117,14 @@ As such, **Decreds's** initial distribution iterated on **Bitcoin's** ideals to 
 4. Appropriately gradual reduction in the role of the founding team.
 5. A founders reward of 4% of DCR supply consistent with what public opinion deemed fair remuneration for Satoshi's work on Bitcoin (value of time and skill).
 
-It is well known that some in the cryptocurrency industry view premines as a dirty word which exist soley to unfairly benefit founding teams (with many unfortunate examples as evidence). The author has no expectation of changing those minds. 
+It is well known that some in the cryptocurrency industry view pre-mines as a dirty word which exist soley to unfairly benefit founding teams (with many unfortunate examples as evidence). The author has no expectation of changing those minds.
 
-What is desireable is to impart on the more open minded reader that **Decred** was launched in very different circumstance to **Bitcoin**. By careful design, a small premine acted to both bootstrap network security during the most vulnerable years whilst rewarding the team for their skill and time at exactly the same rate to Satoshi.
+What is desireable is to impart on the more open minded reader that **Decred** was launched in very different circumstance to **Bitcoin**. By careful design, a small pre-mine acted to bootstrap network security during the most vulnerable years whilst rewarding the team for their skill and time at exactly the same rate as Satoshi.
 
 ## The Cost of Energy
 
-Resistance of a scarce asset to monopolistic capture is essential to develop the trust of users who seek a vehicle for store of wealth over time. Particularly at the point of creation
+**Bitcoin** and **Decred** both share a common feature of Proof-of-Work as the dominant mechanism for issuing new coins. 
+
 
 
 ## The Cost of Capital

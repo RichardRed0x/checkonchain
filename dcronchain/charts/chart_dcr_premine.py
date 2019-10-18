@@ -42,8 +42,8 @@ name_data = [
     'Treasury Theoretical Supply',
     'Ticket Pool Supply',
     'Founder Total Premine',
-    'Founder Premine w/ Staking (46%)',
-    'Community Premine w/ Staking (54%)'
+    'Founder Spent Premine w/ Staking (46%)',
+    'Community Spent Premine w/ Staking (54%)'
 ]
 color_data = [
     'rgb(250, 38, 53)' ,
