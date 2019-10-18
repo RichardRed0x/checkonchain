@@ -37,21 +37,19 @@ class check_standard_charts():
     def __init__(self,title_data,range_data,type_data,autorange_data):
         self.title_data = title_data #Chart Title , X-Axis, Yaxis-1, Y-axis-2
         self.range_data = range_data # X-axis, Y-axis-1, Y-axis-2
-        self.autorange_data = autorange_data
-        self.type_data = type_data # X-axis, Y-axis-1, Y-axis-2
-        self._background = 'rgb(0,0,0)'
+        self.autorange_data = autorange_data #Boolean range override
+        self.type_data = type_data # X-axis, Y-axis-1, Y-axis-2 'linear', 'log'
+        self._background = 'rgb(20,20,20)'
         self._font = 'Raleway'
         self._titlesize = 26
-        self._legendsize = 14
-        self._axesfontsize = 18
-        self._tickfontsize = 14
-        self._gridcolor = 'rgb(127,127,127)'
+        self._legendsize = 16
+        self._axesfontsize = 20
+        self._tickfontsize = 16
+        self._gridcolor = 'rgb(50,50,50)'
         self._gridwidth = 0.1
-        self._zerolinecolor = 'rgb(127,127,127)'
+        self._zerolinecolor = 'rgb(50,50,50)'
 
-    def add_traces_lines(
-):
-
+    def add_traces_lines():
         return self._fig
 
 
@@ -102,6 +100,8 @@ class check_standard_charts():
                     size = self._titlesize
                 )),
             legend=dict(
+                yanchor='middle',
+                y=0.5,
                 font=dict(
                     family=self._font,
                     size=self._legendsize
@@ -210,6 +210,8 @@ class check_standard_charts():
                     size = self._titlesize
                 )),
             legend=dict(
+                yanchor='middle',
+                y=0.5,
                 font=dict(
                     family=self._font,
                     size=self._legendsize
@@ -332,3 +334,39 @@ class check_standard_charts():
 #        legend_data
 #        )
 
+
+
+
+
+
+
+
+
+
+
+"""BASIC CHART"""
+
+#x_data = []
+#y_data = []
+#name_data = []
+#
+#fig = make_subplots(specs=[[{"secondary_y": False}]])
+#for i in range(0,8):
+#    fig.add_trace(go.Scatter(
+#        x=x_data[i], 
+#        y=y_data[i],
+#        mode='lines',
+#        name=name_data[i],
+#        secondary_y=False)
+#
+#"""$$$$$$$$$$$$$$$ FORMATTING $$$$$$$$$$$$$$$$"""
+## Add figure title
+#fig.update_layout(title_text="Compare Value Metrics")
+#fig.update_xaxes(
+#    title_text="<b>Decred Block Height</b>"
+#    )
+#fig.update_yaxes(
+#    title_text="<b>DCR / Coin Market Cap</b>",
+#    secondary_y=False)
+#fig.update_layout(template="plotly_dark")
+#fig.show()

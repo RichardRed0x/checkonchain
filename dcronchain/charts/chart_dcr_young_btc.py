@@ -398,7 +398,7 @@ class dcrbtc_monetary_policy():
     
 #dcrbtc_monetary_policy().chart_dcrbtc_sply_area().show()
 #dcrbtc_monetary_policy().chart_dcrbtc_sply_s2f().show()
-dcrbtc_monetary_policy().chart_dcrbtc_sply_marketcap().show()
+#dcrbtc_monetary_policy().chart_dcrbtc_sply_marketcap().show()
 #dcrbtc_monetary_policy().chart_dcrbtc_s2f_model().show()
 
 
@@ -1026,7 +1026,7 @@ class dcrbtc_pow_security():
         return fig
 
 
-#dcrbtc_pow_security().chart_dcrbtc_btc_premine().show()
+dcrbtc_pow_security().chart_dcrbtc_btc_premine().show()
 #dcrbtc_pow_security().chart_dcrbtc_powdiffhash_date().show()
 #dcrbtc_pow_security().chart_dcrbtc_powdiffhash_sply().show()
 
@@ -1137,7 +1137,7 @@ class dcrbtc_userbase():
         
         return fig
 
-dcrbtc_userbase().chart_dcrbtc_volactaddress_sply().show()
+#dcrbtc_userbase().chart_dcrbtc_volactaddress_sply().show()
 
 
 

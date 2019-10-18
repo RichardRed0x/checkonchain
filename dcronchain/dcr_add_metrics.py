@@ -38,7 +38,7 @@ Notes:
 """
 
 class dcr_add_metrics():
-
+    
     def __init__(self):
         self.topcapconst = 12 #Top Cap = topcapconst * Avg Cap
         self.blkrew_ratio = [0.6,0.3,0.1] #PoW,PoS,Fund Block Reward Fraction
@@ -112,9 +112,15 @@ class dcr_add_metrics():
         df = pd.merge_asof(df,_coin,on='blk',direction='backward')
         df = pd.merge_asof(df,_sply[['blk','blk_reward','Sply_ideal', 'PoWSply_ideal', 'PoSSply_ideal','FundSply_ideal','inflation_ideal','S2F_ideal']],on='blk')
         #Calculate PoS Return on Investment
-        df['PoW_Income'] = df['blk_reward']*self.blkrew_ratio[0]*df['window']
-        df['PoS_Income'] = df['blk_reward']*self.blkrew_ratio[1]*df['window']
-        df['Fund_Income'] = df['blk_reward']*self.blkrew_ratio[2]*df['window']
+        df['PoW_income_dcr'] = df['blk_reward']*self.blkrew_ratio[0]*df['window']
+        df['PoS_income_dcr'] = df['blk_reward']*self.blkrew_ratio[1]*df['window']
+        df['Fund_income_dcr'] = df['blk_reward']*self.blkrew_ratio[2]*df['window']
+        df['Total_income_dcr'] = df['PoW_income_dcr']+df['PoS_income_dcr']+df['Fund_income_dcr']
+        
+        df['PoW_income_usd'] =  df['PoW_income_dcr']  *df['PriceUSD']
+        df['PoS_income_usd'] =  df['PoS_income_dcr']  *df['PriceUSD']
+        df['Fund_income_usd'] = df['Fund_income_dcr'] *df['PriceUSD']
+        df['Total_income_usd']= df['Total_income_dcr']*df['PriceUSD']
         return df
 
 
@@ -131,12 +137,11 @@ class dcr_add_metrics():
         
         #Calculate Aggregate Ticket Risk-Reward
         #Risk = 28 to 142 day volatility of ticket value
-        #Reward = PoS_Income
-        df['dcr_hodl_rating'] = (df['ticket_usd_cost'].rolling(28).mean() / df['PoS_Income'])
-        df['dcr_hodl_rating_tot'] = df['dcr_hodl_rating']*df['SplyCur']
-        df['dcr_hodl_rating_pool'] = df['dcr_hodl_rating']*df['ticket_pool_value']/1e8
-        df['dcr_hodl_rating_posideal'] = df['dcr_hodl_rating']*df['SplyCur']*self.blkrew_ratio[1]
-
+        #Reward = PoS_income_dcr
+        df['dcr_hodl_rating'] = (df['ticket_dcr_cost'] / df['PoS_income_dcr'])
+        df['dcr_hodl_rating_tot'] = df['dcr_hodl_rating']*df['SplyCur']*df['PriceUSD']
+        df['dcr_hodl_rating_pool'] = df['dcr_hodl_rating']*df['ticket_pool_value']/1e8*df['PriceUSD']
+        df['dcr_hodl_rating_posideal'] = df['dcr_hodl_rating']*df['SplyCur']*self.blkrew_ratio[1]*df['PriceUSD']
 
         # Average Cap and Average Price
         df['CapAvg'] = df['CapMrktCurUSD'].fillna(0.0001) #Fill not quite to zero for Log charts/calcs
@@ -170,7 +175,6 @@ class dcr_add_metrics():
         df['MinerIncome'] = df['CapInflow'] + df['CapFee']
         df['FeesPct'] =  df['CapFee']/df['MinerIncome']
         df['MinerCap'] = df['MinerIncome'].expanding().sum()
-
         return df
 
     def dcr_oscillators(self):
@@ -184,5 +188,56 @@ class dcr_add_metrics():
         df['RVT_28'] = df['CapRealUSD'].rolling(28).mean()/ df['TxTfrValUSD'].rolling(28).mean()
         df['RVT_90'] = df['CapRealUSD'].rolling(90).mean()/df['TxTfrValUSD'].rolling(90).mean()
         df['RVTS']   = df['CapRealUSD']/ df['TxTfrValUSD'].rolling(28).mean()
-        
         return df
+
+
+#Permabulls Charts
+#DCR_real = dcr_add_metrics().dcr_pricing_models()#
+#loop_data = [[0,1,2,3,4],[4]]
+#x_data = [
+#    DCR_real['date'],DCR_real['date'],DCR_real['date'],DCR_real['date'],
+#    DCR_real['date']
+#    ]
+#y_data = [
+#    DCR_real['PoW_income_usd'].cumsum(),
+#    DCR_real['PoS_income_usd'].cumsum(),
+#    DCR_real['Fund_income_usd'].cumsum(),
+#    DCR_real['Total_income_usd'].cumsum(),
+#    DCR_real['CapMrktCurUSD']
+#    ]
+#name_data = [
+#    'POW','POS','Treasury','Total',
+#    'Market Cap'
+#    ]
+##y_data = [
+##    DCR_real['CapMrktCurUSD'],DCR_real['CapRealUSD'],DCR_real['CapTicket'],DCR_real['CapS2Fmodel'],
+##    DCR_real['ticket_usd_cost'].rolling(28).mean()
+##    ]
+##name_data = [
+##    'Market Cap','Realised Cap','Ticket Cap','S2F Model',
+##    'Daily USD Locked in Tickets'
+##    ]
+#color_data = [
+#    'rgb(250, 38, 53)' ,'rgb(114, 49, 163)','rgb(255, 192, 0)',
+#    'rgb(20, 169, 233)','rgb(239, 125, 50)']
+#dash_data = ['solid','solid','solid','solid','solid']
+#width_data = [2,2,2,2,2]
+#opacity_data = [1,1,1,1,1]
+#legend_data = [True,True,True,True,True]#
+#title_data = ['Decred Fair Valuations','Date','Network Valuation','USD Ticket Purchases']
+#range_data = [['01-02-2016','01-02-2020'],[4,10],[0,1]]
+#autorange_data = [True,False,True]
+#type_data = ['date','log','log']#
+#fig = check_standard_charts(
+#    title_data,range_data,type_data,autorange_data    
+#    ).subplot_lines_singleaxis(
+#        loop_data,
+#        x_data,
+#        y_data,
+#        name_data,
+#        color_data,
+#        dash_data,
+#        width_data,
+#        opacity_data,
+#        legend_data
+#    ).show()

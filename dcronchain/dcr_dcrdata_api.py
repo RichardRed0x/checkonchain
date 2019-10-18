@@ -47,8 +47,6 @@ class Extract_dcrdata():
 
         return response
 
-    def dcr_difficulty_step(self):
-        response = Extract_dcrdata().dcr_performance()
         
         return response
 
@@ -57,6 +55,7 @@ class Extract_dcrdata():
         tic_stake_part = pd.DataFrame(client.chart("stake-participation", bin="block", axis="time"))
         tic_stake_part.columns = ['axis','bin','circulation','ticket_pool','time']
         tic_stake_part['circulation']= tic_stake_part['circulation']/ 1e8
+        tic_stake_part['ticket_pool']= tic_stake_part['ticket_pool']/ 1e8
         tic_stake_part['participation'] = tic_stake_part['ticket_pool']/tic_stake_part['circulation']
         
         #Ticket Pool Value
@@ -79,6 +78,7 @@ class Extract_dcrdata():
         response = response[['blk','time','circulation','ticket_pool','ticket_count','pow_hashrate_THs','pow_work','pow_offset']]
         response.columns = ['blk','time','circulation','ticket_pool_value','ticket_pool_size','pow_hashrate_THs','pow_work_total','pow_offset']
         return response
+
 
 #a = Extract_dcrdata().dcr_difficulty()
 #a.head(5)

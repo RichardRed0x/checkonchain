@@ -4,6 +4,13 @@ import pandas as pd
 import numpy as np
 import math
 
+from checkonchain.dcronchain.dcr_dcrdata_api import *
+from checkonchain.dcronchain.dcr_add_metrics import *
+
+import os
+os.getcwd()
+os.chdir('D:\code_development\checkonchain\checkonchain')
+
 """
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 DECRED SUPPLY FUNCTION
@@ -29,6 +36,14 @@ class dcr_supply_schedule:
         self.blk_max = blk_max
         self.blk_time = 5 #min
         self.atoms = 1e8
+
+        #Premine constants
+        self.founder_unspent    = 0.28970827970828 #portion of founders reward unspent refer block 1
+        self.founder_spent      = 1-self.founder_unspent
+        self.community_unspent  = 0.173283983849524 #portion of community reward unspent refer block 1
+        self.community_spent    = 1-self.community_unspent
+        self.treasury_founder_outflow = 0.25 #assume 25% draw annual C0 draw treasury
+        self.treasury_founder_expenses = 0.5 #assume 50% of founders fund is expenses
 
     def dcr_schedule(self,blk):
         response = int(math.floor(blk/self.halving))
@@ -66,3 +81,23 @@ class dcr_supply_schedule:
         df = pd.DataFrame(data=response,columns=columns)
         return df
 
+
+    def dcr_premine(self,dcr_real):
+        response = dcr_real
+        #Calculate relative DCR holdings
+        response['pmine_c0']                        = self.initial_F #initial founder reward
+        response['pmine_c0_spent']                  = self.initial_F * self.founder_spent #spent founder reward
+        response['pmine_c0_unspent']                = self.initial_F * self.founder_unspent #spent founder reward
+        response['pmine_com']                       = self.initial_S #initial founder reward
+        response['pmine_com_spent']                 = self.initial_S * self.community_spent #spent founder reward
+        response['pmine_com_unspent']               = self.initial_S * self.community_unspent #spent founder reward
+
+        #Calculkate staking rewards by block - cut where no DCR was in the pool
+        response = response[response['ticket_pool_value']>0]
+        response['spent_pool_ratio'] = (response['pmine_com_spent']+response['pmine_c0_spent'])/response['ticket_pool_value']
+
+        _c0_com_spent_ratio = (self.initial_F * self.founder_spent)/(self.initial_S * self.community_spent+self.initial_F * self.founder_spent)
+        #Calculate absolute worst case where no PoW rewards are staked and C0 and community spent all stake
+        response['c0_spent_pos']    = response['pmine_c0_spent'] + _c0_com_spent_ratio*(response['PoSSply_ideal'] - self.initial_S)
+        response['com_spent_pos']   = response['pmine_com_spent']  + (1-_c0_com_spent_ratio)*(response['PoSSply_ideal'] - self.initial_S)
+        return response
