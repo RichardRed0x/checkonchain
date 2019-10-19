@@ -130,9 +130,12 @@ What is desireable is to impart on the more open minded reader that **Decred** w
 
 ## The Cost of Energy
 
-**Bitcoin** and **Decred** share a common feature in that Proof-of-Work is the dominant mechanism for issuing new coins and an integral component of the security system. PoW ensures that the cost of coin production is rooted to the laws of physics with an associated energy consumption requirement. The cryptographic proof which solves the next block cannot be valid without a provable expendature of computational energy.
+**Bitcoin** and **Decred** share a common feature in that Proof-of-Work (PoW) is the dominant mechanism for issuing new coins and an integral component of the security system. PoW ensures that the cost of coin production is rooted to the laws of physics with an associated energy consumption requirement. The cryptographic proof which solves the next block cannot be valid without a provable expendature of computational energy.
+
+**Bitcoin** mining has evolved through several stages of dominant mining hardware progressing through CPUs, GPUs, FPGAs and finally to ASICs chips. **Decred** launched into a market where GPU miners were readily available and thus had an initial difficulty setting equivalent to the estimated hashpower of 256 contemporary GPU chips. **Decred** mining has since progressed to become an ASIC dominated industry.
 
 
+The progression of a PoW cryptocurrency to an ASIC dominated mining is an important as these specific purpose chips are designed solely for mining SHA-256 cryptocurrencies.  
 
 Miners are exposed to the following costs denominated in traditional fiat currencies:
 1. CAPEX - Cost of mining hardware, establishment costs, capital costs etc
