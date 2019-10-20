@@ -15,11 +15,12 @@ As **Bitcoin**  continues to assert it's market dominance, it is the correct ben
 
 # Background
 
-In [Part 1 of this series](https://medium.com/@_Checkmatey_/monetary-premiums-can-altcoins-compete-with-bitcoin-54c97a92c6d4), I established that a convincing relationship exists between **Decred's** scarcity, measured by stock-to-flow ratio, and its market valuation. The linear regression analysis suggests that there is an underlying demand for DCR which is of remarkably similar conviction to that for BTC during it's formative years.
 
-In fact the correlations between **Decred** and **Bitcoin** at an equivalent age of 3.67 years are so strong that addititonal work is required to establish the depth to which **Decred** is following in **Bitcoin's** footsteps.
+In [Part 1 of this series](https://medium.com/@_Checkmatey_/monetary-premiums-can-altcoins-compete-with-bitcoin-54c97a92c6d4), I established that a convincing relationship exists between **Decred's** scarcity, measured by stock-to-flow ratio, and its market valuation. The linear regression analysis suggests that there is an underlying demand for DCR which is remarkably similar to that for BTC during its formative years.
 
-In this paper, I explore the **Security and Concensus** mechanisms of **Decred** and **Bitcoin** to quantify the unforgeable costliness of coin production. The immutability and resistance of these protocols to monopolistic capture is the core value proposition which enables the separation of money and state. As such, quantifying the performance and security budgets will provide confidence for people who chose to securely store their wealth in BTC or DCR, potentially for thousands of years to come.
+In fact the correlations between **Decred** and **Bitcoin** at an equivalent age of 3.67 years are so strong that additional work is required to establish the depth to which **Decred** is following in **Bitcoin's** footsteps.
+
+In this paper, I explore the **Security and Consensus** mechanisms of **Decred** and **Bitcoin** to quantify the unforgeable costliness of coin production. The immutability and resistance of these protocols to monopolistic capture is the core value proposition which enables the separation of money and state. As such, quantifying the performance and security budgets will provide confidence for people who choose to securely store their wealth in BTC or DCR, potentially for thousands of years to come.
 
 ## Disclosure
 
@@ -29,18 +30,18 @@ In this paper, I explore the **Security and Concensus** mechanisms of **Decred**
 
 # Part 2 - Unforgeable Costliness
 
-An essential characteristic of a digital sound money protocol is **Unforgeable Costliness**, that is the impossability of producing the asset without a provable expendature of capital, energy and/or time. Unforgeable Costliness stipulates that one of these scarce resources must be exchanged for production of another (capital being an abstraction of both energy and time). Without it, production may be gamed by those with greater access to the source, subsequently destroying the confidence and trust in future expectations of inflation.
+An essential characteristic of a digital sound money protocol is **Unforgeable Costliness**, that is the impossability of producing the asset without a provable expenditure of capital, energy and/or time. Unforgeable Costliness stipulates that one of these scarce resources must be exchanged for production of another (capital being an abstraction of both energy and time). Without it, production may be gamed by those with greater access to the source, subsequently destroying the confidence and trust in future expectations of inflation.
 
 Nick Szabo beautifully articulated the idea by describing the unavoidable and expensive costs of production which must exist for an asset to attain a monetary premium.
 
-> "What do antiques, time, and gold have in common? They are costly, due either to their original cost or the improbability of their history , and it is difficult to spoof this costliness” Nick Szabo (2008)
+> "What do antiques, time, and gold have in common? They are costly, due either to their original cost or the improbability of their history, and it is difficult to spoof this costliness.” Nick Szabo (2008)
 
->"Precious metals and collectibles have an unforgeable scarcity due to the costliness of their creation. This once provided money the value of which was largely independent of any trusted third party” Nick Szabo (2005)
+>"Precious metals and collectibles have an unforgeable scarcity due to the costliness of their creation. This once provided money the value of which was largely independent of any trusted third party.” Nick Szabo (2005)
 
 Notable Examples of unforgeable costliness and the impact on relative scarcity are presented in the following table with the scarcest assets, that reliably store value over time, having a consistent feature set:
 
 1. **Improbability of existence** due to mythology and skill of the creator, a low natural abundance or a hard coded fixed supply.
-2. **Requirement for expendature of capital, energy and time** during production in the form of physical mining, Proof-of-Work, capital expendature and human effort
+2. **Requirement for expenditure of capital, energy and time** during production in the form of physical mining, Proof-of-Work, capital expenditure, and human effort
 3. **Soundness and resistance to arbitrary future inflation** and monopolistic capture due to the difficulty of production and/or counterfeiting.
 
 ![Scarcity_examples](images/image_1.png)
@@ -87,23 +88,26 @@ Key ingredients in **Bitcoin's** initial distribution may be reasonably summaris
 
 An important feature of **Decred** is it's Hybrid PoW/PoS security and concensus mechanism. In order to secure the chain at launch, it necessary that a majority of honest actors, with an appreciation the project philosophy, participate in the PoS ticket system.
 
-For **Decred**, Company 0's design decision was to launch the protocol with a pre-mine totalling 1.68M DCR, equivalent to 8% of the total 21M supply. Half of the pre-mine (4%, 864k DCR) was airdropped free to community members to bootstrap the Proof-of-Stake security and governance. The other half was  purchased by the founding team at a rate of $0.49/DCR either in exchange for their own money or their future development time.
+For **Decred**, Company 0's design decision was to launch the protocol with a pre-mine totalling 1.68M DCR, equivalent to 8% of the total 21M supply. Half of the pre-mine (4%, 840k DCR) was airdropped free to community members to bootstrap the Proof-of-Stake security and governance. The other half was  purchased by the founding team at a rate of $0.49/DCR either in exchange for their own money or their future development time.
 
 Community registration to participate in the airdrop was transparently publicised one month prior to the window closing. Applications were open and over 8,793 submissions were received and filtered to remove duplicates and false entries. Ultimately, 282.63795424 DCR was awarded to a total of 2,972 participants who showed a desire for supporting the chain. Community and founder participants in the airdrop committed to a 12 and 24 periods respectively where airdropped DCR were not to be exchanged and instead used to bootstrap the Proof-of-Stake ticket system.
 
-Airdrop participants were required to provide a Decred address using the project binaries to ensure they had access to wallets and staking tools. For miners, [v0.0.4 of cgminer](https://github.com/decred/cgminer/releases) was available at the time of **Decred's** launch and [ccminer v1.7.2 released 3 days later](https://github.com/tpruvot/ccminer/releases/tag/1.7.2-tpruvot) to ensure premissionless access to Proof of Work mining.
+Airdrop participants were required to provide a Decred address, as well as a link to a social media identity that showed some interest in cryptoicurrency. For miners, [v0.0.4 of cgminer](https://github.com/decred/cgminer/releases) was available at the time of **Decred's** launch and [ccminer v1.7.2 released 3 days later](https://github.com/tpruvot/ccminer/releases/tag/1.7.2-tpruvot) to ensure permissionless access to Proof-of-Work mining.
 
 Details of the **Decred** pre-mine is available in full as part of the [project documentation](https://docs.decred.org/advanced/premine/) and the [block 1 transaction](https://dcrdata.decred.org/tx/5e29cdb355b3fc7e76c98a9983cd44324b3efdd7815c866e33f6c72292cb8be6).
 
 Some notes regarding the **Decred** premine as of the time of writing are: 
 - 54% of the premined UTXO set has been spent of which 61% of this represents the community share of airdropped DCR. Thus 4.3% of the total 21M supply created at genesis is spent and considered circulating.
+
 - The unspent portion of the community airdrop is generally assumed to be lost coins representing 1.386% of the total 21M DCR supply
-- Of the total founders reward, 63% remains unspent representing 2.3% of the total 21M DCR supply.
+- Of the total founder's reward, 63% remains unspent representing 2.3% of the total 21M DCR supply.
 
 ![Decred Premine Status](images/image_03.png)
 
 It is important to note that the **Decred** block reward structure allocates 30% of the block-reward to Proof-of-Stake and thus results in a persistent dilution of governance rights for all participants. The chart below models the most conservative case (most advantageous for founders) where:
+
 1. All spent DCR from the pre-mine was perfectly staked by community and founders (no consideration of ticket price which in reality results in a portion of an individuals DCR not being included in the stake)
+
 
 2. No DCR mined via Proof-of-Work or the Treasury enters the stake pool (meaning the premined coins are the only ones that have ever participated in staking)
 
@@ -122,9 +126,9 @@ Key ingredients of **Decred's** initial distribution may be reasonably summarise
 2. An application process for community members to participate with necessary screening for false entries given heightened market awareness. Appropriate staking and mining tools made available at the time of launch.
 3. Awareness raised for those people most likely to nurture the protocol through the most vulnerable early years.
 4. Appropriately gradual reduction in the role of the founding team.
-5. A founders reward of 4% of DCR supply consistent with what public opinion deemed fair remuneration for Satoshi's work on Bitcoin (value of time and skill).
+5. A founder's reward of 4% of DCR supply consistent with what public opinion deemed fair remuneration for Satoshi's work on Bitcoin (value of time and skill).
 
-It is well known that some in the cryptocurrency industry view pre-mines as a dirty word which exist soley to unfairly benefit founding teams (with many unfortunate examples as evidence). The author has no expectation of changing those minds.
+It is well known that some in the cryptocurrency industry view pre-mines as a dirty word which exist solely to unfairly benefit founding teams (with many unfortunate examples as evidence). The author has no expectation of changing those minds.
 
 What is desireable is to impart on the more open minded reader that **Decred** was launched in very different circumstance to **Bitcoin**. By careful design, a small pre-mine acted to bootstrap network security during the most vulnerable years whilst rewarding the team for their skill and time at the same rate as Satoshi.
 
