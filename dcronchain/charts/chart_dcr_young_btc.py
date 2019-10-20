@@ -282,7 +282,7 @@ class dcrbtc_monetary_policy():
         legend_data = [
             True,True,True,
             True,True,True,
-            True,True,True,
+            False,False,False,
             True
             ]
 
@@ -398,7 +398,7 @@ class dcrbtc_monetary_policy():
     
 #dcrbtc_monetary_policy().chart_dcrbtc_sply_area().show()
 #dcrbtc_monetary_policy().chart_dcrbtc_sply_s2f().show()
-#dcrbtc_monetary_policy().chart_dcrbtc_sply_marketcap().show()
+dcrbtc_monetary_policy().chart_dcrbtc_sply_marketcap().show()
 #dcrbtc_monetary_policy().chart_dcrbtc_s2f_model().show()
 
 
@@ -838,197 +838,107 @@ class dcrbtc_pow_security():
         fig.update_layout(template="plotly_dark")
         return fig
 
-    def chart_dcrbtc_powdiffhash_date(self):
+    def chart_dcrbtc_diff_sply(self):
         """%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                        CREATE PLOT 
-        Hashrate and Difficulty Adjustment VS BITCOIN BLOCK HEIGHT
+                        CREATE PLOT 03
+            SUPPLY AND DEMAND - % of Supply Mined VS Market Cap
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"""
-        x_data = [
-            BTC_real['date'],
-            DCR_real['date'],
-            DCR_real['date'],
-            BTC_hash['date'],
-            DCR_perf['date']
-        ]
-        y_data = [
-            BTC_real['DiffMean']/BTC_real.loc[BTC_real['DiffMean'].first_valid_index(),'DiffMean'],
-            DCR_real['DiffMean']/DCR_real.loc[DCR_real['DiffMean'].first_valid_index(),'DiffMean'],
-            DCR_real['DiffMean']*100/60/DCR_real.loc[DCR_real['DiffMean'].first_valid_index(),'DiffMean'],
-            BTC_hash['pow_hashrate_THs'],
-            DCR_perf['pow_hashrate_THs']
-            ]
-        name_data = [
-            'Bitcoin Difficulty',
-            'Decred Difficulty (Offset)',
-            'Decred Difficulty (Offset x1.667)',
-            'Bitcoin Hashrate',
-            'Decred Hashrate (Offset)'
-            ]
-        color_data = [
-            'rgb(239, 125, 50)',
-            'rgb(1, 255, 116)',
-            'rgb(41, 112, 255)',
-            'rgb(239, 125, 50)',
-            'rgb(1, 255, 116)'
-            ]
-
-        dash_data = [
-            'solid',
-            'solid',
-            'solid',
-            'dash',
-            'dash'
-            ]
-        width_data = [
-            4,4,4,4,4
-            ]
-
-        fig = make_subplots(specs=[[{"secondary_y": True}]])
-        for i in [0,1,2]:
-            fig.add_trace(go.Scatter(
-                mode = 'lines',
-                x=x_data[i], y=y_data[i],
-                name=name_data[i],
-                #yaxis=axis_data[i],
-                line=dict(width=width_data[i],color=color_data[i],dash=dash_data[i])),
-                secondary_y=False)
-        for i in [3,4]:
-            fig.add_trace(go.Scatter(
-                mode = 'lines',
-                x=x_data[i], y=y_data[i],
-                name=name_data[i],
-                #yaxis=axis_data[i],
-                line=dict(width=width_data[i],color=color_data[i],dash=dash_data[i])),
-                secondary_y=True)
-        """$$$$$$$$$$$$$$$ FORMATTING $$$$$$$$$$$$$$$$"""
-        # Add figure title
-        fig.update_layout(title_text="Proof of Work Security Comparison")
-        fig.update_xaxes(
-            title_text="<b>Bitcoin Block Height</b>",
-            type='date'
-            )
-        fig.update_yaxes(
-            title_text="<b>PoW Difficulty Growth</b>",
-            type="log",
-            tickformat= ',.0%',
-            range=[0,18],
-            secondary_y=False)
-        fig.update_yaxes(
-            title_text="<b>Hashrate (TH/s)</b>",
-            type="log",
-            range=[-9,9],
-            secondary_y=True)
-        fig.update_layout(template="plotly_dark")
+        BTC_real['coins_mined'] = BTC_real['SplyCur']/21e6
+        DCR_real['coins_mined'] = DCR_real['SplyCur']/21e6
         
-        return fig
+        btc_01 = BTC_real[BTC_real['coins_mined']<=0.1]
+        btc_01 = btc_01['DiffMean'][btc_01.index[-1]]
+        dcr_01 = DCR_real[DCR_real['coins_mined']<=0.1]
+        dcr_01 = DCR_real['pow_diff'][DCR_real.index[0]]
 
-    def chart_dcrbtc_powdiffhash_sply(self):
-        """%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                        CREATE PLOT 07
-        Hashrate and Difficulty Adjustment VS COIN SUPPLY
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"""
-
-        # Filter BTC hashrate for blk > 0 and combine with BTC_real (coin + sply)
-        BTC_real2 = BTC_real[BTC_real['blk']>0]
-        BTC_hash2 = BTC_hash[BTC_hash['blk']>0]
-        BTC_plot = pd.concat([BTC_real2.set_index('blk',drop=False),BTC_hash2.set_index('blk')],axis=1,join='inner')
-
-        # Plot against coin supply
-        # Yaxis 1 = Difficulty Adjustment Growth
-        # Yaxis 2 = Hashrate
-
-        #Calculate columns for Difficulty Growth (to normalise)
-        # Scale up DCR hashrate by 10/6 as equivalent hashrate to BTC with 100% PoW
-        BTC_plot['Diff_Growth'] = BTC_plot['DiffMean']/float(BTC_plot.loc[BTC_plot['DiffMean'].first_valid_index(),['DiffMean']])
-        DCR_real['Diff_Growth'] = DCR_real['DiffMean']/float(DCR_real.loc[DCR_real['DiffMean'].first_valid_index(),['DiffMean']])
-        DCR_real['Diff_Growth_10-6'] = DCR_real['Diff_Growth']*10/6
-
-        DCR_perf.columns
+        loop_data = [[0,1],[]]
         x_data = [
-            BTC_plot['SplyCur']/21e6, #BTC Diff Growth
-            DCR_real['SplyCur']/21e6, #DCR Diff Growth
-            DCR_real['SplyCur']/21e6, #DCR Diff Growth * 10/6
-            BTC_plot['SplyCur']/21e6, #BTC Hashrate
-            DCR_perf['circulation']/21e6 #DCR Hashrate
-        ]
-        #Difficulty / First valid Difficulty --> Growth
-        y_data = [
-            BTC_plot['Diff_Growth'],
-            DCR_real['Diff_Growth'],
-            DCR_real['Diff_Growth_10-6'],
-            BTC_plot['pow_hashrate_THs'],
-            DCR_perf['pow_hashrate_THs']
+            BTC_real['SplyCur']/21e6,
+            DCR_real['SplyCur']/21e6,
+            #LTC_real['SplyCur']/84e6,
+            BTC_half['end_pct_totsply']
             ]
-
+        y_data = [
+            BTC_real['DiffMean'],
+            DCR_real['pow_diff']/dcr_01,
+            #LTC_real['DiffMean'],
+            BTC_half['y_arb']
+            ]
         name_data = [
             'Bitcoin Difficulty',
             'Decred Difficulty',
-            'Decred Difficulty (x1.667)',
-            'Bitcoin Hashrate',
-            'Decred Hashrate'
+            #'Litecoin Difficulty',
+            'BTC Halvings'
             ]
         color_data = [
-            'rgb(239, 125, 50)',
-            'rgb(1, 255, 116)',
-            'rgb(41, 112, 255)',
-            'rgb(239, 125, 50)',
-            'rgb(1, 255, 116)'
+            'rgb(237, 109, 71)',
+            'rgb(46, 214, 161)',
+            #'rgb(255, 192, 0)',
+            'rgb(255, 255, 255)' 
             ]
-
         dash_data = [
             'solid',
             'solid',
-            'solid',
-            'dash',
-            'dash'
+            #'solid',
+            'dot'
             ]
         width_data = [
-            4,4,4,4,4
+            2,
+            2,
+            #2,
+            1
+            ]
+        opacity_data = [
+            1,
+            1,
+            #1,
+            1
+            ]
+        legend_data = [
+            True,
+            True,
+            #True,
+            True
             ]
 
-        fig = make_subplots(specs=[[{"secondary_y": True}]])
-        for i in [0,1,2]:
-            fig.add_trace(go.Scatter(
-                mode = 'lines',
-                x=x_data[i], y=y_data[i],
-                name=name_data[i],
-                line=dict(width=width_data[i],color=color_data[i],dash=dash_data[i])),
-                secondary_y=False)
-        for i in [3,4]:
-            fig.add_trace(go.Scatter(
-                mode = 'lines',
-                x=x_data[i], y=y_data[i],
-                name=name_data[i],
-                line=dict(width=width_data[i],color=color_data[i],dash=dash_data[i])),
-                secondary_y=True)
-        """$$$$$$$$$$$$$$$ FORMATTING $$$$$$$$$$$$$$$$"""
-        # Add figure title
-        fig.update_layout(title_text="Proof of Work Security")
-        fig.update_xaxes(
-            title_text="<b>Total Supply Minted</b>",
-            type='linear',
-            range=[0,1],
-            tickformat= ',.0%'
-            )
-        fig.update_yaxes(
-            title_text="<b>PoW Difficulty Growth</b>",
-            type="log",
-            tickformat= ',.0%',
-            range=[0,18],
-            secondary_y=False)
-        fig.update_yaxes(
-            title_text="<b>Hashrate (TH/s)</b>",
-            type="log",
-            range=[-9,9],
-            secondary_y=True)
-        fig.update_layout(template="plotly_dark")
+        title_data = [
+            '<b>Difficulty Adjustment</b>',
+            '<b>Coin Supply Issued</b>',
+            '<b>Bitcoin Difficulty</b>',
+            '<b>Decred Difficulty</b>'
+            ]
+        range_data = [[0,1],[0,15],[0,6]]
+        type_data = ['linear','log','log']
+        autorange_data = [False,True,True]
         
+        
+        fig=check_standard_charts(
+            title_data,
+            range_data,
+            type_data,
+            autorange_data
+            ).subplot_lines_doubleaxis(
+                loop_data,
+                x_data,
+                y_data,
+                name_data,
+                color_data,
+                dash_data,
+                width_data,
+                opacity_data,
+                legend_data
+                )
+        fig.update_xaxes(dtick=0.1)
+        fig.update_layout(title_text=title_data[0])
+        #fig.update_layout(
+        #    paper_bgcolor='rgb(0,0,0)',
+        #    plot_bgcolor='rgb(0,0,0)')
         return fig
 
 
-dcrbtc_pow_security().chart_dcrbtc_btc_premine().show()
-#dcrbtc_pow_security().chart_dcrbtc_powdiffhash_date().show()
-#dcrbtc_pow_security().chart_dcrbtc_powdiffhash_sply().show()
+
+#dcrbtc_pow_security().chart_dcrbtc_btc_premine().show()
+dcrbtc_pow_security().chart_dcrbtc_diff_sply().show()
 
 
 """**************************************************************************
