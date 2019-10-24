@@ -3,8 +3,9 @@
 #Internal Modules
 from checkonchain.general.coinmetrics_api import *
 
-#Plotly libraries
-import plotly.graph_objects as go
-import plotly.express as px
+#Plotly Libraries
 from plotly.subplots import make_subplots
+import plotly.graph_objects as go
+import plotly.io as pio
+pio.renderers.default = "browser"
 

@@ -61,7 +61,6 @@ class dcr_add_metrics():
 
     def dcr_sply(self,to_blk):
         df = dcr_supply_schedule(to_blk).dcr_supply_function()
-
         #Calculate projected S2F Models Valuations
         dcr_s2f_model = regression_analysis().regression_constants()['dcr_s2f']
         df['CapS2Fmodel'] = np.exp(float(dcr_s2f_model['coefficient'])*np.log(df['S2F_ideal'])+float(dcr_s2f_model['intercept']))
@@ -190,54 +189,63 @@ class dcr_add_metrics():
         df['RVTS']   = df['CapRealUSD']/ df['TxTfrValUSD'].rolling(28).mean()
         return df
 
+DCR_perf = dcr_add_metrics().dcr_perf()
 
 #Permabulls Charts
-#DCR_real = dcr_add_metrics().dcr_pricing_models()#
-#loop_data = [[0,1,2,3,4],[4]]
-#x_data = [
-#    DCR_real['date'],DCR_real['date'],DCR_real['date'],DCR_real['date'],
-#    DCR_real['date']
-#    ]
+#from checkonchain.general.standard_charts import *
+DCR_real = dcr_add_metrics().dcr_pricing_models()#
+DCR_real.columns
+
+DCR = DCR_real[['blk','date','pow_hashrate_THs','pow_diff']]
+DCR.to_csv("DCR_hashrate.csv")
+
+
+loop_data = [[0,1,2,3,4],[5]]
+x_data = [
+    DCR_real['date'],DCR_real['date'],DCR_real['date'],DCR_real['date'],
+    DCR_real['date'],DCR_real['date']
+    ]
+y_data = [
+    DCR_real['PoW_income_usd'].cumsum(),
+    DCR_real['PoS_income_usd'].cumsum(),
+    DCR_real['Fund_income_usd'].cumsum(),
+    DCR_real['Total_income_usd'].cumsum(),
+    DCR_real['CapMrktCurUSD'],
+    DCR_real['DiffMean']
+    ]
+name_data = [
+    'POW','POS','Treasury','Total',
+    'Market Cap','Difficulty'
+    ]
 #y_data = [
-#    DCR_real['PoW_income_usd'].cumsum(),
-#    DCR_real['PoS_income_usd'].cumsum(),
-#    DCR_real['Fund_income_usd'].cumsum(),
-#    DCR_real['Total_income_usd'].cumsum(),
-#    DCR_real['CapMrktCurUSD']
+#    DCR_real['CapMrktCurUSD'],DCR_real['CapRealUSD'],DCR_real['CapTicket'],DCR_real['CapS2Fmodel'],
+#    DCR_real['ticket_usd_cost'].rolling(28).mean()
 #    ]
 #name_data = [
-#    'POW','POS','Treasury','Total',
-#    'Market Cap'
+#    'Market Cap','Realised Cap','Ticket Cap','S2F Model',
+#    'Daily USD Locked in Tickets'
 #    ]
-##y_data = [
-##    DCR_real['CapMrktCurUSD'],DCR_real['CapRealUSD'],DCR_real['CapTicket'],DCR_real['CapS2Fmodel'],
-##    DCR_real['ticket_usd_cost'].rolling(28).mean()
-##    ]
-##name_data = [
-##    'Market Cap','Realised Cap','Ticket Cap','S2F Model',
-##    'Daily USD Locked in Tickets'
-##    ]
-#color_data = [
-#    'rgb(250, 38, 53)' ,'rgb(114, 49, 163)','rgb(255, 192, 0)',
-#    'rgb(20, 169, 233)','rgb(239, 125, 50)']
-#dash_data = ['solid','solid','solid','solid','solid']
-#width_data = [2,2,2,2,2]
-#opacity_data = [1,1,1,1,1]
-#legend_data = [True,True,True,True,True]#
-#title_data = ['Decred Fair Valuations','Date','Network Valuation','USD Ticket Purchases']
-#range_data = [['01-02-2016','01-02-2020'],[4,10],[0,1]]
-#autorange_data = [True,False,True]
-#type_data = ['date','log','log']#
-#fig = check_standard_charts(
-#    title_data,range_data,type_data,autorange_data    
-#    ).subplot_lines_singleaxis(
-#        loop_data,
-#        x_data,
-#        y_data,
-#        name_data,
-#        color_data,
-#        dash_data,
-#        width_data,
-#        opacity_data,
-#        legend_data
-#    ).show()
+color_data = [
+    'rgb(250, 38, 53)' ,'rgb(114, 49, 163)','rgb(255, 192, 0)',
+    'rgb(20, 169, 233)','rgb(239, 125, 50)','rgb(156,225,143)']
+dash_data = ['solid','solid','solid','solid','solid','dot']
+width_data = [2,2,2,2,2,2]
+opacity_data = [1,1,1,1,1,1]
+legend_data = [True,True,True,True,True,True]#
+title_data = ['Decred Block Subsidy Paid Valuations','Date','Network Valuation','Difficulty']
+range_data = [['01-02-2016','01-02-2020'],[4,10],[0,1]]
+autorange_data = [True,False,True]
+type_data = ['date','log','log']#
+fig = check_standard_charts(
+    title_data,range_data,type_data,autorange_data    
+    ).subplot_lines_doubleaxis(
+        loop_data,
+        x_data,
+        y_data,
+        name_data,
+        color_data,
+        dash_data,
+        width_data,
+        opacity_data,
+        legend_data
+    ).show()

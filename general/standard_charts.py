@@ -357,7 +357,7 @@ class check_standard_charts():
 #        y=y_data[i],
 #        mode='lines',
 #        name=name_data[i],
-#        secondary_y=False)
+#        secondary_y=False))
 #
 #"""$$$$$$$$$$$$$$$ FORMATTING $$$$$$$$$$$$$$$$"""
 ## Add figure title

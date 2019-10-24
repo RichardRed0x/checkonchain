@@ -5,7 +5,7 @@ import numpy as np
 import math
 
 from checkonchain.dcronchain.dcr_dcrdata_api import *
-from checkonchain.dcronchain.dcr_add_metrics import *
+#from checkonchain.dcronchain.dcr_add_metrics import *
 
 import os
 os.getcwd()
