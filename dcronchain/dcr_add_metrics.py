@@ -71,6 +71,11 @@ class dcr_add_metrics():
         df['PricePlanBmodel'] = df['CapPlanBmodel']/df['Sply_ideal']        
         return df
 
+    def dcr_sply_curtailed(self,to_blk):
+        dcr_sply_interval = 6144 / 32 #reduce dataset = 0.667days
+        df = self.dcr_sply(to_blk)
+        return df.iloc[::dcr_sply_interval,:] #Select every 
+
     def dcr_diff(self):
         df = Extract_dcrdata().dcr_difficulty()
         return df
@@ -86,10 +91,11 @@ class dcr_add_metrics():
         # Clean DCR hashrate data
         _perf = _perf[_perf['pow_hashrate_THs']>1]
         _diff['ticket_count_smeared'] = _diff['ticket_count']/144
+        _diff['ticket_missed_smeared'] = _diff['missed']/144
         # DCR_natv concat diff and perf on blk, dropping useless cols
         df = pd.concat([
             _perf.set_index('blk',drop=True),
-            _diff.drop(['time','window','missed'],axis=1).set_index('blk',drop=True)],
+            _diff.drop(['time','window','missed','ticket_count'],axis=1).set_index('blk',drop=True)],
             axis=1).reset_index()
         # fill backwards for selected constants (step functions = tic price and diff) and smeared vals
         df[['ticket_count_smeared','ticket_price','pow_diff']]=df[['ticket_count_smeared','ticket_price','pow_diff']].fillna(method='bfill')
@@ -98,6 +104,7 @@ class dcr_add_metrics():
     def dcr_real(self):
         print('...Calculating Decred specific metrics - (coinmetrics + supply curve + dcrdata)...')
         _coin = self.dcr_coin()
+        _coin = _coin[['date','blk','age','AdrActCnt','CapMrktCurUSD','CapRealUSD','DiffMean','FeeMeanNtv','FeeMeanUSD', 'FeeMedNtv', 'FeeMedUSD', 'FeeTotNtv', 'FeeTotUSD','PriceBTC','PriceUSD','PriceRealised','SplyCur','DailyIssuedNtv','DailyIssuedUSD','S2F','inf_pct_ann']]
         _diff = self.dcr_diff()
         _perf = self.dcr_perf()
         _blk_max = int(_coin['blk'][_coin.index[-1]])
@@ -188,64 +195,3 @@ class dcr_add_metrics():
         df['RVT_90'] = df['CapRealUSD'].rolling(90).mean()/df['TxTfrValUSD'].rolling(90).mean()
         df['RVTS']   = df['CapRealUSD']/ df['TxTfrValUSD'].rolling(28).mean()
         return df
-
-DCR_perf = dcr_add_metrics().dcr_perf()
-
-#Permabulls Charts
-#from checkonchain.general.standard_charts import *
-DCR_real = dcr_add_metrics().dcr_pricing_models()#
-DCR_real.columns
-
-DCR = DCR_real[['blk','date','pow_hashrate_THs','pow_diff']]
-DCR.to_csv("DCR_hashrate.csv")
-
-
-loop_data = [[0,1,2,3,4],[5]]
-x_data = [
-    DCR_real['date'],DCR_real['date'],DCR_real['date'],DCR_real['date'],
-    DCR_real['date'],DCR_real['date']
-    ]
-y_data = [
-    DCR_real['PoW_income_usd'].cumsum(),
-    DCR_real['PoS_income_usd'].cumsum(),
-    DCR_real['Fund_income_usd'].cumsum(),
-    DCR_real['Total_income_usd'].cumsum(),
-    DCR_real['CapMrktCurUSD'],
-    DCR_real['DiffMean']
-    ]
-name_data = [
-    'POW','POS','Treasury','Total',
-    'Market Cap','Difficulty'
-    ]
-#y_data = [
-#    DCR_real['CapMrktCurUSD'],DCR_real['CapRealUSD'],DCR_real['CapTicket'],DCR_real['CapS2Fmodel'],
-#    DCR_real['ticket_usd_cost'].rolling(28).mean()
-#    ]
-#name_data = [
-#    'Market Cap','Realised Cap','Ticket Cap','S2F Model',
-#    'Daily USD Locked in Tickets'
-#    ]
-color_data = [
-    'rgb(250, 38, 53)' ,'rgb(114, 49, 163)','rgb(255, 192, 0)',
-    'rgb(20, 169, 233)','rgb(239, 125, 50)','rgb(156,225,143)']
-dash_data = ['solid','solid','solid','solid','solid','dot']
-width_data = [2,2,2,2,2,2]
-opacity_data = [1,1,1,1,1,1]
-legend_data = [True,True,True,True,True,True]#
-title_data = ['Decred Block Subsidy Paid Valuations','Date','Network Valuation','Difficulty']
-range_data = [['01-02-2016','01-02-2020'],[4,10],[0,1]]
-autorange_data = [True,False,True]
-type_data = ['date','log','log']#
-fig = check_standard_charts(
-    title_data,range_data,type_data,autorange_data    
-    ).subplot_lines_doubleaxis(
-        loop_data,
-        x_data,
-        y_data,
-        name_data,
-        color_data,
-        dash_data,
-        width_data,
-        opacity_data,
-        legend_data
-    ).show()

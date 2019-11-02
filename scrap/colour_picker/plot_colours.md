@@ -39,6 +39,22 @@
 |Green          |  'rgb(153, 255, 102)'    |
 
 
+# VS CODE COLOURS
+|COLOUR   	    |RGB COLOUR   	            |
+|:-:	        |:-:	                    |
+|Dark Grey      |  'rgb(30,31,28)'          |
+|Med Grey 1     |  'rgb(39,40,34)'          |
+|Med Grey 2     |  'rgb(62,61,50)'          |
+|Light Grey     |  'rgb(177,192,160)'       |
+|Yellow         |  'rgb(223,198,79)'        |
+|Orange         |  'rgb(238,125,33)'        |
+|Lime Green     |  'rgb(156,225,43)'        |
+|Green          |  'rgb(0,176,80)'          |
+|Blue           |  'rgb(78,205,233)'        |
+|Purple         |  'rgb(174,117,195)'       |
+
+
+
 # COIN SPECIFIC COLOURS
 |COLOUR   	            |RGB COLOUR   	        |
 |:-:	                |:-:	                |
