@@ -34,11 +34,7 @@ pio.renderers.default = "browser"
 
 class check_standard_charts():
 
-    def __init__(self,title_data,range_data,type_data,autorange_data):
-        self.title_data = title_data #Chart Title , X-Axis, Yaxis-1, Y-axis-2
-        self.range_data = range_data # X-axis, Y-axis-1, Y-axis-2
-        self.autorange_data = autorange_data #Boolean range override
-        self.type_data = type_data # X-axis, Y-axis-1, Y-axis-2 'linear', 'log'
+    def __init__(self):
         self._background = 'rgb(20,20,20)'
         self._font = 'Raleway'
         self._titlesize = 26
@@ -50,28 +46,45 @@ class check_standard_charts():
         self._zerolinecolor = 'rgb(50,50,50)'
 
     def add_traces_lines():
-        return self._fig
+        return fig
 
+    def basic_chart(self,x_data,y_data,name_data,loop_data,title_data,type_data):
+        fig = make_subplots(specs=[[{"secondary_y": True}]])
+        for i in loop_data[0]:
+            fig.add_trace(go.Scatter(
+                x=x_data[i], 
+                y=y_data[i],
+                mode='lines',
+                name=name_data[i]),
+                secondary_y=False)
 
+        for i in loop_data[1]:
+            fig.add_trace(go.Scatter(
+                x=x_data[i], 
+                y=y_data[i],
+                mode='lines',
+                name=name_data[i]),
+                secondary_y=True)
+        # Add figure title
+        fig.update_layout(title_text=title_data[0])
+        fig.update_xaxes(title_text=title_data[1],type=type_data[0])
+        fig.update_yaxes(title_text=title_data[2],type=type_data[1],secondary_y=False)
+        fig.update_yaxes(title_text=title_data[3],type=type_data[2],secondary_y=True)
+        fig.update_layout(template="plotly_dark")
+        return fig
 
 
     def subplot_lines_singleaxis(
         self,
-        loop_data,
-        x_data,
-        y_data,
-        name_data,
-        color_data,
-        dash_data,
-        width_data,
-        opacity_data,
-        legend_data        
+        title_data, range_data ,autorange_data ,type_data,
+        loop_data,x_data,y_data,name_data,color_data,
+        dash_data,width_data,opacity_data,legend_data,
         ):
-        
-        self._fig = make_subplots(specs=[[{"secondary_y": False}]])
+
+        fig = make_subplots(specs=[[{"secondary_y": False}]])
         """#######  Add Traces   #######"""
         for i in loop_data[0]:
-            self._fig.add_trace(go.Scatter(
+            fig.add_trace(go.Scatter(
                 mode='lines',
                 x=x_data[i], 
                 y=y_data[i],
@@ -87,12 +100,12 @@ class check_standard_charts():
         
                 
         """#######  Title Block   #######"""
-        self._fig.update_layout(
+        fig.update_layout(
             paper_bgcolor=self._background,
             plot_bgcolor=self._background,
             autosize=True,            
             title=go.layout.Title(
-                text=self.title_data[0],
+                text=title_data[0],
                 x=0.5, 
                 xref='paper',
                 font=dict(
@@ -108,10 +121,10 @@ class check_standard_charts():
                 )))
         
         """#######  X-Axis   #######"""
-        self._fig.update_xaxes(
-            title_text=self.title_data[1],
-            type=self.type_data[0],
-            range=self.range_data[0],
+        fig.update_xaxes(
+            title_text=title_data[1],
+            type=type_data[0],
+            range=range_data[0],
             title_font=dict(
                 family=self._font,
                 size=self._axesfontsize
@@ -124,14 +137,14 @@ class check_standard_charts():
             gridwidth=self._gridwidth,
             zerolinecolor=self._zerolinecolor
             )
-        self._fig.update_xaxes(autorange=self.autorange_data[0]) #override range
+        fig.update_xaxes(autorange=autorange_data[0]) #override range
         
 
         """#######  Y-Axis-1   #######"""
-        self._fig.update_yaxes(
-            title_text=self.title_data[2],
-            type=self.type_data[1],
-            range=self.range_data[1],
+        fig.update_yaxes(
+            title_text=title_data[2],
+            type=type_data[1],
+            range=range_data[1],
             title_font=dict(
                 family=self._font,
                 size=self._axesfontsize
@@ -145,30 +158,22 @@ class check_standard_charts():
             zerolinecolor=self._zerolinecolor,
             secondary_y=False
             )
-        self._fig.update_yaxes(autorange=self.autorange_data[1],secondary_y=False) #override range
+        fig.update_yaxes(autorange=autorange_data[1],secondary_y=False) #override range
         
-        self._fig.update_layout(template="plotly_dark")
-        return self._fig
+        fig.update_layout(template="plotly_dark")
+        return fig
 
-    def subplot_lines_doubleaxis(
-        self,
-        loop_data,
-        x_data,
-        y_data,
-        name_data,
-        color_data,
-        dash_data,
-        width_data,
-        opacity_data,
-        legend_data
-        ):
+    def subplot_lines_doubleaxis(self,
+        title_data, range_data ,autorange_data ,type_data,
+        loop_data,x_data,y_data,name_data,color_data,
+        dash_data,width_data,opacity_data,legend_data):
 
-        self._fig = make_subplots(specs=[[{"secondary_y": True}]])
-        self._fig.update_layout(template="plotly_dark")
+        fig = make_subplots(specs=[[{"secondary_y": True}]])
+        fig.update_layout(template="plotly_dark")
         
         """#######  Add PRIMARY Traces   #######"""
         for i in loop_data[0]:
-            self._fig.add_trace(go.Scatter(
+            fig.add_trace(go.Scatter(
                 x=x_data[i], 
                 y=y_data[i],
                 name=name_data[i],
@@ -183,7 +188,7 @@ class check_standard_charts():
 
         """#######  Add SECONDARY Traces   #######"""
         for i in loop_data[1]:
-            self._fig.add_trace(go.Scatter(
+            fig.add_trace(go.Scatter(
                 x=x_data[i], 
                 y=y_data[i],
                 name=name_data[i],
@@ -197,12 +202,12 @@ class check_standard_charts():
                 secondary_y=True)
                 
         """#######  Title Block   #######"""
-        self._fig.update_layout(
+        fig.update_layout(
             paper_bgcolor=self._background,
             plot_bgcolor=self._background,
             autosize=True,            
             title=go.layout.Title(
-                text=self.title_data[0],
+                text=title_data[0],
                 x=0.5, 
                 xref='paper',
                 font=dict(
@@ -216,12 +221,12 @@ class check_standard_charts():
                     family=self._font,
                     size=self._legendsize
                 )))
-        
+
         """#######  X-Axis   #######"""
-        self._fig.update_xaxes(
-            title_text=self.title_data[1],
-            type=self.type_data[0],
-            range=self.range_data[0],
+        fig.update_xaxes(
+            title_text=title_data[1],
+            type=type_data[0],
+            range=range_data[0],
             title_font=dict(
                 family=self._font,
                 size=self._axesfontsize
@@ -234,13 +239,13 @@ class check_standard_charts():
             gridwidth=self._gridwidth,
             zerolinecolor=self._zerolinecolor
             )
-        self._fig.update_xaxes(autorange=self.autorange_data[0]) #override range
+        fig.update_xaxes(autorange=autorange_data[0]) #override range
 
         """#######  Y-Axis-1   #######"""
-        self._fig.update_yaxes(
-            title_text=self.title_data[2],
-            type=self.type_data[1],
-            range=self.range_data[1],
+        fig.update_yaxes(
+            title_text=title_data[2],
+            type=type_data[1],
+            range=range_data[1],
             title_font=dict(
                 family=self._font,
                 size=self._axesfontsize
@@ -254,13 +259,13 @@ class check_standard_charts():
             zerolinecolor=self._zerolinecolor,
             secondary_y=False
             )
-        self._fig.update_yaxes(autorange=self.autorange_data[1],secondary_y=False) #override range
+        fig.update_yaxes(autorange=autorange_data[1],secondary_y=False) #override range
         
         """#######  Y-Axis-2   #######"""
-        self._fig.update_yaxes(
-            title_text=self.title_data[3],
-            type=self.type_data[2],
-            range=self.range_data[2],
+        fig.update_yaxes(
+            title_text=title_data[3],
+            type=type_data[2],
+            range=range_data[2],
             title_font=dict(
                 family=self._font,
                 size=self._axesfontsize
@@ -274,9 +279,27 @@ class check_standard_charts():
             zerolinecolor=self._zerolinecolor,
             secondary_y=True
             )
-        self._fig.update_yaxes(autorange=self.autorange_data[2],secondary_y=True) #override range
+        fig.update_yaxes(autorange=autorange_data[2],secondary_y=True) #override range
         
-        return self._fig
+        return fig
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #loop_data = [[0,1],[2]]
@@ -343,30 +366,3 @@ class check_standard_charts():
 
 
 
-
-"""BASIC CHART"""
-
-#x_data = []
-#y_data = []
-#name_data = []
-#
-#fig = make_subplots(specs=[[{"secondary_y": False}]])
-#for i in range(0,8):
-#    fig.add_trace(go.Scatter(
-#        x=x_data[i], 
-#        y=y_data[i],
-#        mode='lines',
-#        name=name_data[i],
-#        secondary_y=False))
-#
-#"""$$$$$$$$$$$$$$$ FORMATTING $$$$$$$$$$$$$$$$"""
-## Add figure title
-#fig.update_layout(title_text="Compare Value Metrics")
-#fig.update_xaxes(
-#    title_text="<b>Decred Block Height</b>"
-#    )
-#fig.update_yaxes(
-#    title_text="<b>DCR / Coin Market Cap</b>",
-#    secondary_y=False)
-#fig.update_layout(template="plotly_dark")
-#fig.show()

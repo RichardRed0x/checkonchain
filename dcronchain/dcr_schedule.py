@@ -56,6 +56,14 @@ class dcr_supply_schedule:
             response = self.initial_br*(100/101)**self.dcr_schedule(blk)
         return response
 
+    def dcr_inf_rate(self,blk,SplyCur):
+        response = self.dcr_blk_rew(blk)*(365*24*60/self.blk_time)/SplyCur
+        return response
+    
+    def dcr_S2F(self,blk,SplyCur):
+        response = 1/dcr_inf_rate(blk,SplyCur)
+        return response
+    
     def dcr_supply_function(self):
         print('...Calculating Decred Supply Curve up to block height ',self.blk_max,'...')
         response=np.zeros((self.blk_max,8))
@@ -68,14 +76,14 @@ class dcr_supply_schedule:
         response[0,6]=self.dcr_blk_rew(0)*(365*24*60/self.blk_time)/self.initial_sply #Inflation Rate
         response[0,7]=1/response[0,6] #Stock-to-Flow Ratio 
         for i in range (1, self.blk_max):
-            response[i,0] = int(i)
-            response[i,1] = self.dcr_blk_rew(i)
-            response[i,2] = response[i-1,2]+self.dcr_blk_rew(i)
-            response[i,3] = response[i-1,3]+self.dcr_blk_rew(i)*self.br_W
-            response[i,4] = response[i-1,4]+self.dcr_blk_rew(i)*self.br_S
-            response[i,5] = response[i-1,5]+self.dcr_blk_rew(i)*self.br_F
-            response[i,6] = self.dcr_blk_rew(i)*(365*24*60/self.blk_time)/response[i,2]
-            response[i,7] = 1/response[i,6]
+            response[i,0] = int(i) #block height
+            response[i,1] = self.dcr_blk_rew(i) #Current Block Reward
+            response[i,2] = response[i-1,2]+self.dcr_blk_rew(i) #Total Supply
+            response[i,3] = response[i-1,3]+self.dcr_blk_rew(i)*self.br_W #Total PoW Supply
+            response[i,4] = response[i-1,4]+self.dcr_blk_rew(i)*self.br_S #Total PoS Supply
+            response[i,5] = response[i-1,5]+self.dcr_blk_rew(i)*self.br_F #Total Treasury Supply
+            response[i,6] = self.dcr_blk_rew(i)*(365*24*60/self.blk_time)/response[i,2] #Inflation Rate
+            response[i,7] = 1/response[i,6] #Stock-to-Flow Ratio 
     
         columns=['blk','blk_reward','Sply_ideal','PoWSply_ideal','PoSSply_ideal','FundSply_ideal','inflation_ideal','S2F_ideal']
         df = pd.DataFrame(data=response,columns=columns)

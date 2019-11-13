@@ -147,58 +147,6 @@ class dcr_security_cost():
     def pca(self): # Total atk cst
         return self.pow_term()[0] + self.pos_term()
 
-    def populate_df(self,df):
-        df['sig_y'] = df.apply(
-            lambda row : self.dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
-                ).sig_y(),axis=1) 
-        df['p_y'] = df.apply(
-            lambda row : self.dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
-                ).p_y(),axis=1) 
-        df['x_y'] = df.apply(
-            lambda row : self.dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
-                ).x_y(),axis=1) 
-        df['H_a'] = df.apply(
-            lambda row : self.dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
-                ).H_a(),axis=1) 
-        df['pow_%rent'] = df.apply(
-            lambda row : self.dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
-                ).pow_term()[1],axis=1)
-        df['pow_%cap'] = df.apply(
-            lambda row : self.dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
-                ).pow_term()[2],axis=1)
-        df['pow_%powr'] = df.apply(
-            lambda row : self.dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
-                ).pow_term()[3],axis=1)
-        df['pow_term'] = df.apply(
-            lambda row : self.dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
-                ).pow_term()[0],axis=1) / 1e6
-        df['pos_term'] = df.apply(
-            lambda row : self.dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
-                ).pos_term(),axis=1) / 1e6
-        df['pow_pos_ratio'] = df['pow_term'] / df['pos_term']
-
-        df['pca'] = df.apply(
-            lambda row : self.dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
-                ).pca(),axis=1) / 1e6
-        df['pow_prof'] = df.apply(
-            lambda row : self.dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
-                ).pow_prof(),axis=1)
-        df['pos_prof'] = df.apply(
-            lambda row : self.dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
-                ).pos_prof(),axis=1) 
-        return df
 
 
 DCR_real = dcr_add_metrics().dcr_real()
@@ -215,6 +163,57 @@ df['tic_pool'] = DCR_real['ticket_pool_size']
 df['tic_pce'] = DCR_real['ticket_price']
 df['y'] = 0.1
 
+
+df['sig_y'] = df.apply(
+    lambda row : self.dcr_security_cost(
+        asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
+        ).sig_y(),axis=1) 
+df['p_y'] = df.apply(
+    lambda row : self.dcr_security_cost(
+        asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
+        ).p_y(),axis=1) 
+df['x_y'] = df.apply(
+    lambda row : self.dcr_security_cost(
+        asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
+        ).x_y(),axis=1) 
+df['H_a'] = df.apply(
+    lambda row : self.dcr_security_cost(
+        asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
+        ).H_a(),axis=1) 
+df['pow_%rent'] = df.apply(
+    lambda row : self.dcr_security_cost(
+        asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
+        ).pow_term()[1],axis=1)
+df['pow_%cap'] = df.apply(
+    lambda row : self.dcr_security_cost(
+        asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
+        ).pow_term()[2],axis=1)
+df['pow_%powr'] = df.apply(
+    lambda row : self.dcr_security_cost(
+        asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
+        ).pow_term()[3],axis=1)
+df['pow_term'] = df.apply(
+    lambda row : self.dcr_security_cost(
+        asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
+        ).pow_term()[0],axis=1) / 1e6
+df['pos_term'] = df.apply(
+    lambda row : self.dcr_security_cost(
+        asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
+        ).pos_term(),axis=1) / 1e6
+df['pow_pos_ratio'] = df['pow_term'] / df['pos_term']
+
+df['pca'] = df.apply(
+    lambda row : self.dcr_security_cost(
+        asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
+        ).pca(),axis=1) / 1e6
+df['pow_prof'] = df.apply(
+    lambda row : self.dcr_security_cost(
+        asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
+        ).pow_prof(),axis=1)
+df['pos_prof'] = df.apply(
+    lambda row : self.dcr_security_cost(
+        asset,atk_blk,row['y'],row['H_net'],row['blk'],row['pce'],row['tic_pool'],row['tic_pce']
+        ).pos_prof(),axis=1) 
 
 #plt.plot('y','pow_prof',data=df)
 #plt.show()

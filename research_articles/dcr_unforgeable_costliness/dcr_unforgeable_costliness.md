@@ -54,7 +54,7 @@ The unforgeable costliness will be explored in the following areas:
 3. Cost of Capital
 4. Cost of Time
 
-## The Cost of Creation
+# The Cost of Creation
 
 **Gold**, due to it's atomic properties is of extremely low abundance relative to other commodities. It's existence and supply is a product of the laws of physics and thus may only be acquired via physical exploration and extraction or by purchasing it off the market. This manifests as a natural constraint on supply inflation given the demands of production and lead to a global convergence on gold as the monetary base throughout human history.
 
@@ -64,13 +64,13 @@ Scarce digital assets like **Bitcoin** and **Decred** differ to gold in that the
 
 It is important to appreciate the characteristics of the initial distribution for a man-made scarce asset as it carries risk of unfair leverage granted to the creators. Establishing user trust in a money protocol requires great finesse and skill in design, and thus the cost of creation must be the subject of user critique.
 
-### Bitcoin
+## Bitcoin
 
 For **Bitcoin**, Satoshi Nakamoto's design decision was to transparently release the Bitcoin whitepaper on 31 Oct 2018 and the v0.1 Bitcoin and mining code on 9 Jan 2009 to the cypherpunks public email list. This group of people were those most likely to engage with and nurture the project through it's formative and most vulnerable years.
 
 Numerous studies into early hashrate indicate Satoshi was the dominant miner through the first year with estimates on the number of bitcoins mined ranging from 740k to 980k BTC (of which all are believed to have never been spent). Given there is no way to tell if these coins will ever move, public consensus appears to have accepted this uncertainty as a fair and reasonable thanks for Satoshi's skill and time ([1],[2],[3],[4],[5]).
 
-The evidence strongly suggests Satoshi deliberately reduced his share of network hashrate over time as new miners entered and the Bitcoin network gained strength. Thus **Bitcoin's** genesis is considered by many to be as fair as a decentralised scarce asset network launch could be.
+The evidence strongly suggests Satoshi deliberately reduced his share of network hashrate as new miners entered and the Bitcoin network gained strength. Thus **Bitcoin's** genesis is considered by many to be as fair as a decentralised scarce asset network launch could be.
 
 Key ingredients in **Bitcoin's** initial distribution may be reasonably summarised as follows:
 1. Complete transparency months in advance of releasing the code.
@@ -81,15 +81,18 @@ Key ingredients in **Bitcoin's** initial distribution may be reasonably summaris
 
 [![Satoshis Hashrate share after Sergio Demian Lerner](images/image_02.png)](https://organofcorti.blogspot.com/2014/08/167-satoshis-hashrate.html)
 
-### Decred
+## Decreds Origin Story
+The whitepaper for **Decred's** primitive called [Memcoin2](https://www.decred.org/research/mackenzie2013.pdf) was originally announced on the BitcoinTalk forums by a Legendary anonymous developer named tacotime in [April 2013](https://bitcointalk.org/index.php?topic=169204.msg1760397#msg1760397). Paired with another anonymous individual _ingsoc, tacotime secretly developed the bones of what would ultimately become the Decred project whilst simultaneously working on the Monero project. _ingsoc recruited Company 0 in early 2014, being attracted by the quality of the code written for btcsuite, a process whilch culminated in the formal announcement of [Decred on 15 Dec 2015](https://bitcointalk.org/index.php?topic=1290358.0). [7]
 
-**Decred** launched on 8 Feb 2016 at which time the cryptocurrency market had reached an elevated state of maturity. **Bitcoin** had attained a market valuation over $6 billion and the market had significantly more participants and eyes (of friends and foes) than at the time of **Bitcoin's** launch. On one hand, these market conditions can benefit coin price appreciation and attraction of miners whilst on the other pose challenges for bootstrapping security without compromising a 'fair initial distribution'.
+**Decred's** mainnet launched on 8 Feb 2016 at which time the cryptocurrency market had by then reached an elevated state of maturity. **Bitcoin** had attained a market valuation over $6 billion and the market had significantly more participants and eyes (of friends and foes) than at the time of **Bitcoin's** launch. On one hand, these market conditions can benefit coin price appreciation and attract miners and investors, whilst on the other pose challenges for bootstrapping security without compromising a 'fair initial distribution'. This was compounded by the established GPU mining industry which could have reasonably attacked **Decred** in it's early and vulnerable state. 
+
+### The Pre-mine
 
 An important feature of **Decred** is it's Hybrid PoW/PoS security and consensus mechanism. In order to secure the chain at launch, it was necessary that a majority of honest actors, with an appreciation of the project's philosophy, participate in the PoS ticket system.
 
 For **Decred**, Company 0's design decision was to launch the protocol with a pre-mine totaling 1.68M DCR, equivalent to 8% of the total 21M supply. Half of the pre-mine (4%, 840k DCR) was airdropped free to community members to bootstrap the Proof-of-Stake security and governance. The other half was  purchased by the founding team at a rate of $0.49/DCR either in exchange for their own money or their future development time.
 
-Community registration to participate in the airdrop was transparently publicised one month prior to the window closing. Applications were open and over 8,793 submissions were received and filtered to remove duplicates and false entries. Ultimately, 282.63795424 DCR was awarded to a total of 2,972 participants who showed a desire for supporting the chain. Community and founder participants in the airdrop committed to a 12 and 24 periods respectively where airdropped DCR were not to be exchanged and instead used to bootstrap the Proof-of-Stake ticket system.
+Community registration to participate in the airdrop was transparently publicised one month prior to the window close and over 8,793 submissions were received and filtered to remove duplicates and false entries. Ultimately, [282.63795424 DCR was awarded to a total of 2,972 participants](https://docs.decred.org/advanced/premine/#airdrop) who showed a desire for supporting the chain. Community and founder participants in the airdrop committed to a 12 and 24 month periods respectively where airdropped DCR were not to be exchanged and instead used to bootstrap the Proof-of-Stake ticket system.
 
 Airdrop participants were required to provide a Decred address, as well as a link to a social media identity that showed some interest in cryptocurrency. For miners, [v0.0.4 of cgminer](https://github.com/decred/cgminer/releases) was available at the time of **Decred's** launch and [ccminer v1.7.2 released 3 days later](https://github.com/tpruvot/ccminer/releases/tag/1.7.2-tpruvot) to ensure permissionless access to Proof-of-Work mining.
 
@@ -102,6 +105,8 @@ Some notes regarding the **Decred** pre-mine as of the time of writing are:
 
 ![Decred Pre-mine Status](images/image_03.png)
 
+### Early Distribution
+
 It is important to note that the **Decred** block reward structure allocates 30% of the block-reward to Proof-of-Stake and thus results in a persistent dilution of governance rights for all participants. The chart below models the most conservative case (most advantageous for founders) where:
 1. All spent DCR from the pre-mine was perfectly staked by community and founders (no consideration of ticket price which in reality results in a portion of an individuals DCR not being included in the stake)
 
@@ -109,31 +114,30 @@ It is important to note that the **Decred** block reward structure allocates 30%
 
 ![Decred Supply Dilution Curves](images/image_04.png)
 
-From this chart, it can be seen that the role of the pre-mined coins has been consistently reduced and diluted over time even under these most conservative conditions. The founder's coins have also remained the minority position in the staking pool.
+From this chart, it can be seen that the role of the pre-mined coins has been consistently reduced and diluted over time even under these most conservative conditions. The founder's coins have remained the minority position in the staking pool. During the early years, [Company 0 remained self-funded](https://youtu.be/bTD6_ZLOCMo?t=3430) and did not bill any additional work against the **Decred** treasury until the project had reached maturity and all spent treasury funds were paid to community contractors.
 
-It is also immediately obvious that the ticket pool has strong correlation to the Proof-of-Work issuance curve. This indicates that a combination of miners and people buying coins sold by miners are the dominant participants in the **Decred** ticket system.
+It is also immediately obvious that the ticket pool (blue) has strong correlation to the Proof-of-Work issuance curve (red). This indicates that a combination of miners and people buying coins sold by miners are the dominant participants in the **Decred** ticket system. Calculations undertaken by Collins [(2017)](https://youtu.be/7K2sDhyjQys?t=1675) suggest that early GPU miners predominantly [merged mined Decred with Ethereum](https://forum.decred.org/threads/claymores-dual-ethereum-decred-siacoin-lbry-pascal-blake2s-keccak-amd-nvidia-gpu-miner-11-6.5957/) and immediately distributed DCR to exchanges for sale. This adds further weight to the notion of heavy distribution of voting rights away from the founders and into the community.
 
-In a very similar manner to Satoshi, the **Decred** founders appear to have been appropriately and reasonably diluted by the system (by design and choice) as the protocol gains strength.
+In a very similar manner to Satoshi, the **Decred** founders have taken appropriate and reasonabe steps to ensure their stake in the system is diluted, both by design and choice, as the protocol gained strength.
 
 **Decreds's** initial distribution thus iterated on **Bitcoin's** ideals to account for the new market dynamics in 2016 and the need for bootstrapping the Hybrid PoW/PoS consensus mechanism.
 
 Key ingredients of **Decred's** initial distribution may be reasonably summarised as follows:
-1. Complete transparency of the pre-mine one month in advance of releasing the code.
-2. An application process for community members to participate with necessary screening for false entries given heightened market awareness. Appropriate staking and mining tools made available at the time of launch.
+1. Complete transparency of both the project genesis (as Memcoin2) the conditions of the pre-mine months in advance of releasing the code.
+2. An application process for community members to participate with necessary screening for false entries given heightened market awareness. Appropriate staking and mining tools made available at the time of launch across almost all operating systems.
 3. Awareness raised for those people most likely to nurture the protocol through the most vulnerable early years.
-4. Appropriately gradual reduction in the role of the founding team.
-5. A founder's reward of 4% of DCR supply consistent with what public opinion deemed fair remuneration for Satoshi's work on Bitcoin (value of time and skill).
+4. Appropriately gradual reduction in the role of the founding team including a deliberate dilution of voting right. This is exacerbated by the clear distribution of coins by PoW miners into the hands of investing participants.
+5. A founder's reward of 4% of the DCR supply consistent with what public opinion deems fair remuneration for Satoshi's work on Bitcoin (value of time and skill).
 
 It is well known that some in the cryptocurrency industry view pre-mines as a dirty word which exist solely to unfairly benefit founding teams (with many unfortunate examples as evidence). The author has no expectation of changing those minds.
 
 What is desireable is to impart on the more open minded reader that **Decred** was launched in very different environment to **Bitcoin**. By careful design, a small pre-mine acted to bootstrap network security during the most vulnerable years whilst rewarding the team for their skill and time at the same rate as Satoshi.
 
-## The Cost of Energy
+# The Cost of Energy
 
-**Bitcoin** and **Decred** share a common feature in that Proof-of-Work (PoW) is the dominant mechanism for issuing new coins and an integral component of the security system. PoW ensures that the cost of coin production is rooted to the laws of physics with an associated energy consumption requirement. The cryptographic proof which solves the next block cannot be valid without a provable expendature of computational energy.
+**Bitcoin** and **Decred** share a common feature in Proof-of-Work (PoW) as the dominant mechanism for issuing new coins and an integral component of the security system. PoW ensures that the cost of coin production is rooted to the laws of physics with an associated energy consumption requirement. This system enforces that a cryptographic proof which solves the next block is stamped with a provable expendature of computational energy. An mental appropriate framework is to consider the mining industry as a market for purchasing coins with power rather than fiat currency.
 
-**Bitcoin** mining has evolved through several stages of dominant mining hardware progressing through CPUs, GPUs, FPGAs and finally to ASICs chips. **Decred** launched into a market where GPU miners were readily available and thus had an initial difficulty setting equivalent to the estimated hashpower of 256 contemporary GPU chips. **Decred** mining has since progressed to become an ASIC dominated industry.
-
+**Bitcoin** mining has evolved through several stages with dominant mining hardware progressing from CPUs, GPUs, FPGAs and finally to ASICs chips. **Decred** launched into a market where GPU miners were readily available and thus had an initial difficulty setting equivalent to the estimated hashpower of 256 contemporary GPU chips. **Decred** mining has since progressed to become an ASIC dominated industry [8], [9].
 
 The progression of a PoW cryptocurrency to an ASIC dominated mining is an important as these specific purpose chips are designed solely for mining SHA-256 cryptocurrencies.  
 
@@ -164,6 +168,11 @@ At the time of writing, the **Decred** treasury is [in the process of migrating]
 
 As such, the 10% block subsidy 
 
+
+
+theoretical - actual
+How does that cost basis evolve over time
+
 # References
 
 
@@ -178,6 +187,13 @@ As such, the 10% block subsidy
 
 [5] Bitcoin’s Distribution was Fair, https://blog.picks.co/bitcoins-distribution-was-fair-e2ef7bbbc892, Dan Held, 2018
 
+[6] Decred Assembly Ep 2 - 2017 Roadmap, https://www.youtube.com/watch?v=bTD6_ZLOCMo&list=PLaMrpvQ0yJ_z8ZtvgBqinmL74_0W7prv2&index=25, Decred, 2017
+
+[7] Decred: Where did it all begin?, https://thedecreddigest.com/2017/06/10/decred-where-did-it-all-begin/, The Decred Digest, 2017
+
+[8] Decred Assembly Ep 15 - Decred and ASICs, https://youtu.be/7K2sDhyjQys, Decred, 2017
+
+[9] Decred Assembly Ep 16 - Decred and ASICs Part II, https://youtu.be/8TPFIVYy_i4, Decred, 2017
 
 
 
