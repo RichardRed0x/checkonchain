@@ -196,6 +196,11 @@ class dcr_add_metrics():
         df['PoS_income_usd']    = df['PoS_income_dcr']  *df['PriceUSD']
         df['Fund_income_usd']   = df['Fund_income_dcr'] *df['PriceUSD']
         df['Total_income_usd']  = df['Total_income_dcr']*df['PriceUSD']
+
+        df['PoW_income_btc']    = df['PoW_income_dcr']  *df['PriceBTC']
+        df['PoS_income_btc']    = df['PoS_income_dcr']  *df['PriceBTC']
+        df['Fund_income_btc']   = df['Fund_income_dcr'] *df['PriceBTC']
+        df['Total_income_btc']  = df['Total_income_dcr']*df['PriceBTC']
         return df
 
     def dcr_ticket_models(self):  #Calculate Ticket Based Valuation Metrics

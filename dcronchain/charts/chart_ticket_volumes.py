@@ -59,28 +59,11 @@ y_data = [
     DCR_subs['dcr_tic_vol'],
     DCR_subs['dcr_tfr_vol']
 ]
+color_data = ['rgb(237,96,136)','rgb(37,187,217)']
 loop_data = [0,1]
 name_data = ['Ticket Vol (DCR)','Transfer Vol (DCR)']
 for i in loop_data:
     fig.add_trace(
-        go.Bar(x=x_data[i],y=y_data[i],name=name_data[i]),secondary_y=True)
+        go.Bar(x=x_data[i],y=y_data[i],name=name_data[i],marker_color=color_data[i]),secondary_y=True)
 fig.update_layout(barmode='stack',bargap=0.01)
-
-
-
-for i in [9,14,25,40,60,90,128,200]:
-    fig.add_trace(go.Scatter(
-        mode='lines',
-        x=DCR_subs['date'], 
-        y=DCR_subs['DiffMean'].rolling(i).mean(),
-        name='Difficulty '+str(i),
-        opacity=0.5,
-        showlegend=False,
-        line=dict(
-            width=i/200*2,
-            color='rgb(156,225,143)',
-            dash='solid'
-            )),
-        secondary_y=False)
-
 fig.show()
