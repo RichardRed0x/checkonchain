@@ -6,6 +6,8 @@ import math
 import datetime as date
 today = date.datetime.now().strftime('%Y-%m-%d')
 
+import quandl
+
 from checkonchain.general.coinmetrics_api import *
 from checkonchain.general.regression_analysis import *
 from checkonchain.btconchain.btc_schedule import *
@@ -16,10 +18,17 @@ class btc_add_metrics():
     def __init__(self):
         self.topcapconst = 35 #Top Cap = topcapconst * Avg Cap
         self.blkrew_ratio = [1.0] #PoW Reward Fraction
+        self.sply_curtail = 144 #Supply curtailed to once a day
 
     def btc_coin(self):
+        """Pulls Coinmetrics v2 API Community,
+            adds early price data by Plan B (fills backwards)
+        """
         df = Coinmetrics_api('btc',"2009-01-03","2019-10-07").convert_to_pd()
-        df['age'] = (df[['date']] - df.loc[0,['date']])/np.timedelta64(1,'D')
+        #Coin age in days
+        df['age_days'] = (df[['date']] - df.loc[0,['date']])/np.timedelta64(1,'D')
+        #Coin age in supply issuance
+        df['age_sply'] = df['SplyCur'] / 21e6
         #Add in Plan B Data for Price and Market Cap
         #Create dataframe with Plan B price data before Coinmetrics has it
         print('...adding monthly Plan B PriceUSD and CapMrktCurUSD 2009-10...')
@@ -37,12 +46,27 @@ class btc_add_metrics():
             ]
         df_planB = pd.DataFrame(data=planB_data,columns=['date','PriceUSD'])
         df_planB['date'] = pd.to_datetime(df_planB['date'],utc=True)
-        #Populate Price and Market Cap
+        #Populate Price and fill backwards
         df['notes'] = str('')
         for i in df_planB['date']:
             df.loc[df.date==i,'PriceUSD'] = float(df_planB.loc[df_planB.date==i,'PriceUSD'])
+        df['PriceUSD'] = df['PriceUSD'].fillna(method='bfill')
+        for i in df_planB['date']:
             df.loc[df.date==i,'CapMrktCurUSD'] = df.loc[df.date==i,'PriceUSD'] * df.loc[df.date==i,'SplyCur']
             df.loc[df.date==i,'notes'] = 'PriceUSD and CapMrktCurUSD from Plan B data (@100TrillionUSD)'
+        #Restructure final dataset
+        df = df[[
+            'date', 'blk','age_days','age_sply',
+            'DailyIssuedNtv', 'DailyIssuedUSD', 'inf_pct_ann', 'S2F',
+            'AdrActCnt', 'BlkCnt', 'BlkSizeByte', 'BlkSizeMeanByte',
+            'CapMVRVCur', 'CapMrktCurUSD', 'CapRealUSD', 'DiffMean', 
+            'FeeMeanNtv','FeeMeanUSD', 'FeeMedNtv', 'FeeMedUSD', 'FeeTotNtv', 'FeeTotUSD',
+            'PriceBTC', 'PriceUSD', 'PriceRealised', 'SplyCur',
+            'TxCnt', 'TxTfrCnt', 'TxTfrValAdjNtv', 'TxTfrValAdjUSD',
+            'TxTfrValMeanNtv', 'TxTfrValMeanUSD', 'TxTfrValMedNtv',
+            'TxTfrValMedUSD', 'TxTfrValNtv', 'TxTfrValUSD',
+            'notes'
+            ]]
         return df
 
 
@@ -50,23 +74,63 @@ class btc_add_metrics():
         df = btc_supply_schedule(to_blk).btc_supply_function()
         #Calculate projected S2F Models Valuations
         btc_s2f_model = regression_analysis().regression_constants()['btc_s2f']
-        df['CapS2Fmodel'] = np.exp(float(btc_s2f_model['coefficient'])*np.log(df['S2F_ideal'])+float(btc_s2f_model['intercept']))
+        df['CapS2Fmodel'] = np.exp(
+            float(btc_s2f_model['coefficient'])
+            * np.log(df['S2F_ideal'])
+            + float(btc_s2f_model['intercept'])
+        )
         df['PriceS2Fmodel'] = df['CapS2Fmodel']/df['Sply_ideal']
         #Calc S2F Model - Bitcoins Plan B Model
         planb_s2f_model = regression_analysis().regression_constants()['planb']
-        df['CapPlanBmodel'] = np.exp(float(planb_s2f_model['coefficient'])*np.log(df['S2F_ideal'])+float(planb_s2f_model['intercept']))
+        df['CapPlanBmodel'] = np.exp(
+            float(planb_s2f_model['coefficient'])
+            * np.log(df['S2F_ideal'])
+            + float(planb_s2f_model['intercept'])
+        )
         df['PricePlanBmodel'] = df['CapPlanBmodel']/df['Sply_ideal']
         return df
+    
+
+    def btc_sply_curtailed(self,to_blk):
+        """Curtail theoretical supply curve for charting"""
+        btc_sply_interval = self.sply_curtail
+        df = self.dcr_sply(to_blk)
+        return df.iloc[::dcr_sply_interval,:] #Select every 144 blocks
 
 
     def btc_real(self):
+        """Coinmetrics + Hashrate from QUANDL"""
         print('...compiling Bitcoin specific metrics (coinmetrics + supply curve)...')
         _coin = self.btc_coin()
         _blk_max = int(_coin['blk'][_coin.index[-1]])
-        _sply = self.btc_sply(_blk_max)
+        df = _coin[[
+            'date', 'blk', 'age_days','age_sply', 
+            'CapMrktCurUSD', 'CapRealUSD', 'PriceUSD', 'PriceRealised', 
+            'DailyIssuedNtv', 'DailyIssuedUSD','FeeTotUSD',
+            'TxTfrCnt', 'TxTfrValAdjNtv', 'TxTfrValAdjUSD','TxTfrValNtv','TxTfrValUSD',
+            'S2F','inf_pct_ann', 'SplyCur',
+            'DiffMean', 'notes'
+        ]]
+        return df
 
-        # Drop uncessecary columns, Vlookup nearest on blk
-        df = pd.merge_asof(_coin,_sply[['blk','blk_reward','Sply_ideal', 'PoWSply_ideal','inflation_ideal','S2F_ideal']],on='blk')
+    def btc_hash(self):
+        #QUANDL has 50 daily query limit
+        #Hashrate (GH/s --> 0.001 TH/s)
+        _real = self.btc_real()
+        df = pd.DataFrame()
+        df['pow_hashrate_THs'] = quandl.get("BCHAIN/HRATE")['Value']/1000 #Pull hashrate data
+        df['date'] = df.index 
+        df = df.reset_index(drop=True)
+        df['date'] = pd.to_datetime(df['date'],utc=True)
+        df = pd.merge(_real,df,on='date')
+        return df
+
+    def btc_subsidy_models(self):
+        print('...Calculating Bitcoin block subsidy models...')
+        df = self.btc_real()
+        #Calculate PoS Return on Investment
+        df['PoW_income_btc']    = df['DailyIssuedNtv']
+        df['PoW_income_usd']    = df['PoW_income_btc'] * df['PriceUSD']
         return df
 
     def btc_pricing_models(self):
@@ -129,4 +193,4 @@ class btc_add_metrics():
 
         return df
 
-#BTC = btc_add_metrics().btc_coin()
+#BTC_subs = btc_add_metrics().btc_subsidy_models()

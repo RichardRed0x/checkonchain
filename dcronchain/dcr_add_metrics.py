@@ -34,6 +34,12 @@ dcr_perf            - dcrdata blockchain performance
 """
 
 class dcr_add_metrics():
+    """
+    Central function set for building Pandas DataFrames of Decred metrics
+        Pulls from various APIs
+        Aggregates Data for specific studies
+        Calculates Decred specific metrics
+    """
     
     def __init__(self):
         self.topcapconst    = 12 #Top Cap = topcapconst * Avg Cap
@@ -43,13 +49,27 @@ class dcr_add_metrics():
 
     def dcr_coin(self): 
         """
-        Pulls Coinmetrics v2 API Community
-            Adds age metric (days)
-            Adds Bittrex early price data not included in coinmetrics from csv
+        Pulls Coinmetrics v2 API Community,
+        Adds age metric (days),
+        Adds Bittrex early price data not included in coinmetrics from csv
+            
+            OUTPUT DATAFRAME COLUMNS:
+            'date', 'blk','age_days','age_sply','btc_blk_est',
+            'DailyIssuedNtv', 'DailyIssuedUSD', 'inf_pct_ann', 'S2F',
+            'AdrActCnt', 'BlkCnt', 'BlkSizeByte', 'BlkSizeMeanByte',
+            'CapMVRVCur', 'CapMrktCurUSD', 'CapRealUSD', 'DiffMean', 
+            'FeeMeanNtv','FeeMeanUSD', 'FeeMedNtv', 'FeeMedUSD', 'FeeTotNtv', 'FeeTotUSD',
+            'PriceBTC', 'PriceUSD', 'PriceRealised', 'SplyCur',
+            'TxCnt', 'TxTfrCnt', 'TxTfrValAdjNtv', 'TxTfrValAdjUSD',
+            'TxTfrValMeanNtv', 'TxTfrValMeanUSD', 'TxTfrValMedNtv',
+            'TxTfrValMedUSD', 'TxTfrValNtv', 'TxTfrValUSD',
+            'notes'
         """    
         df = Coinmetrics_api('dcr',"2016-02-08",today).convert_to_pd()
         #Calculate coin age since launch in days
-        df['age'] = (df[['date']] - df.loc[0,['date']])/np.timedelta64(1,'D')
+        df['age_days'] = (df[['date']] - df.loc[0,['date']])/np.timedelta64(1,'D')
+        #Calculate coin age since launch in terms of supply
+        df['age_sply'] = df['SplyCur'] / 21e6
         print('...adding PriceUSD and CapMrktCurUSD for $0.49 (founders, 8/9-Feb-2016)')
         print('and Bittrex (10-02-2016 to 16-05-2016)...')
         #Import Early price data --> founders $0.49 for 8/9 Feb 2016 and Bitrex up to 16-May-2016 (saved in relative link csv)
@@ -66,7 +86,7 @@ class dcr_add_metrics():
             df.loc[df.date==i,'notes'] = df_early.loc[df_early.date==i,'notes']
         # Restructure final dataset
         df = df[[
-            'date', 'blk','age','btc_blk_est',
+            'date', 'blk','age_days','age_sply','btc_blk_est',
             'DailyIssuedNtv', 'DailyIssuedUSD', 'inf_pct_ann', 'S2F',
             'AdrActCnt', 'BlkCnt', 'BlkSizeByte', 'BlkSizeMeanByte',
             'CapMVRVCur', 'CapMrktCurUSD', 'CapRealUSD', 'DiffMean', 
@@ -82,6 +102,15 @@ class dcr_add_metrics():
     def dcr_diff(self):
         """
         Pulls dcrdata Difficulty data
+        Data is arranged by difficulty window (144 blocks)
+        OUTPUT COLUMNS:
+            'blk'           - block height
+            'window'        - windoc count (count if 144 windows)
+            'time'          - time (format unknown)
+            'tic_cnt_window'- Tickets bought in window (max 2880)
+            'tic_price'     - Ticket Price | Stake Difficulty (DCR)
+            'tic_miss'      - Tickets missed in window
+            'pow_diff'      - PoW Difficulty
         """
         df = dcrdata_api().dcr_difficulty()
         return df
@@ -89,46 +118,27 @@ class dcr_add_metrics():
     def dcr_perf(self):
         """
         Pulls dcrdata Performance data
+        Data is arranged by block
+        OUTPUT COLUMNS:
+            'blk'               - block height
+            'time'              - time (format unknown)
+            'dcr_sply'          - circulating supply (DCR)
+            'dcr_tic_sply'      - ticket pool value (DCR)
+            'tic_blk'           - Tickets bought per block (max 20)
+            'tic_pool'          - Tickets in the pool (40,960 target)
+            'pow_hashrate_THs'  - PoW Hashrate in Terahash/s
+            'pow_work_TH'       - Cummulative work (TH/s)
         """
         df = dcrdata_api().dcr_performance()
         return df
-        
-    def dcr_sply(self,to_blk): #Calculate Theoretical Supply Curve
-        """
-        Calculate the theoretical supply curve
-        """
-        df = dcr_supply_schedule(to_blk).dcr_supply_function()
-        #Calculate projected S2F Models Valuations (Uses defined constants in general.regression_analysis)
-        dcr_s2f_model           = regression_analysis().regression_constants()['dcr_s2f']
-        df['CapS2Fmodel']       = (
-            np.exp( float(dcr_s2f_model['coefficient']) * 
-            np.log(df['S2F_ideal']) + float(dcr_s2f_model['intercept'])))
-        df['PriceS2Fmodel']     = df['CapS2Fmodel'] / df['Sply_ideal']
-        #Calculate dust limit price according to S2F model
-        df['dust_limit_S2F'] = df['PriceS2Fmodel']/1e8 * self.dust_limit
-
-        #Calc S2F Model - Bitcoin Plan B Model
-        planb_s2f_model         = regression_analysis().regression_constants()['planb']
-        df['CapPlanBmodel']     = (
-            np.exp( float(planb_s2f_model['coefficient']) * 
-            np.log(df['S2F_ideal']) + float(planb_s2f_model['intercept'])))
-        df['PricePlanBmodel']   = df['CapPlanBmodel']/df['Sply_ideal']        
-        
-        return df
-
-    def dcr_sply_curtailed(self,to_blk):
-        """
-        Curtail theoretical supply curve for charting
-        """
-        dcr_sply_interval = self.sply_curtail
-        df = self.dcr_sply(to_blk)
-        return df.iloc[::dcr_sply_interval,:] #Select every 
-
+    
     def dcr_natv(self):
         """
-        Compile dcrdata sets difficulty and performance
-        Final dataset is by block
-        Difficulty is filled backwards (step function)
+        Compile dcrdata sets dcr_diff and dcr_perf (Final dataset is by block)
+            Difficulty is filled backwards (step function)
+        OUTPUT COLUMNS:
+            As per dcr_diff and ddcr_perf (not repeated for brevity)
+            Dropped 'time' and 'tic_miss'
         """
         _diff = self.dcr_diff() #Pull dcrdata difficulty
         _perf = self.dcr_perf() #Pull dcrdata performance
@@ -150,6 +160,63 @@ class dcr_add_metrics():
         ]]
         return df
 
+    def dcr_sply(self,to_blk): #Calculate Theoretical Supply Curve
+        """
+        Calculates the theoretical supply curve by block height
+        INPUTS:
+            to_blk      = Integer, block height to calcuate up to (from 0)
+        OUTPUT COLUMNS:
+            'blk'               - block height
+            'blk_reward'        - Total block reward
+            'Sply_ideal'        - Ideal Total Supply (DCR)
+            'PoWSply_ideal'     - Ideal PoW Issued Supply (DCR)
+            'PoSSply_ideal'     - Ideal PoS Issued Supply incl. 4% Premine (DCR)
+            'FundSply_ideal'    - Ideal Treasury Issued Supply incl. 4% Premine (DCR)
+            'inflation_ideal'   - Idealised Inflation Rate
+            'S2F_ideal'         - Idealised Stock-to-Flow Ratio
+            'CapS2Fmodel'       - Calculated S2F Market Cap (Linear Regression Constants)
+            'PriceS2Fmodel'     - Calculated S2F Price (Linear Regression Constants)
+            'CapPlanBmodel'     - Calculated S2F Market Cap (Plan B Model for Bitcoin)
+            'PricePlanBmodel'   - Calculated S2F Price (Plan B Model for Bitcoin)
+            'dust_limit_S2F'    - Dust Limit Price based off 'PriceS2Fmodel'
+        """
+        df = dcr_supply_schedule(to_blk).dcr_supply_function()
+        #Calculate projected S2F Models Valuations 
+        #(Uses defined constants in general.regression_analysis)
+        dcr_s2f_model           = regression_analysis().regression_constants()['dcr_s2f']
+        df['CapS2Fmodel']       = (
+            np.exp(float(dcr_s2f_model['coefficient']) 
+            * np.log(df['S2F_ideal'])
+            + float(dcr_s2f_model['intercept']))
+        )
+        df['PriceS2Fmodel']     = df['CapS2Fmodel'] / df['Sply_ideal']
+
+        #Calc S2F Model - Bitcoin Plan B Model
+        planb_s2f_model         = regression_analysis().regression_constants()['planb']
+        df['CapPlanBmodel']     = (
+            np.exp(float(planb_s2f_model['coefficient'])
+            * np.log(df['S2F_ideal'])
+            + float(planb_s2f_model['intercept']))
+        )
+        df['PricePlanBmodel']   = df['CapPlanBmodel']/df['Sply_ideal']    
+
+        #Calculate dust limit price according to S2F model
+        df['dust_limit_S2F']    = df['PriceS2Fmodel'] /1e8 * self.dust_limit
+        return df
+
+    def dcr_sply_curtailed(self,to_blk):
+        """
+        Curtail theoretical supply curve (dcr_sply) to reduce load on charting packages
+        INPUTS:
+            to_blk      = Integer, block height to calcuate up to (from 0)
+        OUTPUT COLUMNS:
+            As per dcr_sply (not repeated for brevity)
+        """
+        dcr_sply_interval = self.sply_curtail
+        df = self.dcr_sply(to_blk)
+        return df.iloc[::dcr_sply_interval,:] #Select every 
+
+
     def dcr_real(self):
         print('...Combining Decred specific metrics - (coinmetrics + dcrdata)...')
         _coin = self.dcr_coin() #Coinmetrics by date
@@ -157,7 +224,7 @@ class dcr_add_metrics():
         #_blk_max = int(_coin['blk'][_coin.index[-1]])
         #Cull _coin to Key Columns
         _coin = _coin[[
-            'date','blk','age','CapMrktCurUSD','CapRealUSD',
+            'date','blk','age_days','age_sply','CapMrktCurUSD','CapRealUSD',
             'DiffMean','PriceBTC','PriceUSD','PriceRealised',
             'SplyCur','DailyIssuedNtv','DailyIssuedUSD','S2F',
             'inf_pct_ann','TxTfrValNtv','TxTfrValUSD']]
@@ -174,7 +241,7 @@ class dcr_add_metrics():
         #Merge _coin and _natv
         df = pd.merge(_coin,_natv.drop(['tic_cnt_window'],axis=1),on='blk',how='left')
         df = df[[
-            'date', 'blk', 'age','window',
+            'date', 'blk', 'age_days','age_sply','window',
             'CapMrktCurUSD', 'CapRealUSD','PriceBTC', 'PriceUSD', 'PriceRealised', 
             'DailyIssuedNtv','DailyIssuedUSD','TxTfrValNtv','TxTfrValUSD',
             'S2F', 'inf_pct_ann','SplyCur','dcr_tic_sply', 'dcr_sply',
@@ -184,7 +251,7 @@ class dcr_add_metrics():
         return df
 
     def dcr_subsidy_models(self):
-        print('...Calculating Decred block subsity models...')
+        print('...Calculating Decred block subsidy models...')
         df = self.dcr_real()
         #Calculate PoS Return on Investment
         df['PoW_income_dcr']    = df['DailyIssuedNtv']*self.blkrew_ratio[0]
@@ -201,6 +268,16 @@ class dcr_add_metrics():
         df['PoS_income_btc']    = df['PoS_income_dcr']  *df['PriceBTC']
         df['Fund_income_btc']   = df['Fund_income_dcr'] *df['PriceBTC']
         df['Total_income_btc']  = df['Total_income_dcr']*df['PriceBTC']
+        return df
+
+    def dcr_multiples(self):
+        df = self.dcr_subsidy_models()
+        df['mayer_multiple'] = df['PriceUSD']/df['PriceUSD'].rolling(200).mean()
+        df['S2F_multiple']  = (
+            df['PriceUSD'] / math.exp(-1.84) * df['S2F']**3.36
+        )
+        df['diff_multiple'] = 1
+
         return df
 
     def dcr_ticket_models(self):  #Calculate Ticket Based Valuation Metrics
@@ -282,12 +359,16 @@ class dcr_add_metrics():
         df['RVTS']   = df['CapRealUSD']/ df['TxTfrValUSD'].rolling(28).mean()
         return df
 
-#DCR_coin = dcr_add_metrics().dcr_coin()
-#DCR_diff = dcr_add_metrics().dcr_diff()
-#DCR_perf = dcr_add_metrics().dcr_perf()
-#DCR_natv = dcr_add_metrics().dcr_natv()
-#DCR_real = dcr_add_metrics().dcr_real()
 
+from checkonchain.general.regression_analysis import *
+DCR_coin = dcr_add_metrics().dcr_coin()
+
+
+DCR_diff = dcr_add_metrics().dcr_diff()
+DCR_perf = dcr_add_metrics().dcr_perf()
+DCR_natv = dcr_add_metrics().dcr_natv()
+DCR_real = dcr_add_metrics().dcr_real()
+DCR_sply = dcr_add_metrics().dcr_sply(500000)
 
 #
 #x_data = [

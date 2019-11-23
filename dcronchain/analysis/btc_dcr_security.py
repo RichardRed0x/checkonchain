@@ -2,9 +2,6 @@
 from checkonchain.dcronchain.dcr_add_metrics import *
 from checkonchain.btconchain.btc_add_metrics import *
 from checkonchain.dcronchain.dcr_security_model import *
-import os
-os.getcwd()
-os.chdir('D:\code_development\checkonchain\checkonchain')
 
 
 #Set number of blocks to re-org
@@ -35,30 +32,17 @@ DCR_secure = response
 """BITCOIN"""
 #Extract Real Data
 BTC_real = btc_add_metrics().btc_real()
-BTC_hash = pd.read_csv(r"btconchain\data\btc_blockchaincom_hashrate.csv")
-BTC_hash = pd.concat([BTC_hash.set_index('blk',drop=False),BTC_real.set_index('blk',drop=True)],axis=1,join='inner')
-BTC_hash = BTC_hash.drop(BTC_hash.index[0])
-BTC_hash.reset_index(drop=True)
-
 
 asset = 'btc'
-df['blk'] = BTC_hash['blk']
+df['blk'] = BTC_real['blk']
 df['y'] = 0.0
-df['H_net'] = BTC_hash['pow_hashrate_THs']
-df['price'] = BTC_hash['PriceUSD']
+df['H_net'] = BTC_real['pow_hashrate_THs']
+df['price'] = BTC_real['PriceUSD']
 df['tic_pool'] = 0
 df['tic_price'] = 0
 df = dcr_security_calculate_df().calculate_df(asset,atk_blk,df)
 
 
-
-
-
-import requests
-response = requests.get("https://blockchain.info/q/hashrate")
-print(response.json())
-
-import quandl
 
 
 

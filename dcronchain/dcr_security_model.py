@@ -4,7 +4,114 @@ import pandas as pd
 import math
 import random
 
-class dcr_security_cost():
+
+class dcr_security_calculate_df():
+    """Calculates a dataframe from dcr_security model
+    Inputs: df = DataFrame structured with the following columns
+        df['blk']       = Block Height (time variable)
+        df['H_net']     = Hashrate measured in TH/s
+        df['price']     = Price of coin in USD
+        df['tic_pool']  = Tickets in pool (target is 40960)
+        df['tic_price'] = Ticket Price in DCR
+        df['y']         = Portion of the ticket pool owned by an attacker (0 to 1)
+    Outputs: df = Dataframe with appended columns
+        df['sig_y']     = Probability honest party required tickets to make valid block (1-p_y)
+        df['p_y']       = Probability attacker holds required tickets to make valid block
+        df['x_y']       = Attacker factor of hashpower required (assuming attacker hash is not already active)
+        df['H_a']       = Attackers proportion of total hashrate
+        df['pow_rent'] = PoW Cost to Attack (Rental Component, %age)
+        df['pow_asic'] = PoW Cost to Attack (ASIC Capital Component, %age)
+        df['pow_power'] = PoW Cost to Attack (Power Component, %age)
+        df['pow_term']  = PoW Cost to Attack Total (USD)
+        df['pos_term']  = PoS Cost to Attack Total (USD)
+        df['pow_term']  = PoW Cost to Attack Total (USD)
+        df['pca']       = Total Cost to Attack (USD)
+        df['pow_ratio'] = Ratio of PoW contribution to PCA pow/term / pca
+        df['pow_prof']  = Miner profitability
+        df['pos_prof']  = Staker profitability
+    """
+    def __init__(self):
+        pass
+
+    def dcr_security_curve(self):
+        df = pd.DataFrame(columns=['y','p_y','sig_y','x_y','days_buy_y'])
+        for i in range(1,101,1):
+            y = i/100
+            #Attacker share of Ticket Pool
+            df.loc[i,['y']] = y
+            #Probability Attacker validates block p_y
+            j = p_y = _calc = _bincoef = 0
+            while j < 3:
+                _bincoef = (
+                    math.factorial(5)
+                    / (math.factorial(5-j) 
+                    * math.factorial(j))
+                )
+                _calc = _bincoef * y**(5-j) * ((1-y)*1)**j
+                p_y = p_y + _calc
+                j += 1
+            df.loc[i,['p_y']]   = p_y
+            #Probability Honest Ticket validates block sig_y
+            df.loc[i,['sig_y']] = 1 - p_y
+            #Proportion of Hashpower needed by Attacker
+            df.loc[i,['x_y']]   = 1 / p_y - 1
+            df.loc[i,['days_buy_y']] = y * 40960 / 20 * 5 / 60 / 24
+        return df
+
+    def calculate_df(self,asset,atk_blk,df):
+        df['sig_y'] = df.apply(
+            lambda row : dcr_security_model(
+                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
+                ).sig_y(),axis=1) 
+        df['p_y'] = df.apply(
+            lambda row : dcr_security_model(
+                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
+                ).p_y(),axis=1) 
+        df['x_y'] = df.apply(
+            lambda row : dcr_security_model(
+                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
+                ).x_y(),axis=1) 
+        df['H_a'] = df.apply(
+            lambda row : dcr_security_model(
+                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
+                ).H_a(),axis=1) 
+        df['pow_rent'] = df.apply(
+            lambda row : dcr_security_model(
+                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
+                ).pow_term_rent(),axis=1)
+        df['pow_asic'] = df.apply(
+            lambda row : dcr_security_model(
+                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
+                ).pow_term_asic(),axis=1)
+        df['pow_power'] = df.apply(
+            lambda row : dcr_security_model(
+                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
+                ).pow_term_power(),axis=1)
+        df['pow_term'] = df.apply(
+            lambda row : dcr_security_model(
+                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
+                ).pow_term(),axis=1) / 1e6
+        df['pos_term'] = df.apply(
+            lambda row : dcr_security_model(
+                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
+                ).pos_term(),axis=1) / 1e6
+        df['pca'] = df.apply(
+            lambda row : dcr_security_model(
+                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
+                ).pca(),axis=1) / 1e6
+        df['pow_ratio'] = df['pow_term'] / df['pca']
+        df['pow_prof'] = df.apply(
+            lambda row : dcr_security_model(
+                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
+                ).pow_prof(),axis=1)
+        df['pos_prof'] = df.apply(
+            lambda row : dcr_security_model(
+                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
+                ).pos_prof(),axis=1)
+        return df
+
+
+class dcr_security_model():
 
     def __init__(self,asset,atk_blk,y,H_net,blk,price,Z,p_t):
         # Input Params
@@ -52,7 +159,6 @@ class dcr_security_cost():
         self.c = 0.05 # cost per power ($/KWh)
         self.rho = (self.p_d / self.h_d) # (ASIC ($/unit)/(TH/s)) = ASIC relative cost
         self.nu = self.h_d/self.w_d # (ASIC (TH/s)/kWh) = ASIC power efficiency
-
 
     def R(self): # calc total block reward for btc and dcr
         if self.asset == str('btc'):
@@ -152,83 +258,3 @@ class dcr_security_cost():
     def pca(self): # Total atk cst
         return self.pow_term() + self.pos_term()
 
-
-class dcr_security_calculate_df():
-    """Calculates a dataframe from dcr_security model
-    Inputs: df = DataFrame structured with the following columns
-        df['blk']       = Block Height (time variable)
-        df['H_net']     = Hashrate measured in TH/s
-        df['price']     = Price of coin in USD
-        df['tic_pool']  = Tickets in pool (target is 40960)
-        df['tic_price'] = Ticket Price in DCR
-        df['y']         = Portion of the ticket pool owned by an attacker (0 to 1)
-    Outputs: df = Dataframe with appended columns
-        df['sig_y']     = Probability honest party required tickets to make valid block (1-p_y)
-        df['p_y']       = Probability attacker holds required tickets to make valid block
-        df['x_y']       = Attacker factor of hashpower required (assuming attacker hash is not already active)
-        df['H_a']       = Attackers proportion of total hashrate
-        df['pow_rent'] = PoW Cost to Attack (Rental Component, %age)
-        df['pow_asic'] = PoW Cost to Attack (ASIC Capital Component, %age)
-        df['pow_power'] = PoW Cost to Attack (Power Component, %age)
-        df['pow_term']  = PoW Cost to Attack Total (USD)
-        df['pos_term']  = PoS Cost to Attack Total (USD)
-        df['pow_term']  = PoW Cost to Attack Total (USD)
-        df['pca']       = Total Cost to Attack (USD)
-        df['pow_ratio'] = Ratio of PoW contribution to PCA pow/term / pca
-        df['pow_prof']  = Miner profitability
-        df['pos_prof']  = Staker profitability
-    """
-    def __init__(self):
-        pass
-
-    def calculate_df(self,asset,atk_blk,df):
-        df['sig_y'] = df.apply(
-            lambda row : dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
-                ).sig_y(),axis=1) 
-        df['p_y'] = df.apply(
-            lambda row : dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
-                ).p_y(),axis=1) 
-        df['x_y'] = df.apply(
-            lambda row : dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
-                ).x_y(),axis=1) 
-        df['H_a'] = df.apply(
-            lambda row : dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
-                ).H_a(),axis=1) 
-        df['pow_rent'] = df.apply(
-            lambda row : dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
-                ).pow_term_rent(),axis=1)
-        df['pow_asic'] = df.apply(
-            lambda row : dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
-                ).pow_term_asic(),axis=1)
-        df['pow_power'] = df.apply(
-            lambda row : dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
-                ).pow_term_power(),axis=1)
-        df['pow_term'] = df.apply(
-            lambda row : dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
-                ).pow_term(),axis=1) / 1e6
-        df['pos_term'] = df.apply(
-            lambda row : dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
-                ).pos_term(),axis=1) / 1e6
-        df['pca'] = df.apply(
-            lambda row : dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
-                ).pca(),axis=1) / 1e6
-        df['pow_ratio'] = df['pow_term'] / df['pca']
-        df['pow_prof'] = df.apply(
-            lambda row : dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
-                ).pow_prof(),axis=1)
-        df['pos_prof'] = df.apply(
-            lambda row : dcr_security_cost(
-                asset,atk_blk,row['y'],row['H_net'],row['blk'],row['price'],row['tic_pool'],row['tic_price']
-                ).pos_prof(),axis=1)
-        return df

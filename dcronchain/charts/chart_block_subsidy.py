@@ -1,7 +1,6 @@
 #PermabullNinos Block Subsidy Charts
 from checkonchain.general.standard_charts import *
 from checkonchain.dcronchain.dcr_add_metrics import *
-from checkonchain.btconchain.btc_add_metrics import *
 
 DCR_subs = dcr_add_metrics().dcr_ticket_models()
 """
@@ -76,6 +75,7 @@ y_data = [
 color_data = ['rgb(237,96,136)','rgb(37,187,217)']
 loop_data = [0,1]
 name_data = ['Ticket Vol (DCR)','Transfer Vol (DCR)']
+
 for i in loop_data:
     fig.add_trace(
         go.Bar(x=x_data[i],y=y_data[i],name=name_data[i],opacity=0.5,marker_color=color_data[i],yaxis="y2"))

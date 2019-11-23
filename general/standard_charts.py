@@ -45,8 +45,6 @@ class check_standard_charts():
         self._gridwidth = 0.1
         self._zerolinecolor = 'rgb(50,50,50)'
 
-    def add_traces_lines():
-        return fig
 
     def basic_chart(self,x_data,y_data,name_data,loop_data,title_data,type_data):
         fig = make_subplots(specs=[[{"secondary_y": True}]])
@@ -72,7 +70,6 @@ class check_standard_charts():
         fig.update_yaxes(title_text=title_data[3],type=type_data[2],secondary_y=True)
         fig.update_layout(template="plotly_dark")
         return fig
-
 
     def subplot_lines_singleaxis(
         self,
@@ -120,6 +117,26 @@ class check_standard_charts():
                     size=self._legendsize
                 )))
         
+        """#######  Annotation   #######"""
+        fig.update_layout(
+            annotations=[
+                go.layout.Annotation(
+                    x=0.5,
+                    y=0.95,
+                    text="@_checkmatey_",
+                    showarrow=False,
+                    xref="paper",
+                    yref="paper",
+                    opacity=0.75,
+                    font=dict(
+                        family=self._font,
+                        size=16,
+                        color=self._gridcolor
+                    )
+                )
+            ]
+        )
+
         """#######  X-Axis   #######"""
         fig.update_xaxes(
             title_text=title_data[1],
@@ -222,6 +239,26 @@ class check_standard_charts():
                     size=self._legendsize
                 )))
 
+        """#######  Annotation   #######"""
+        fig.update_layout(
+            annotations=[
+                go.layout.Annotation(
+                    x=0.5,
+                    y=0.95,
+                    text="@_checkmatey_",
+                    showarrow=False,
+                    xref="paper",
+                    yref="paper",
+                    opacity=0.75,
+                    font=dict(
+                        family=self._font,
+                        size=16,
+                        color=self._gridcolor
+                    )
+                )
+            ]
+        )
+
         """#######  X-Axis   #######"""
         fig.update_xaxes(
             title_text=title_data[1],
@@ -277,15 +314,20 @@ class check_standard_charts():
             gridcolor=self._gridcolor,
             gridwidth=self._gridwidth,
             zerolinecolor=self._zerolinecolor,
+            showgrid=False,
             secondary_y=True
             )
         fig.update_yaxes(autorange=autorange_data[2],secondary_y=True) #override range
         
         return fig
 
-
-
-
+    def add_vol_bars_x(self, fig, x_data, y_data, color_data, loop_data , name_data):
+        for i in loop_data:
+            fig.add_trace(
+                go.Bar(x=x_data[i],y=y_data[i],name=name_data[i],opacity=0.5,marker_color=color_data[i],yaxis="y2")
+            )
+            fig.update_layout(barmode='stack',bargap=0.01,yaxis2=dict(side="right",position=0.15))
+            return fig
 
 
 

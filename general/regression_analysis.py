@@ -64,6 +64,16 @@ class regression_analysis():
             }
     
     def ln_regression(self,dataframe,x_metric,y_metric,time_metric):
+        """Linear Regression Analysis - Automatically tales ln(x) and ln(y)
+        INPUTS:
+            Dataframe       = Pandas dataframe containing relevant datasets
+            x_metric        = String - column heading of x_metric
+            y_metric        = String - column heading of y_metric
+            time_metric     = String - column heading of time metric (not part of in calc)
+        OUTPUT:
+            'model'         = Regression model
+            'model_params   = Dataframe containing RSQ, Intercept and Coefficient Params
+        """
         self.dataframe = dataframe
         self.x_metric = x_metric
         self.y_metric = y_metric
