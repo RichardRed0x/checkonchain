@@ -15,30 +15,24 @@ import os
 os.getcwd()
 os.chdir('D:\code_development\checkonchain\checkonchain')
 
-"""ROADMAP
-Functions pull data from relevant APIs and combine into useful datasets
-
-Current APIs supported
-    - Coinmetrics
-    - dcrdata
-
-Functions Available
-dcr_coin            = coinemtrics with supplemented price data from early data sources
-dcr_sply            = theoretical supply curve with added S2F model
-dcr_sply_curtailed  = dcr_sply curtailed to 0.667 days to reduce df size (reduce load on charts)
-dcr_diff            = dcrdata difficulty for PoS and PoW. Data setup in 144 block windows 
-                        ['blk','window','time','tic_cnt_window','tic_price','tic_miss','pow_diff']
-dcr_perf            - dcrdata blockchain performance 
-                        ['blk','time','dcr_sply','dcr_tic_sply','tic_part','tic_pool','tic_blk','pow_hashrate_THs','pow_work_EH']
-
-"""
 
 class dcr_add_metrics():
     """
-    Central function set for building Pandas DataFrames of Decred metrics
-        Pulls from various APIs
-        Aggregates Data for specific studies
-        Calculates Decred specific metrics
+    Functions for building Pandas DataFrames of Decred specific metrics
+    Aggregates data from supported APIs and calculates Decred specific metrics
+        - Coinmetrics Community
+        - dcrdata
+
+    Functions Available
+    dcr_coin            = coinmetrics community with supplemented price data from early data sources
+    dcr_sply            = theoretical supply curve with added S2F model
+    dcr_sply_curtailed  = dcr_sply curtailed to 0.667 days to reduce df size (reduce load on charts)
+    dcr_diff            = dcrdata difficulty for PoS and PoW. Data setup in 144 block windows 
+                            ['blk','window','time','tic_cnt_window','tic_price','tic_miss','pow_diff']
+    dcr_perf            = dcrdata blockchain performance 
+                            ['blk','time','dcr_sply','dcr_tic_sply','tic_part','tic_pool','tic_blk',
+                            'pow_hashrate_THs','pow_work_EH']
+    
     """
     
     def __init__(self):
@@ -49,17 +43,18 @@ class dcr_add_metrics():
 
     def dcr_coin(self): 
         """
-        Pulls Coinmetrics v2 API Community,
-        Adds age metric (days),
-        Adds Bittrex early price data not included in coinmetrics from csv
-            
+        Pulls Coinmetrics v2 API Community
+            - adds coin age metric (days)
+            - adds coin age metric (supply) = Supply / 21M
+            - adds Bittrex early price data not included in coinmetrics from csv
+
             OUTPUT DATAFRAME COLUMNS:
             'date', 'blk','age_days','age_sply','btc_blk_est',
             'DailyIssuedNtv', 'DailyIssuedUSD', 'inf_pct_ann', 'S2F',
             'AdrActCnt', 'BlkCnt', 'BlkSizeByte', 'BlkSizeMeanByte',
             'CapMVRVCur', 'CapMrktCurUSD', 'CapRealUSD', 'DiffMean', 
             'FeeMeanNtv','FeeMeanUSD', 'FeeMedNtv', 'FeeMedUSD', 'FeeTotNtv', 'FeeTotUSD',
-            'PriceBTC', 'PriceUSD', 'PriceRealised', 'SplyCur',
+            'PriceBTC', 'PriceUSD', 'PriceRealUSD', 'SplyCur',
             'TxCnt', 'TxTfrCnt', 'TxTfrValAdjNtv', 'TxTfrValAdjUSD',
             'TxTfrValMeanNtv', 'TxTfrValMeanUSD', 'TxTfrValMedNtv',
             'TxTfrValMedUSD', 'TxTfrValNtv', 'TxTfrValUSD',
@@ -72,17 +67,27 @@ class dcr_add_metrics():
         df['age_sply'] = df['SplyCur'] / 21e6
         print('...adding PriceUSD and CapMrktCurUSD for $0.49 (founders, 8/9-Feb-2016)')
         print('and Bittrex (10-02-2016 to 16-05-2016)...')
-        #Import Early price data --> founders $0.49 for 8/9 Feb 2016 and Bitrex up to 16-May-2016 (saved in relative link csv)
+        #Import Early price data --> 
+        #   founders $0.49 for 8/9 Feb 2016  
+        #   Bitrex up to 16-May-2016 (saved in relative link csv)
         df_early = pd.read_csv(r"dcronchain\resources\data\dcr_pricedata_2016-02-08_2016-05-16.csv")
         df_early['date'] = pd.to_datetime(df_early['date'],utc=True) #Convert to correct datetime format
         df['notes'] = str('') # add notes for storing data
         for i in df_early['date']: #swap in early price data
-            df.loc[df.date==i,'PriceUSD'] = float(df_early.loc[df_early.date==i,'PriceUSD'])
-            df.loc[df.date==i,'PriceBTC'] = float(df_early.loc[df_early.date==i,'PriceBTC'])
+            #Add Early PriceUSD Data
+            df.loc[df.date==i,'PriceUSD'] = float(
+                df_early.loc[df_early.date==i,'PriceUSD']
+            )
+            #Add Early PriceBTC Data
+            df.loc[df.date==i,'PriceBTC'] = float(
+                df_early.loc[df_early.date==i,'PriceBTC']
+            )
+            #Add Early MarketCap Data
             df.loc[df.date==i,'CapMrktCurUSD'] = (
                 df.loc[df.date==i,'PriceUSD'] * 
                 df.loc[df.date==i,'SplyCur']
             )
+            #Add Notes
             df.loc[df.date==i,'notes'] = df_early.loc[df_early.date==i,'notes']
         # Restructure final dataset
         df = df[[
@@ -91,12 +96,14 @@ class dcr_add_metrics():
             'AdrActCnt', 'BlkCnt', 'BlkSizeByte', 'BlkSizeMeanByte',
             'CapMVRVCur', 'CapMrktCurUSD', 'CapRealUSD', 'DiffMean', 
             'FeeMeanNtv','FeeMeanUSD', 'FeeMedNtv', 'FeeMedUSD', 'FeeTotNtv', 'FeeTotUSD',
-            'PriceBTC', 'PriceUSD', 'PriceRealised', 'SplyCur',
+            'PriceBTC', 'PriceUSD', 'PriceRealUSD', 'SplyCur',
             'TxCnt', 'TxTfrCnt', 'TxTfrValAdjNtv', 'TxTfrValAdjUSD',
             'TxTfrValMeanNtv', 'TxTfrValMeanUSD', 'TxTfrValMedNtv',
             'TxTfrValMedUSD', 'TxTfrValNtv', 'TxTfrValUSD',
             'notes'
             ]]
+        #Reformat datetime
+        #df['date'] = df['date'].dt.strftime('%d-%m-%y')
         return df
 
     def dcr_diff(self):
@@ -216,8 +223,38 @@ class dcr_add_metrics():
         df = self.dcr_sply(to_blk)
         return df.iloc[::dcr_sply_interval,:] #Select every 
 
-
     def dcr_real(self):
+        """
+        Compiles Coinmetrics (dcr_coin) and dcrdata (dcr_natv) for general data analytics
+        OUTPUT COLUMNS:
+            TIME VARIABLES
+                'date'                  - Datetime 
+                'blk'                   - Block Height
+                'age_days'              - Coin Age in Days
+                'age_sply'              - Coin age in Supply (SplyCur/21M)
+                'window'                - Count of difficulty window
+                'CapMrktCurUSD'         - Market Cap (USD)
+                'CapRealUSD'            - Realised Cap (USD)
+                'PriceBTC'              - Price in BTC
+                'PriceUSD'              - Price in USD
+                'PriceRealUSD'          - Realised Price (USD)
+                'DailyIssuedNtv'        - Daily DCR Issued
+                'DailyIssuedUSD'        - Daily Issued USD
+                'TxTfrValNtv'           - Daily Transferred DCR
+                'TxTfrValUSD'           - Daily Transferred USD
+                'S2F'                   - Actual Stock-to-Flow Ratio
+                'inf_pct_ann'           - Annual Inflation Rate
+                'SplyCur'               - DCR Supply (Coinmetrics)
+                'dcr_sply'              - DCR Supply (dcrdata)
+                'dcr_tic_sply_avg'      - Average DCR Supply locked in Tickets over day
+                'tic_day'               - Number of Tickets purchased that day
+                'tic_price_avg'         - Average ticket price over the day
+                'tic_pool_avg'          - Number of tickets in Pool (Target 40,960)
+                'DiffMean'              - Average PoW Difficulty on day (Coinmetrics)
+                'pow_diff_avg'          - Average PoW Difficulty on day (dcrdata)
+                'pow_hashrate_THs_avg'  - Average PoW Hashrate on day (TH/s)
+                'pow_work_TH'           - Cummulative PoW in TH
+        """
         print('...Combining Decred specific metrics - (coinmetrics + dcrdata)...')
         _coin = self.dcr_coin() #Coinmetrics by date
         _natv = self.dcr_natv() #dcrdata API by block
@@ -225,32 +262,77 @@ class dcr_add_metrics():
         #Cull _coin to Key Columns
         _coin = _coin[[
             'date','blk','age_days','age_sply','CapMrktCurUSD','CapRealUSD',
-            'DiffMean','PriceBTC','PriceUSD','PriceRealised',
+            'DiffMean','PriceBTC','PriceUSD','PriceRealUSD',
             'SplyCur','DailyIssuedNtv','DailyIssuedUSD','S2F',
             'inf_pct_ann','TxTfrValNtv','TxTfrValUSD']]
-        #Calculate sum of tickets and avg tic price per day
-        _coin['tic_day'] = _coin['tic_price_avg']=0.0
-        blk_from = 0 #Captures last _coin block (block from)
-        _row = 0 #captures current blk (natv is by block)
+        _coin['CapS2FModel'] = regression_analysis()
+        #Add new columns for transferring _natv data to_coin
+        _coin['tic_day']                = 0.0
+        _coin['tic_price_avg']          = 0.0
+        _coin['tic_pool_avg']           = 0.0
+        _coin['dcr_tic_sply_avg']       = 0.0
+        _coin['pow_diff_avg']           = 0.0
+        _coin['pow_hashrate_THs_avg']   = 0.0
+        blk_from = 0    #Captures last _coin block (block from)
+        _row = 0        #Captures current block height (natv is by block)
         for i in _coin['blk']:
             #Sum tickets bought on the day
-            _coin.loc[_row,['tic_day']]         = float(_natv.loc[blk_from:i,['tic_blk']].sum()) #tickets bought that day
-            _coin.loc[_row,['tic_price_avg']]   = float(_natv.loc[blk_from:i,['tic_price']].mean()) #avg tic price that day
+            _coin.loc[_row,['tic_day']]         = (
+                float(_natv.loc[blk_from:i,['tic_blk']].sum()) #tickets bought that day
+            )
+            #Average Ticket price over day
+            _coin.loc[_row,['tic_price_avg']]   = (
+                float(_natv.loc[blk_from:i,['tic_price']].mean()) #avg tic price that day
+            )
+            #Average Tickets in Pool over day
+            _coin.loc[_row,['tic_pool_avg']]   = (
+                float(_natv.loc[blk_from:i,['tic_pool']].mean()) #avg tic price that day
+            )
+            #Average DCR Locked in Tickets over day
+            _coin.loc[_row,['dcr_tic_sply_avg']]   = (
+                float(_natv.loc[blk_from:i,['dcr_tic_sply']].mean()) #avg tic price that day
+            )
+            #Average PoW Difficulty
+            _coin.loc[_row,['pow_diff_avg']]= (
+                float(_natv.loc[blk_from:i,['pow_diff']].mean()) #avg hashrate that day
+            )
+            #Average PoW Hashrate in TH/s
+            _coin.loc[_row,['pow_hashrate_THs_avg']]= (
+                float(_natv.loc[blk_from:i,['pow_hashrate_THs']].mean()) #avg hashrate that day
+            )
             blk_from = i
             _row += 1
         #Merge _coin and _natv
-        df = pd.merge(_coin,_natv.drop(['tic_cnt_window'],axis=1),on='blk',how='left')
+        df = pd.merge(
+            _coin,
+            _natv.drop(
+                ['tic_cnt_window','pow_diff','pow_hashrate_THs','tic_pool','dcr_tic_sply'],axis=1
+                ),on='blk',how='left'
+            )
+        #Compile into final ordered dataframe
         df = df[[
-            'date', 'blk', 'age_days','age_sply','window',
-            'CapMrktCurUSD', 'CapRealUSD','PriceBTC', 'PriceUSD', 'PriceRealised', 
-            'DailyIssuedNtv','DailyIssuedUSD','TxTfrValNtv','TxTfrValUSD',
-            'S2F', 'inf_pct_ann','SplyCur','dcr_tic_sply', 'dcr_sply',
-            'tic_day', 'tic_price_avg','tic_price', 'tic_blk', 'tic_pool', 
-            'DiffMean','pow_diff', 'pow_hashrate_THs', 'pow_work_TH'
+            'date', 'blk', 'age_days','age_sply','window',                          #Time Metrics
+            'CapMrktCurUSD', 'CapRealUSD','PriceBTC', 'PriceUSD', 'PriceRealUSD',   #Value Metrics
+            'DailyIssuedNtv','DailyIssuedUSD','TxTfrValNtv','TxTfrValUSD',          #Transaction Metrics
+            'S2F', 'inf_pct_ann','SplyCur', 'dcr_sply',                             #Supply Metrics
+            'dcr_tic_sply_avg','tic_day', 'tic_price_avg', 'tic_pool_avg',          #Ticket Metrics
+            'DiffMean','pow_diff_avg', 'pow_hashrate_THs_avg', 'pow_work_TH'        #PoW Metrics
             ]]
         return df
 
     def dcr_subsidy_models(self):
+        """
+        Calculates DataFrame Cols for Decred block subsidy Models (Permabull Nino, 2019)
+            Note 'X' in col name can be replaced by dcr, usd, btc for different metrics
+            Results are daily, applying .cumsum() will provide lifetime aggregate
+            Starting df = dcr_real
+        OUTPUT COLUMNS: 
+            'PoW_income_X'      = Daily subsidy paid to PoW Miners
+            'PoS_income_X'      = Daily subsidy paid to PoS Stakeholders
+            'Fund_income_X'     = Daily subsidy paid to Treasury Fund
+            'Total_income_X'    = Total Daily subsidy paid by protocol
+        """
+
         print('...Calculating Decred block subsidy models...')
         df = self.dcr_real()
         #Calculate PoS Return on Investment
@@ -270,38 +352,68 @@ class dcr_add_metrics():
         df['Total_income_btc']  = df['Total_income_dcr']*df['PriceBTC']
         return df
 
-    def dcr_multiples(self):
-        df = self.dcr_subsidy_models()
-        df['mayer_multiple'] = df['PriceUSD']/df['PriceUSD'].rolling(200).mean()
-        df['S2F_multiple']  = (
-            df['PriceUSD'] / math.exp(-1.84) * df['S2F']**3.36
-        )
-        df['diff_multiple'] = 1
-
-        return df
-
     def dcr_ticket_models(self):  #Calculate Ticket Based Valuation Metrics
+        """
+        Calculates Ticket specific metrics for Decred
+            Starting df = dcr_subsidy_models
+        OUTPUT COLUMNS:
+            'dcr_tic_vol'       = Daily DCR Transaction Volume associated with ticket purchases
+            'dcr_tfr_vol'       = Daily DCR Transaction Volume Not associated with tickets
+            'tic_tfr_vol_ratio' = Ratio of tickets to total DCR transaction volume
+            'tic_usd_cost'      = Daily USD Spend on Tickets
+            'CapTicUSD'         = Ticket Cap, cummulative spend on tickets
+            'CapTicPrice'       = Ticket Investment Price = Ticket Cap / Circulating Supply
+        """
         print('...Calculating Decred Ticket models...')
         df = self.dcr_subsidy_models()
-        # Ticket Cap = cummulative USD put into tickets
-        df['tic_dcr_cost'] = df['tic_day'] * df['tic_price_avg']
-        df['tic_usd_cost'] = df['tic_dcr_cost'] * df['PriceUSD']
-        df['CapTic'] = df['tic_usd_cost'].cumsum()
-        df['CapTicPrice'] = df['CapTic'] / df['SplyCur']
-
-        #Calculate Ticket Volume On-chain
+        #Calculate Ticket Volumes On-chain
+        #   Daily DCR Transaction Volume associated with ticket purchases
         df['dcr_tic_vol'] = df['tic_day'] * df['tic_price_avg']
+        #   Daily DCR Transaction Volume Not associated with tickets
         df['dcr_tfr_vol'] = df['TxTfrValNtv'] - df['dcr_tic_vol']
-        df['tic_tfr_ratio'] = df['dcr_tic_vol'] / df['dcr_tfr_vol']
+        #   Ratio of tickets to total DCR transaction volume
+        df['tic_tfr_vol_ratio'] = df['dcr_tic_vol'] / df['TxTfrValNtv']
 
+        #Ticket Investment Metrics
+        #   Daily USD Spend on Tickets
+        df['tic_usd_cost']  = df['dcr_tic_vol'] * df['PriceUSD']
+        #   Ticket Cap = cummulative spend on tickets
+        df['CapTicUSD']     = df['tic_usd_cost'].cumsum()
+        #   Ticket Investment Price = Ticket Cap / Circulating Supply
+        df['CapTicPrice']   = df['CapTicUSD'] / df['SplyCur']
 
-        #Calculate Aggregate Ticket Risk-Reward
-        #Risk = 28 to 142 day volatility of ticket value
-        #Reward = PoS_income_dcr
-        df['dcr_hodl_rating'] = (df['tic_dcr_cost'] / df['PoS_income_dcr'])
-        df['dcr_hodl_rating_tot'] = df['dcr_hodl_rating']*df['SplyCur']*df['PriceUSD']
-        df['dcr_hodl_rating_pool'] = df['dcr_hodl_rating']*df['dcr_tic_sply']/1e8*df['PriceUSD']
-        df['dcr_hodl_rating_posideal'] = df['dcr_hodl_rating']*df['SplyCur']*self.blkrew_ratio[1]*df['PriceUSD']
+        #Calculate Aggregate Stakeholder Ticket Risk-Reward
+        #[UNDER CONSTRUCTION]
+        #       Risk = 28 to 142 day volatility of ticket value
+        #       Reward = PoS_income_dcr
+        #DCR_HODL Rating = Daily DCR Spent on tickets / PoS Income in DCR
+        #df['dcr_hodl']          = (df['dcr_tic_vol'] / df['PoS_income_dcr'])
+        #df['dcr_hodl_pool']     = df['dcr_hodl']*df['dcr_tic_sply_avg']/1e8*df['PriceUSD']
+        #df['dcr_hodl_posideal'] = df['dcr_hodl']*df['SplyCur']*self.blkrew_ratio[1]*df['PriceUSD']
+        return df
+
+        def dcr_multiples(self):
+            df = self.dcr_ticket_models()
+            """
+            Calculates DataFrame columns for ratios
+                Starting df = dcr_ticket_models
+            """
+            #Block Subsidy Multiples
+            #   Calculates Ratio of Market value to block subsidy Income
+            df['PoW_multiple']  = df['CapMrktCurUSD'] / df['PoW_income_usd'].cumsum()
+            df['PoS_multiple']  = df['CapMrktCurUSD'] / df['PoS_income_usd'].cumsum()
+            df['Fund_multiple'] = df['CapMrktCurUSD'] / df['Fund_income_usd'].cumsum()
+            df['Subs_multiple'] = df['CapMrktCurUSD'] / df['Total_income_usd'].cumsum()
+            
+            #Ticket Cap Mutliples
+            
+            
+            #Pricing Multiples
+            df['mayer_multiple'] = df['PriceUSD']/df['PriceUSD'].rolling(200).mean()
+            df['S2F_multiple']  = (
+                df['PriceUSD'] / math.exp(-1.84) * df['S2F']**3.36
+            )
+        #df['diff_multiple'] = 1
         return df
 
     def dcr_pricing_models(self):
@@ -309,8 +421,8 @@ class dcr_add_metrics():
         _real = self.dcr_real()
         df = _real
         #BTC Realised CAP
-        df['CapRealised_BTC'] = df['TxTfrValNtv']*df['PriceBTC']
-        df['CapRealised_BTC'] = df['CapRealised_BTC'].cumsum()/df['SplyCur']
+        df['CapRealBTC'] = df['TxTfrValNtv']*df['PriceBTC']
+        df['CapRealBTC'] = df['CapRealBTC'].cumsum()/df['SplyCur']
         # Average Cap and Average Price
         df['CapAvg'] = df['CapMrktCurUSD'].fillna(0.0001) #Fill not quite to zero for Log charts/calcs
         df['CapAvg'] = df['CapAvg'].expanding().mean()
@@ -360,34 +472,9 @@ class dcr_add_metrics():
         return df
 
 
-from checkonchain.general.regression_analysis import *
-DCR_coin = dcr_add_metrics().dcr_coin()
-
-
-DCR_diff = dcr_add_metrics().dcr_diff()
-DCR_perf = dcr_add_metrics().dcr_perf()
-DCR_natv = dcr_add_metrics().dcr_natv()
-DCR_real = dcr_add_metrics().dcr_real()
-DCR_sply = dcr_add_metrics().dcr_sply(500000)
-
-#
-#x_data = [
-#    DCR_real['date'],
-#    DCR_real['date'],
-#    DCR_real['date'],
-#    DCR_real['date']
-#]
-#y_data = [
-#    DCR_real['TxTfrValNtv'],#.rolling(28).mean(),
-#    DCR_real['dcr_tic_day'],#.rolling(28).mean(),
-#    DCR_real['PriceBTC'],#.rolling(28).mean()
-#    DCR_real['BTC_RC']
-#]
-#name_data = ['DCR Tx Total','DCR Tx Tickets','DCRBTC Price','DCRBTC Realised']
-#loop_data = [[0,1],[2,3]]
-#title_data = ['DCR Tickets vs Transfers','date','DCR Moving Onchain','DCR BTC Price']
-#type_data = ['date','log','log']
-#fig = check_standard_charts().basic_chart(x_data,y_data,name_data,loop_data,title_data,type_data).show()
-
-
-
+#DCR_coin = dcr_add_metrics().dcr_coin()
+#DCR_diff = dcr_add_metrics().dcr_diff()
+#DCR_perf = dcr_add_metrics().dcr_perf()
+#DCR_natv = dcr_add_metrics().dcr_natv()
+#DCR_real = dcr_add_metrics().dcr_real()
+#DCR_sply = dcr_add_metrics().dcr_sply(500000)

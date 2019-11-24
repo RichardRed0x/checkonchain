@@ -44,7 +44,8 @@ class check_standard_charts():
         self._gridcolor = 'rgb(50,50,50)'
         self._gridwidth = 0.1
         self._zerolinecolor = 'rgb(50,50,50)'
-
+        self._annotation = '@_checkmatey_'
+        self._annotation_y = 1.0 #Y Position
 
     def basic_chart(self,x_data,y_data,name_data,loop_data,title_data,type_data):
         fig = make_subplots(specs=[[{"secondary_y": True}]])
@@ -122,8 +123,8 @@ class check_standard_charts():
             annotations=[
                 go.layout.Annotation(
                     x=0.5,
-                    y=0.95,
-                    text="@_checkmatey_",
+                    y=self._annotation_y,
+                    text=self._annotation,
                     showarrow=False,
                     xref="paper",
                     yref="paper",
@@ -244,8 +245,8 @@ class check_standard_charts():
             annotations=[
                 go.layout.Annotation(
                     x=0.5,
-                    y=0.95,
-                    text="@_checkmatey_",
+                    y=self._annotation_y,
+                    text=self._annotation,
                     showarrow=False,
                     xref="paper",
                     yref="paper",

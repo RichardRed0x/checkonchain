@@ -90,8 +90,11 @@ class dcr_supply_schedule:
         return df
 
 
-    def dcr_premine(self,dcr_real):
+    def dcr_premine(self,dcr_real,blk_max):
         response = dcr_real
+        self.blk_max = blk_max
+        dcr_sply = self.dcr_supply_function()
+        response = dcr_real.merge(dcr_sply,on='blk',copy=False)
         #Calculate relative DCR holdings
         response['pmine_c0']                        = self.initial_F #initial founder reward
         response['pmine_c0_spent']                  = self.initial_F * self.founder_spent #spent founder reward
@@ -100,9 +103,9 @@ class dcr_supply_schedule:
         response['pmine_com_spent']                 = self.initial_S * self.community_spent #spent founder reward
         response['pmine_com_unspent']               = self.initial_S * self.community_unspent #spent founder reward
 
-        #Calculkate staking rewards by block - cut where no DCR was in the pool
-        response = response[response['ticket_pool_value']>0]
-        response['spent_pool_ratio'] = (response['pmine_com_spent']+response['pmine_c0_spent'])/response['ticket_pool_value']
+        #Calculate staking rewards by block - cut where no DCR was in the pool
+        response = response[response['dcr_tic_sply_avg']>0]
+        response['spent_pool_ratio'] = (response['pmine_com_spent']+response['pmine_c0_spent'])/response['dcr_tic_sply_avg']
 
         _c0_com_spent_ratio = (self.initial_F * self.founder_spent)/(self.initial_S * self.community_spent+self.initial_F * self.founder_spent)
         #Calculate absolute worst case where no PoW rewards are staked and C0 and community spent all stake

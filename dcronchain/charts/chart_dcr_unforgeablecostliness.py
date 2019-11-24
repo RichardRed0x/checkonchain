@@ -23,11 +23,20 @@ in Stafford (2019)
 4. Decred cost to attack = P_y(PoS) + x_y(PoW)
 """
 
+#Compile Input Dataframes
 BTC_subs = btc_add_metrics().btc_subsidy_models()
-BTC_subs['Unforg_Cost'] = BTC_subs['PoW_income_usd'].cumsum()
 DCR_subs = dcr_add_metrics().dcr_ticket_models()
+BTC_fee = btc_add_metrics().btc_coin()
+
+#Calculate Unforgeable Costliness (cummulative Sum)
+BTC_subs['Unforg_Cost'] = BTC_subs['PoW_income_usd'].cumsum()
 DCR_subs['PoW_Cost'] = DCR_subs['PoW_income_usd'].cumsum()
 DCR_subs['PoS_Cost'] = DCR_subs['PoS_income_usd'].cumsum()
+
+#Calculate Unforgeable Costliness (cummulative Sum)
+BTC_subs['Unforg_Cost_Daily'] = BTC_subs['PoW_income_usd']
+DCR_subs['PoW_Cost_Daily'] = DCR_subs['PoW_income_usd']
+DCR_subs['PoS_Cost_Daily'] = DCR_subs['PoS_income_usd']
 
 #Calculate Range of Decred Security Conditions
 for y in range(5,105,5): #Assume range of Attacker ticket stake ownership
@@ -47,17 +56,25 @@ for y in range(5,105,5): #Assume range of Attacker ticket stake ownership
     sig_y   = 1-P_y         #Probability honest tickets  make valid block
     x_y     = (1 / P_y) - 1 #Attacker required hashpower for given stake
     col_name = 'Unforg_Cost_'+str(int(y*100))+'%' #Set column name
-    DCR_subs[col_name] = P_y * DCR_subs['PoS_Cost'] + x_y * DCR_subs['PoW_Cost']
+    DCR_subs[col_name] = (  #Cummulative Unforgeable Cost
+        P_y * DCR_subs['PoS_Cost'] + x_y * DCR_subs['PoW_Cost']
+    )
+    DCR_subs[col_name+'_Daily'] = ( #Daily Unforgeable Cost
+        P_y * DCR_subs['PoS_Cost_Daily'] + x_y * DCR_subs['PoW_Cost_Daily']
+    )
 
 #Calculate monetary premium over pure PoW Energy Expendature
 BTC_subs['PoW_Premium'] = BTC_subs['CapMrktCurUSD'] / BTC_subs['Unforg_Cost']
 DCR_subs['PoW_Premium'] = DCR_subs['CapMrktCurUSD'] / DCR_subs['Unforg_Cost_100%']
 
-BTC_fee = btc_add_metrics().btc_coin()
 
+
+#Set Toggle to 1 for Market Cap, XXX_subs['SplyCur'] for Price
+toggle_btc = 1#BTC_subs['SplyCur']
+toggle_dcr = 1#DCR_subs['SplyCur']
 """
 #############################################################################
-                    UNFORGEABLE COSTLINESS
+                    UNFORGEABLE COSTLINESS - CUMMULATIVE
 #############################################################################
 """
 loop_data = [[0,1,2,3,4,5,6,7,8],[9,10]]
@@ -70,11 +87,11 @@ x_data = [
     BTC_subs['age_sply'],DCR_subs['age_sply'],   #Pow Premium Secondary
     ]
 y_data = [
-    BTC_subs['CapMrktCurUSD'],DCR_subs['CapMrktCurUSD'],        #Market Caps
-    BTC_subs['Unforg_Cost']+BTC_fee['FeeTotUSD'].cumsum(),                                    #BTC UC
-    DCR_subs['Unforg_Cost_5%'],DCR_subs['Unforg_Cost_10%'],     #DCR UC
-    DCR_subs['Unforg_Cost_15%'],DCR_subs['Unforg_Cost_30%'],    #DCR UC
-    DCR_subs['Unforg_Cost_50%'],DCR_subs['Unforg_Cost_95%'],   #DCR UC
+    BTC_subs['CapMrktCurUSD']/toggle_btc,DCR_subs['CapMrktCurUSD']/toggle_dcr,        #Market Caps
+    (BTC_subs['Unforg_Cost']+BTC_fee['FeeTotUSD'].cumsum())/toggle_btc,                                    #BTC UC
+    DCR_subs['Unforg_Cost_5%']/toggle_dcr,DCR_subs['Unforg_Cost_10%']/toggle_dcr,     #DCR UC
+    DCR_subs['Unforg_Cost_15%']/toggle_dcr,DCR_subs['Unforg_Cost_30%']/toggle_dcr,    #DCR UC
+    DCR_subs['Unforg_Cost_50%']/toggle_dcr,DCR_subs['Unforg_Cost_75%']/toggle_dcr,   #DCR UC
     BTC_subs['PoW_Premium'],DCR_subs['PoW_Premium'],            #Pow Premium Secondary
     ]
 name_data = [
@@ -82,7 +99,7 @@ name_data = [
     'BTC Unforgeable Cost',
     'DCR Unforgeable Cost 5%','DCR Unforgeable Cost 10%',
     'DCR Unforgeable Cost 15%','DCR Unforgeable Cost 30%',
-    'DCR Unforgeable Cost 50%','DCR Unforgeable Cost 95%',
+    'DCR Unforgeable Cost 50%','DCR Unforgeable Cost 75%',
     'BTC Pure PoW Premium','DCR Pure PoW Premium',
     ]
 color_data = [
@@ -91,7 +108,7 @@ color_data = [
     'rgb(255, 80, 80)','rgb(255, 102, 102)',
     'rgb(255, 153, 102)','rgb(255, 255, 102)',
     'rgb(156,225,43)', 'rgb(1, 255, 116)',
-    'rgb(255, 255, 255)', 'rgb(46, 214, 161)',
+    'rgb(255, 102, 0)', 'rgb(46, 214, 161)',
     ]
 dash_data = [
     'solid','solid',
@@ -99,7 +116,7 @@ dash_data = [
     'solid','solid',
     'solid','solid',
     'solid','solid',
-    'dot','dot',
+    'solid','solid',
     ]
 width_data = [
     2,2,2,1,1,1,1,1,1,1,1
@@ -120,7 +137,97 @@ title_data = [
     'Cost to Attack Network (USD)',
     'Pure PoW Premium Ratio']
 range_data = [[0,1],[4,12],[-1,5]]
-autorange_data = [False,False,False]
+autorange_data = [False,True,False]
+type_data = ['linear','log','log']#
+fig = check_standard_charts().subplot_lines_doubleaxis(
+    title_data, range_data ,autorange_data ,type_data,
+    loop_data,x_data,y_data,name_data,color_data,
+    dash_data,width_data,opacity_data,legend_data
+    )
+#Increase tick spacing
+fig.update_xaxes(dtick=0.1)
+fig.show()
+
+
+#Set Toggle to 1 for Market Cap, XXX_subs['SplyCur'] for Price
+toggle_btc = 1#BTC_subs['SplyCur']
+toggle_dcr = 1#DCR_subs['SplyCur']
+
+
+"""
+#############################################################################
+                    UNFORGEABLE COSTLINESS - DAILY
+#############################################################################
+"""
+loop_data = [[0,1,2,3,4,5,6,7,8],[9,10]]
+x_data = [
+    BTC_subs['age_sply'],DCR_subs['age_sply'],  #Market Caps
+    BTC_subs['age_sply'],                       #BTC UC
+    DCR_subs['age_sply'],DCR_subs['age_sply'],  #DCR UC
+    DCR_subs['age_sply'],DCR_subs['age_sply'],  #DCR UC
+    DCR_subs['age_sply'],DCR_subs['age_sply'],  #DCR UC
+    BTC_subs['age_sply'],DCR_subs['age_sply'],   #Pow Premium Secondary
+    ]
+y_data = [
+    BTC_subs['CapMrktCurUSD']/toggle_btc,DCR_subs['CapMrktCurUSD']/toggle_dcr,        #Market Caps
+    (BTC_subs['Unforg_Cost_Daily']+BTC_fee['FeeTotUSD'])/toggle_btc,                                    #BTC UC
+    DCR_subs['Unforg_Cost_5%_Daily']/toggle_dcr,DCR_subs['Unforg_Cost_10%_Daily']/toggle_dcr,     #DCR UC
+    DCR_subs['Unforg_Cost_15%_Daily']/toggle_dcr,DCR_subs['Unforg_Cost_30%_Daily']/toggle_dcr,    #DCR UC
+    DCR_subs['Unforg_Cost_50%_Daily']/toggle_dcr,DCR_subs['Unforg_Cost_75%_Daily']/toggle_dcr,   #DCR UC
+    BTC_subs['PoW_Premium'],DCR_subs['PoW_Premium'],            #Pow Premium Secondary
+    ]
+name_data = [
+    'BTC Market Cap','DCR Market Cap',
+    'BTC Attack Cost',
+    'DCR Attack Cost 5%','DCR Attack Cost 10%',
+    'DCR Attack Cost 15%','DCR Attack Cost 30%',
+    'DCR Attack Cost 50%','DCR Attack Cost 75%',
+    'BTC Pure PoW Premium','DCR Pure PoW Premium',
+    ]
+color_data = [
+    'rgb(255, 255,255)' ,'rgb(46, 214, 161)' ,
+    'rgb(255, 102, 0)',
+    'rgb(255, 80, 80)','rgb(255, 102, 102)',
+    'rgb(255, 153, 102)','rgb(255, 255, 102)',
+    'rgb(156,225,43)', 'rgb(1, 255, 116)',
+    'rgb(255, 255, 255)', 'rgb(46, 214, 161)',
+    ]
+dash_data = [
+    'dot','dot',
+    'solid',
+    'solid','solid',
+    'solid','solid',
+    'solid','solid',
+    'dot','dot',
+    ]
+width_data = [
+    1,1,
+    2,
+    2,2,2,
+    2,2,2,
+    1,1
+    ]
+opacity_data = [
+    1,1,
+    1,
+    1,1,1,
+    1,1,1,
+    1,1
+    ]
+legend_data = [
+    True,True,
+    True,
+    True,True,True,
+    True,True,True,
+    True,True
+    ]#
+title_data = [
+    'Daily Cost to Attack',
+    'Coin Age (Supply/21M)',
+    'Cost to Attack Network (USD)',
+    'Pure PoW Premium Ratio']
+range_data = [[0,1],[4,12],[-1,5]]
+autorange_data = [False,True,False]
 type_data = ['linear','log','log']#
 fig = check_standard_charts().subplot_lines_singleaxis(
     title_data, range_data ,autorange_data ,type_data,
@@ -155,7 +262,7 @@ ETH['age_sply'] = ETH['SplyCur']/135e6
 
 LTC['Unforg_Cost'] = LTC['DailyIssuedNtv'] *LTC['PriceUSD'] 
 BCH['Unforg_Cost'] = BCH['DailyIssuedNtv'] *BCH['PriceUSD'] 
-DASH['Unforg_Cost']= DASH['DailyIssuedNtv']*DASH['PriceUSD']
+DASH['Unforg_Cost']= DASH['DailyIssuedNtv']*DASH['PriceUSD'] + 1000*DASH['PriceUSD'] #1x MN
 XMR['Unforg_Cost'] = XMR['DailyIssuedNtv'] *XMR['PriceUSD'] 
 ZEC['Unforg_Cost'] = ZEC['DailyIssuedNtv'] *ZEC['PriceUSD'] 
 ETH['Unforg_Cost'] = ETH['DailyIssuedNtv'] *ETH['PriceUSD'] 
@@ -176,8 +283,8 @@ x_data = [
 y_data = [
     BTC_subs['Unforg_Cost'],
     DCR_subs['Unforg_Cost_5%'],DCR_subs['Unforg_Cost_10%'],  
-    DCR_subs['Unforg_Cost_30%'],DCR_subs['Unforg_Cost_50%'], 
-    DCR_subs['Unforg_Cost_65%'],DCR_subs['Unforg_Cost_95%'],
+    DCR_subs['Unforg_Cost_15%'],DCR_subs['Unforg_Cost_30%'], 
+    DCR_subs['Unforg_Cost_50%'],DCR_subs['Unforg_Cost_75%'],
     LTC['Unforg_Cost'].cumsum(),
     BCH['Unforg_Cost'].cumsum(),
     DASH['Unforg_Cost'].cumsum(),
@@ -187,8 +294,8 @@ y_data = [
     ]
 name_data = [
     'BTC',
-    'DCR 5%','DCR 10%','DCR 30%',
-    'DCR 50%','DCR 65%','DCR 95%',
+    'DCR 5%','DCR 10%','DCR 15%',
+    'DCR 30%','DCR 50%','DCR 75%',
     'LTC',
     'BCH',
     'DASH',
@@ -198,8 +305,9 @@ name_data = [
     ]
 color_data = [
     'rgb(255, 102, 0)',
-    'rgb(46, 214, 161)' ,'rgb(46, 214, 161)' ,'rgb(46, 214, 161)' ,
-    'rgb(46, 214, 161)' ,'rgb(46, 214, 161)' ,'rgb(46, 214, 161)' ,
+    'rgb(255, 80, 80)','rgb(255, 102, 102)',
+    'rgb(255, 153, 102)','rgb(255, 255, 102)',
+    'rgb(156,225,43)', 'rgb(1, 255, 116)',
     'rgb(214, 214, 194)',
     'rgb(0, 153, 51)',  
     'rgb(51, 204, 255)',
@@ -255,15 +363,17 @@ fig.show()
 #############################################################################
 """
 
-dcr_security_curve = dcr_security_calculate_df().dcr_security_curve()
+DCR_Secure = dcr_security_calculate_df().dcr_security_curve()
+DCR_Secure[50:100]
+
 loop_data = [[0],[2]]
-x_data = [dcr_security_curve['y'],[0,1],dcr_security_curve['y']]
-y_data = [dcr_security_curve['x_y'],[1,1],dcr_security_curve['days_buy_y']]
+x_data = [DCR_Secure['y'],[0,1],DCR_Secure['y']]
+y_data = [DCR_Secure['x_y'],[1,1],DCR_Secure['days_buy_y']]
 name_data = ['Decred Security Curve','Bitcoin Security Curve','Days to Buy Tickets in Full Blocks']
 title_data = [
     'DCR Security Curve',
     'Attacker Share of Ticket Pool',
-    'Attacker Require Hashpower Multiple',
+    'Required Multiple of Honest Hashpower',
     'Days to Buy Tickets in Full Blocks'
     ]
 color_data = [
@@ -274,8 +384,8 @@ color_data = [
 dash_data = ['solid','solid','dash']
 width_data = [2,2,2]
 opacity_data = [1,1,1]
-type_data = ['linear','linear','linear']
-range_data = [[0,1],[0,10],[0,10]]
+type_data = ['linear','log','linear']
+range_data = [[0,0.75],[-1,5],[0,6]]
 autorange_data = [False,False,False]
 legend_data = [True,True,True]
 fig = check_standard_charts().subplot_lines_doubleaxis(
@@ -284,7 +394,77 @@ fig = check_standard_charts().subplot_lines_doubleaxis(
     dash_data,width_data,opacity_data,legend_data
     )
 #Increase tick spacing
-fig.update_xaxes(dtick=0.1)
+fig.update_xaxes(dtick=0.05)
 fig.update_yaxes(dtick=1,secondary_y=False)
 fig.update_yaxes(dtick=1,secondary_y=True)
+fig.update_layout(legend=dict(x=0.1, y=0.9))
 fig.show()
+
+
+"""
+#############################################################################
+                    BITCOIN AND DECRED POW GROWTH
+#############################################################################
+"""
+
+BTC_hash = btc_add_metrics().btc_hash()
+DCR_hash = DCR_subs[DCR_subs['pow_hashrate_THs_avg']>1]
+
+
+loop_data = [[0,1,4,5],[2,3]]
+x_data = [
+    BTC_hash['age_days'],DCR_hash['age_days'],
+    BTC_hash['age_days'],DCR_hash['age_days'],
+    BTC_hash['age_days'],DCR_hash['age_days'],
+    ]
+y_data = [
+    BTC_hash['DiffMean'],DCR_hash['DiffMean'],
+    BTC_hash['pow_hashrate_THs']*1000,DCR_hash['pow_hashrate_THs_avg'],
+    BTC_hash['CapMrktCurUSD'],DCR_hash['CapMrktCurUSD'],
+    ]
+name_data = [
+    'Bitcoin Difficulty','Decred Difficulty',
+    'Bitcoin Hashrate','Decred Hashrate',
+    'Bitcoin Market Cap','Decred Market Cap',
+    ]
+color_data = [
+    'rgb(255, 102, 0)' , 'rgb(46, 214, 161)' ,
+    'rgb(254, 215, 140)','rgb(65, 191, 83)',
+    'rgb(255, 102, 0)' , 'rgb(46, 214, 161)' ,
+    #'rgb(255, 80, 80)','rgb(255, 102, 102)',
+    #'rgb(255, 153, 102)','rgb(255, 255, 102)',
+    #'rgb(156,225,43)', 'rgb(1, 255, 116)',
+    #'rgb(255, 255, 255)', 'rgb(46, 214, 161)',
+    ]
+dash_data = [
+    'solid','solid',
+    'solid','solid',
+    'dot','dot',
+    ]
+width_data = [
+    2,2,1,1,1,1
+    ]
+opacity_data = [
+    1,1,1,1,0.5,0.5
+    ]
+legend_data = [
+    True,True,True,True,True,True,
+    ]#
+title_data = [
+    'Proof of Work Growth',
+    'Coin Age (Days since Launch)',
+    'Protocol Difficulty',
+    'Network Hashrate (TH/s)']
+range_data = [[0,12*365],[0,14],[-6,9]]
+autorange_data = [True,False,True]
+type_data = ['linear','log','log']#
+fig = check_standard_charts().subplot_lines_doubleaxis(
+    title_data, range_data ,autorange_data ,type_data,
+    loop_data,x_data,y_data,name_data,color_data,
+    dash_data,width_data,opacity_data,legend_data
+    )
+#Increase tick spacing
+fig.update_xaxes(dtick=365)
+fig.show()
+
+

@@ -7,11 +7,8 @@ os.chdir('D:\code_development\checkonchain\checkonchain')
 
 
 from checkonchain.dcronchain.charts.__init__ import *
-
 from checkonchain.btconchain.btc_add_metrics import *
-
 from checkonchain.dcronchain.dcr_add_metrics import *
-
 from checkonchain.ltconchain.ltc_add_metrics import *
 """**************************************************************************
                             Part 0 - Code Setup
@@ -21,22 +18,23 @@ from checkonchain.ltconchain.ltc_add_metrics import *
 
 """##### Bitcoin #####"""
 print('CALCULATING BITCOIN DATAFRAMES')
-BTC_sply = btc_add_metrics().btc_sply(2400000) #Theoretical Supply curve
-BTC_real = btc_add_metrics().btc_pricing_models() #Actual Performance
+BTC_sply = btc_add_metrics().btc_sply_curtailed(2400000) #Theoretical Supply curve
+BTC_real = btc_add_metrics().btc_real() #Actual Performance
 BTC_half = btc_supply_schedule(0).btc_halvings_stepped() # Calculate Max-Min step to plot up Bitcoin halvings
 # Blockchain.com hashrate w/ coinmetrics block (UPDATE 5 Oct 2019)
 # Note need to add coinmetrics block manually
-BTC_hash = pd.read_csv(r"btconchain\data\btc_blockchaincom_hashrate.csv")
-BTC_hash
-BTC_hash = pd.concat([BTC_hash.set_index('blk',drop=False),BTC_real[['blk','date']].set_index('blk',drop=True)],axis=1,join='inner')
-BTC_hash = BTC_hash.drop(BTC_hash.index[0])
-BTC_hash.reset_index(drop=True)
+BTC_hash = btc_add_metrics().btc_hash() #Actual Performance
+#BTC_hash = pd.read_csv(r"btconchain\data\btc_blockchaincom_hashrate.csv")
+#BTC_hash
+#BTC_hash = pd.concat([BTC_hash.set_index('blk',drop=False),BTC_real[['blk','date']].set_index('blk',drop=True)],axis=1,join='inner')
+#BTC_hash = BTC_hash.drop(BTC_hash.index[0])
+#BTC_hash.reset_index(drop=True)
 
 
 """##### Decred #####"""
 print('CALCULATING DECRED DATAFRAMES')
 DCR_sply = dcr_add_metrics().dcr_sply(2400000*2-33600*2) #Theoretical Supply curve
-DCR_real = dcr_add_metrics().dcr_pricing_models() #Actual Market Performance
+DCR_real = dcr_add_metrics().dcr_real() #Actual Market Performance
 DCR_natv = dcr_add_metrics().dcr_natv() #Actual On-chain Performance
 # Calculate the btc_block where supply = 1.68million BTC
 dcr_btc_blk_start = int(BTC_sply[BTC_sply['Sply_ideal']==1680000]['blk'])
@@ -47,11 +45,11 @@ DCR_real['btc_blk'] = dcr_btc_blk_start + 0.5*DCR_real['blk']
 
 """##### Litecoin #####"""
 print('CALCULATING LITECOIN DATAFRAMES')
-LTC_sply = ltc_add_metrics().ltc_sply(1200000*4) #Theoretical Supply curve
-LTC_real = ltc_add_metrics().ltc_real() #Actual Performance
+#LTC_sply = ltc_add_metrics().ltc_sply(1200000*4) #Theoretical Supply curve
+#LTC_real = ltc_add_metrics().ltc_real() #Actual Performance
 #Calculate BTC block height assuming LTC launched on same date (0.25x)
-LTC_sply['btc_blk'] = 0.25*LTC_sply['blk']
-LTC_real['btc_blk'] = 0.25*LTC_real['blk']
+#LTC_sply['btc_blk'] = 0.25*LTC_sply['blk']
+#LTC_real['btc_blk'] = 0.25*LTC_real['blk']
 
 
 """**************************************************************************
@@ -398,7 +396,7 @@ class dcrbtc_monetary_policy():
     
 #dcrbtc_monetary_policy().chart_dcrbtc_sply_area().show()
 #dcrbtc_monetary_policy().chart_dcrbtc_sply_s2f().show()
-dcrbtc_monetary_policy().chart_dcrbtc_sply_marketcap().show()
+#dcrbtc_monetary_policy().chart_dcrbtc_sply_marketcap().show()
 #dcrbtc_monetary_policy().chart_dcrbtc_s2f_model().show()
 
 
@@ -843,18 +841,15 @@ class dcrbtc_pow_security():
                         CREATE PLOT 03
             SUPPLY AND DEMAND - % of Supply Mined VS Market Cap
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"""
-        BTC_real['coins_mined'] = BTC_real['SplyCur']/21e6
-        DCR_real['coins_mined'] = DCR_real['SplyCur']/21e6
-        
-        btc_01 = BTC_real[BTC_real['coins_mined']<=0.1]
+        btc_01 = BTC_real[BTC_real['age_sply']<=0.1]
         btc_01 = btc_01['DiffMean'][btc_01.index[-1]]
-        dcr_01 = DCR_real[DCR_real['coins_mined']<=0.1]
+        dcr_01 = DCR_real[DCR_real['age_sply']<=0.1]
         dcr_01 = DCR_real['pow_diff'][DCR_real.index[0]]
 
         loop_data = [[0,1],[]]
         x_data = [
-            BTC_real['SplyCur']/21e6,
-            DCR_real['SplyCur']/21e6,
+            BTC_real['age_sply'],
+            DCR_real['age_sply'],
             #LTC_real['SplyCur']/84e6,
             BTC_half['end_pct_totsply']
             ]
@@ -912,22 +907,21 @@ class dcrbtc_pow_security():
         autorange_data = [False,True,True]
         
         
-        fig=check_standard_charts(
+        fig=check_standard_charts().subplot_lines_doubleaxis(
             title_data,
             range_data,
             type_data,
-            autorange_data
-            ).subplot_lines_doubleaxis(
-                loop_data,
-                x_data,
-                y_data,
-                name_data,
-                color_data,
-                dash_data,
-                width_data,
-                opacity_data,
-                legend_data
-                )
+            autorange_data,
+            loop_data,
+            x_data,
+            y_data,
+            name_data,
+            color_data,
+            dash_data,
+            width_data,
+            opacity_data,
+            legend_data
+            )
         fig.update_xaxes(dtick=0.1)
         fig.update_layout(title_text=title_data[0])
         #fig.update_layout(
@@ -1049,39 +1043,3 @@ class dcrbtc_userbase():
 
 #dcrbtc_userbase().chart_dcrbtc_volactaddress_sply().show()
 
-
-
-
-
-#Dual Axis
-
-#axis_data = [
-#    "y","y2","y2"
-#]
-#
-#fig = go.Figure()
-#fig.update_layout(
-#    xaxis=dict(
-#        title="<b>Bitcoin Block Height</b>",
-#        type='linear'
-#    ),
-#    yaxis=dict(
-#        title="Bitcoin Difficulty Growth",
-#        type='log',
-#        #range=[0,15],
-#        #tickformat= ',.0%')
-#        titlefont=dict(color=color_data[0]),
-#        tickfont=dict(color=color_data[0]),
-#    ),
-#    yaxis2=dict(
-#        title="Decred Difficulty Growth",
-#        type='log',
-#        #range=[0,15],
-#        titlefont=dict(color=color_data[1]),
-#        tickfont=dict(color=color_data[1]),
-#        anchor="free",
-#        overlaying="y",
-#        side="left",
-#        position=0.05
-#    )
-#)

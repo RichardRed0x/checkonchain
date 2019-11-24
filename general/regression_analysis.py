@@ -4,11 +4,29 @@ from sklearn.linear_model import LinearRegression
 
 
 class regression_analysis():
+    """
+    Modules for calculating the linear regression between two parameters
+    Modules available:
+        regression_constants() = Contains constants from saved analysis
+        ln_regression() = Linear Regression Analysis - Automatically calcs ln(x) and ln(y)
+        rsq_progression() = Calculates progression of R-squared coefficient quality over a dataset
+        
+    """
 
     def __init__(self):
         pass
 
     def regression_constants(self):
+        """regression_constants() = contains constants from saved analysis
+            Module --> .regression_constants()['model']
+                'planb'     = BTC, Market Cap vs S2F, after Plan B 2018
+                'btc_s2f'   = BTC, Market Cap vs S2F, after Checkmate 2019
+                'btc_diff'  = BTC, Difficulty vs S2F, after Checkmate (unpublished)
+                'dcr_s2f'   = DCR, Market Cap vs S2F, after Checkmate 2019
+                'dcr_diff'  = DCR, Difficulty vs S2F, after Checkmate (unpublished)
+                'ltc_s2f'   = LTC, Market Cap vs S2F, after Checkmate 2019
+                'ltc_diff'  = LTC, Difficulty vs S2F, after Checkmate (unpublished)
+        """
         planb = pd.DataFrame(data={
             'Details':['BTC_PlanBModel'],
             'rsq':[0.947328],
@@ -17,9 +35,9 @@ class regression_analysis():
             })
         btc_s2f = pd.DataFrame(data={
             'Details':['BTC_S2F_MrktCap_20191013'],
-            'rsq':[0.901453],
-            'intercept':[13.837495],
-            'coefficient':[3.496456]
+            'rsq':[0.8992],
+            'intercept':[13.1286],
+            'coefficient':[3.9880]
             })
         btc_diff = pd.DataFrame(data={
             'Details':['BTC_DiffMean_MrktCap_20191013'],
@@ -30,9 +48,9 @@ class regression_analysis():
 
         dcr_s2f = pd.DataFrame(data={
             'Details':['DCR_S2F_MrktCap_20191014'],
-            'rsq':[0.675775],
-            'intercept':[15.911287],
-            'coefficient':[2.42636]
+            'rsq':[0.7050],
+            'intercept':[15.7692],
+            'coefficient':[2.5750]
             })
         dcr_diff = pd.DataFrame(data={
             'Details':['DCR_DiffMean_MrktCap_20191013'],
@@ -43,9 +61,9 @@ class regression_analysis():
 
         ltc_s2f = pd.DataFrame(data={
             'Details':['LTC_S2F_MrktCap_20191013'],
-            'rsq':[0.461942],
-            'intercept':[16.95225],
-            'coefficient':[1.694044]
+            'rsq':[0.4622],
+            'intercept':[16.9544],
+            'coefficient':[1.6934]
             })
         ltc_diff = pd.DataFrame(data={
             'Details':['LTC_DiffMean_MrktCap_20191013'],
@@ -64,7 +82,7 @@ class regression_analysis():
             }
     
     def ln_regression(self,dataframe,x_metric,y_metric,time_metric):
-        """Linear Regression Analysis - Automatically tales ln(x) and ln(y)
+        """Linear Regression Analysis - Automatically calcs ln(x) and ln(y)
         INPUTS:
             Dataframe       = Pandas dataframe containing relevant datasets
             x_metric        = String - column heading of x_metric
@@ -104,6 +122,16 @@ class regression_analysis():
             }
         
     def rsq_progression(self,dataframe,x_metric,y_metric,time_metric):
+        """
+        Calculates progression of R-squared coefficient quality over a dataset
+        INPUTS:
+            Dataframe       = Pandas dataframe containing relevant datasets
+            x_metric        = String - column heading of x_metric
+            y_metric        = String - column heading of y_metric
+            time_metric     = String - column heading of time metric (not part of in calc)
+        OUTPUTS:
+            'rsq_develop'   = DataFrame with 'rsq_x_metric' column represents RSQ
+        """
         self.dataframe = dataframe
         self.x_metric = x_metric
         self.y_metric = y_metric

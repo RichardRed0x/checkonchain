@@ -61,7 +61,7 @@ class btc_add_metrics():
             'AdrActCnt', 'BlkCnt', 'BlkSizeByte', 'BlkSizeMeanByte',
             'CapMVRVCur', 'CapMrktCurUSD', 'CapRealUSD', 'DiffMean', 
             'FeeMeanNtv','FeeMeanUSD', 'FeeMedNtv', 'FeeMedUSD', 'FeeTotNtv', 'FeeTotUSD',
-            'PriceBTC', 'PriceUSD', 'PriceRealised', 'SplyCur',
+            'PriceBTC', 'PriceUSD', 'PriceRealUSD', 'SplyCur',
             'TxCnt', 'TxTfrCnt', 'TxTfrValAdjNtv', 'TxTfrValAdjUSD',
             'TxTfrValMeanNtv', 'TxTfrValMeanUSD', 'TxTfrValMedNtv',
             'TxTfrValMedUSD', 'TxTfrValNtv', 'TxTfrValUSD',
@@ -94,8 +94,8 @@ class btc_add_metrics():
     def btc_sply_curtailed(self,to_blk):
         """Curtail theoretical supply curve for charting"""
         btc_sply_interval = self.sply_curtail
-        df = self.dcr_sply(to_blk)
-        return df.iloc[::dcr_sply_interval,:] #Select every 144 blocks
+        df = self.btc_sply(to_blk)
+        return df.iloc[::btc_sply_interval,:] #Select every 144 blocks
 
 
     def btc_real(self):
@@ -105,7 +105,7 @@ class btc_add_metrics():
         _blk_max = int(_coin['blk'][_coin.index[-1]])
         df = _coin[[
             'date', 'blk', 'age_days','age_sply', 
-            'CapMrktCurUSD', 'CapRealUSD', 'PriceUSD', 'PriceRealised', 
+            'CapMrktCurUSD', 'CapRealUSD', 'PriceUSD', 'PriceRealUSD', 
             'DailyIssuedNtv', 'DailyIssuedUSD','FeeTotUSD',
             'TxTfrCnt', 'TxTfrValAdjNtv', 'TxTfrValAdjUSD','TxTfrValNtv','TxTfrValUSD',
             'S2F','inf_pct_ann', 'SplyCur',
@@ -118,7 +118,7 @@ class btc_add_metrics():
         #Hashrate (GH/s --> 0.001 TH/s)
         _real = self.btc_real()
         df = pd.DataFrame()
-        df['pow_hashrate_THs'] = quandl.get("BCHAIN/HRATE")['Value']/1000 #Pull hashrate data
+        df['pow_hashrate_THs'] = quandl.get("BCHAIN/HRATE")['Value'] #Pull hashrate data
         df['date'] = df.index 
         df = df.reset_index(drop=True)
         df['date'] = pd.to_datetime(df['date'],utc=True)

@@ -32,7 +32,7 @@ class Coinmetrics_api:
         df['blk']=df['BlkCnt'].cumsum()
         #Realised Price (Only if present, excludes XMR and ZEC et al.)
         if 'CapRealUSD' in df:
-            df['PriceRealised'] = df['CapRealUSD']/df['SplyCur']
+            df['PriceRealUSD'] = df['CapRealUSD']/df['SplyCur']
         #Calc - approx btc block height (Noting BTC blocks were mined from 9/Jan/09)
         df['btc_blk_est'] = (df['date'] - pd.to_datetime(np.datetime64('2009-01-09'),utc=True))
         df['btc_blk_est'] = df['btc_blk_est']/np.timedelta64(1,'D') #convert from timedelta to Days (float)
