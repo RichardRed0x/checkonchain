@@ -106,8 +106,9 @@ class btc_add_metrics():
         df = _coin[[
             'date', 'blk', 'age_days','age_sply', 
             'CapMrktCurUSD', 'CapRealUSD', 'PriceUSD', 'PriceRealUSD', 
-            'DailyIssuedNtv', 'DailyIssuedUSD','FeeTotUSD',
+            'DailyIssuedNtv', 'DailyIssuedUSD',
             'TxTfrCnt', 'TxTfrValAdjNtv', 'TxTfrValAdjUSD','TxTfrValNtv','TxTfrValUSD',
+            'FeeTotNtv','FeeTotUSD',
             'S2F','inf_pct_ann', 'SplyCur',
             'DiffMean', 'notes'
         ]]

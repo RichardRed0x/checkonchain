@@ -105,9 +105,9 @@ name_data = [
 color_data = [
     'rgb(255, 255,255)' ,'rgb(46, 214, 161)' ,
     'rgb(255, 102, 0)',
-    'rgb(255, 80, 80)','rgb(255, 102, 102)',
-    'rgb(255, 153, 102)','rgb(255, 255, 102)',
-    'rgb(156,225,43)', 'rgb(1, 255, 116)',
+    'rgb(1, 255, 116)','rgb(156,225,43)',
+    'rgb(255, 255, 102)','rgb(255, 153, 102)',
+    'rgb(255, 102, 102)','rgb(255, 80, 80)',
     'rgb(255, 102, 0)', 'rgb(46, 214, 161)',
     ]
 dash_data = [
@@ -139,7 +139,7 @@ title_data = [
 range_data = [[0,1],[4,12],[-1,5]]
 autorange_data = [False,True,False]
 type_data = ['linear','log','log']#
-fig = check_standard_charts().subplot_lines_doubleaxis(
+fig = check_standard_charts().subplot_lines_singleaxis(
     title_data, range_data ,autorange_data ,type_data,
     loop_data,x_data,y_data,name_data,color_data,
     dash_data,width_data,opacity_data,legend_data
@@ -187,9 +187,9 @@ name_data = [
 color_data = [
     'rgb(255, 255,255)' ,'rgb(46, 214, 161)' ,
     'rgb(255, 102, 0)',
-    'rgb(255, 80, 80)','rgb(255, 102, 102)',
-    'rgb(255, 153, 102)','rgb(255, 255, 102)',
-    'rgb(156,225,43)', 'rgb(1, 255, 116)',
+    'rgb(1, 255, 116)','rgb(156,225,43)', 
+    'rgb(255, 255, 102)','rgb(255, 153, 102)',
+    'rgb(255, 102, 102)','rgb(255, 80, 80)',
     'rgb(255, 255, 255)', 'rgb(46, 214, 161)',
     ]
 dash_data = [
@@ -305,9 +305,9 @@ name_data = [
     ]
 color_data = [
     'rgb(255, 102, 0)',
-    'rgb(255, 80, 80)','rgb(255, 102, 102)',
-    'rgb(255, 153, 102)','rgb(255, 255, 102)',
-    'rgb(156,225,43)', 'rgb(1, 255, 116)',
+    'rgb(1, 255, 116)','rgb(156,225,43)', 
+    'rgb(255, 255, 102)','rgb(255, 153, 102)',
+    'rgb(255, 102, 102)','rgb(255, 80, 80)',
     'rgb(214, 214, 194)',
     'rgb(0, 153, 51)',  
     'rgb(51, 204, 255)',
@@ -333,8 +333,8 @@ width_data = [
     2,2,2,2,2,2]
 opacity_data = [
     1,
-    1,0.8,0.7,0.6,0.5,0.3,
-    1,1,1,1,1,1
+    1,1,1,1,1,1,
+    1,1,1,1,1,1,
     ]
 legend_data = [
     True,
@@ -369,7 +369,10 @@ DCR_Secure[50:100]
 loop_data = [[0],[2]]
 x_data = [DCR_Secure['y'],[0,1],DCR_Secure['y']]
 y_data = [DCR_Secure['x_y'],[1,1],DCR_Secure['days_buy_y']]
-name_data = ['Decred Security Curve','Bitcoin Security Curve','Days to Buy Tickets in Full Blocks']
+name_data = [
+    'Decred Security Curve',
+    'Bitcoin Security Curve',
+    'Days to Buy Tickets in Full Blocks']
 title_data = [
     'DCR Security Curve',
     'Attacker Share of Ticket Pool',
@@ -429,7 +432,7 @@ name_data = [
     ]
 color_data = [
     'rgb(255, 102, 0)' , 'rgb(46, 214, 161)' ,
-    'rgb(254, 215, 140)','rgb(65, 191, 83)',
+    'rgb(65, 191, 83)','rgb(254, 215, 140)',
     'rgb(255, 102, 0)' , 'rgb(46, 214, 161)' ,
     #'rgb(255, 80, 80)','rgb(255, 102, 102)',
     #'rgb(255, 153, 102)','rgb(255, 255, 102)',
@@ -467,4 +470,100 @@ fig = check_standard_charts().subplot_lines_doubleaxis(
 fig.update_xaxes(dtick=365)
 fig.show()
 
+
+
+"""
+#############################################################################
+                    FINALITY RATIO
+#############################################################################
+Calculate and plot the real time difference in protocol finality between
+Bitcoin and Decred
+Ratio on date
+DCR Daily cost / BTC Daily Cost --> block for block (x2 for time for time or btc blocks)
+"""
+
+BTC_temp = BTC_subs[['date','Unforg_Cost_Daily']]
+BTC_temp.columns = ['date','BTC_Unforg_Cost_Daily']
+
+DCR_temp = DCR_subs.merge(BTC_temp,left_on='date',right_on='date')
+
+DCR_temp['Finality_Ratio_5%']  = (
+    DCR_temp['Unforg_Cost_5%_Daily'] / DCR_temp['BTC_Unforg_Cost_Daily']
+)
+DCR_temp['Finality_Ratio_10%'] = (
+    DCR_temp['Unforg_Cost_10%_Daily'] / DCR_temp['BTC_Unforg_Cost_Daily']
+)
+DCR_temp['Finality_Ratio_15%'] = (
+    DCR_temp['Unforg_Cost_15%_Daily'] / DCR_temp['BTC_Unforg_Cost_Daily']
+)
+DCR_temp['Finality_Ratio_30%'] = (
+    DCR_temp['Unforg_Cost_30%_Daily'] / DCR_temp['BTC_Unforg_Cost_Daily']
+)
+DCR_temp['Finality_Ratio_50%'] = (
+    DCR_temp['Unforg_Cost_50%_Daily'] / DCR_temp['BTC_Unforg_Cost_Daily']
+)
+DCR_temp['Finality_Ratio_75%'] = (
+    DCR_temp['Unforg_Cost_75%_Daily'] / DCR_temp['BTC_Unforg_Cost_Daily']
+)
+
+
+loop_data = [[0,1,2,3,4,5],[]]
+x_data = [
+    DCR_temp['date'],
+    DCR_temp['date'],
+    DCR_temp['date'],
+    DCR_temp['date'],
+    DCR_temp['date'],
+    DCR_temp['date'],
+    ]
+y_data = [
+    DCR_temp['Finality_Ratio_5%'].rolling(7).mean()*2,
+    DCR_temp['Finality_Ratio_10%'].rolling(7).mean()*2,
+    DCR_temp['Finality_Ratio_15%'].rolling(7).mean()*2,
+    DCR_temp['Finality_Ratio_30%'].rolling(7).mean()*2,
+    DCR_temp['Finality_Ratio_50%'].rolling(7).mean()*2,
+    DCR_temp['Finality_Ratio_75%'].rolling(7).mean()*2,
+    ]
+name_data = [
+    'DCR Finality Ratio 5%','DCR Finality Ratio 10%',
+    'DCR Finality Ratio 15%','DCR Finality Ratio 30%',
+    'DCR Finality Ratio 50%','DCR Finality Ratio 75%',
+    ]
+color_data = [
+    'rgb(1, 255, 116)','rgb(156,225,43)', 
+    'rgb(255, 255, 102)','rgb(255, 153, 102)',
+    'rgb(255, 102, 102)','rgb(255, 80, 80)',
+    ]
+dash_data = [
+
+    'solid','solid',
+    'solid','solid',
+    'solid','solid',
+    ]
+width_data = [
+    2,2,2,2,2,2,
+    ]
+opacity_data = [
+    1,1,1,1,1,1,
+    ]
+legend_data = [
+    True,True,True,
+    True,True,True,
+    ]#
+title_data = [
+    'Decred Finality Ratio',
+    'Date',
+    'DCR/BTC Daily Attack Cost Ratio',
+    'Pure PoW Premium Ratio']
+range_data = [[0,1],[4,12],[-1,5]]
+autorange_data = [True,True,False]
+type_data = ['date','log','log']#
+fig = check_standard_charts().subplot_lines_singleaxis(
+    title_data, range_data ,autorange_data ,type_data,
+    loop_data,x_data,y_data,name_data,color_data,
+    dash_data,width_data,opacity_data,legend_data
+    )
+#Increase tick spacing
+#fig.update_xaxes(dtick=0.1)
+fig.show()
 

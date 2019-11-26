@@ -29,7 +29,7 @@ x_data_1 = [
     ]
 
 y_data_1 = [
-    asset['PriceUSD'],asset['PriceRealised'],asset['PriceAvg'],
+    asset['PriceUSD'],asset['PriceRealUSD'],asset['PriceAvg'],
     asset['PriceDelta'],asset['PriceTop'],asset['PriceInflow'],
     asset['PriceS2Fmodel'],
     asset['TxTfrValAdjUSD'].rolling(28).mean()

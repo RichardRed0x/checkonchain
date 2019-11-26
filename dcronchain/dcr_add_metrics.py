@@ -242,6 +242,8 @@ class dcr_add_metrics():
                 'DailyIssuedUSD'        - Daily Issued USD
                 'TxTfrValNtv'           - Daily Transferred DCR
                 'TxTfrValUSD'           - Daily Transferred USD
+                'FeeTotNtv'             - Total Fees DCR
+                'FeeTotUSD'             - Total Fees USD
                 'S2F'                   - Actual Stock-to-Flow Ratio
                 'inf_pct_ann'           - Annual Inflation Rate
                 'SplyCur'               - DCR Supply (Coinmetrics)
@@ -264,7 +266,8 @@ class dcr_add_metrics():
             'date','blk','age_days','age_sply','CapMrktCurUSD','CapRealUSD',
             'DiffMean','PriceBTC','PriceUSD','PriceRealUSD',
             'SplyCur','DailyIssuedNtv','DailyIssuedUSD','S2F',
-            'inf_pct_ann','TxTfrValNtv','TxTfrValUSD']]
+            'inf_pct_ann','TxTfrValNtv','TxTfrValUSD',
+            'FeeTotNtv','FeeTotUSD']]
         _coin['CapS2FModel'] = regression_analysis()
         #Add new columns for transferring _natv data to_coin
         _coin['tic_day']                = 0.0
@@ -314,6 +317,7 @@ class dcr_add_metrics():
             'date', 'blk', 'age_days','age_sply','window',                          #Time Metrics
             'CapMrktCurUSD', 'CapRealUSD','PriceBTC', 'PriceUSD', 'PriceRealUSD',   #Value Metrics
             'DailyIssuedNtv','DailyIssuedUSD','TxTfrValNtv','TxTfrValUSD',          #Transaction Metrics
+            'FeeTotNtv','FeeTotUSD',                                                #Fee Metrics
             'S2F', 'inf_pct_ann','SplyCur', 'dcr_sply',                             #Supply Metrics
             'dcr_tic_sply_avg','tic_day', 'tic_price_avg', 'tic_pool_avg',          #Ticket Metrics
             'DiffMean','pow_diff_avg', 'pow_hashrate_THs_avg', 'pow_work_TH'        #PoW Metrics
