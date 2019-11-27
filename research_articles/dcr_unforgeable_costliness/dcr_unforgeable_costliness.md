@@ -283,15 +283,40 @@ The Decred Finality Ratio is thus defined as the real-time ratio between the 24h
 ![Analysis Cases](images/image_14.png)
 ![Analysis Cases](images/image_13.png)
 
-Decred is a cryptocurrency that is 750x smaller than Bitcoin. If we theorise a similarly sized, pure PoW protocol which issued an equivalent number of coins to Bitcoin per unit of time, we can expect settlement equivalent to 1 Bitcoin block to take around 5.34 days. In every scenario considered, Decred's security cost outperforms this theoretical Proof of work security system.
+Decred is a cryptocurrency that is 750x smaller than Bitcoin. If we theorise a similarly sized, pure PoW protocol that issues an equivalent number of coins to Bitcoin per unit of time (a mini-Bitcoin), we would expect settlement equivalent to 1 Bitcoin block to take around 5.34 days. 
 
-For attack vectors sporting <10% of the ticket pool, Decred matches to outperforms Bitcoin for transaction finality. In the most adverse, rational scenarios of 30% and 50% adverse tickets, Decred is in fact the second to third most secure chain according to [howmanyconfs.com](https://howmanyconfs.com/)
+In every ticket share scenario considered, Decred's security cost outperforms this theoretical Proof of work security system by at least 2x.
+
+This analysis assumes that a single Bitcoin block is considered a finality bechmark and the author has compared the settlement times to the the pure PoW cryptocurrency finality rankings on [howmanyconfs.com](https://howmanyconfs.com/).
+
+- For attacks with <10% ticket share, Decred matches to outperforms Bitcoin for transaction finality making it the most secure ledger the author is aware of.
+
+- For attacks with <30% ticket share, Decred outpaces Ethereum and Bcash for spots in the top 3 most secure ledgers.
+
+- In the most adverse scenarios with 50% to 75% adverse tickets, Decred finality still places it firmly in the top 10 most secure ledgers.
+
+# Conclusions
+
+The Unforgeable Costliness of a sound money protocol is a valuable metric for assessing relative scarcity and the consistency of protocol security. This is critical to ensure the resistance to transaction censorship and monetary policy are upheld in adversarial conditions. **Decred's** hybrid PoW/PoS security system has been shown to amplify the benefits of both mechanisms whilst nullifying many of the drawbacks.
+
+An attacker seeking to forge DCR coins must make a trade-off decision between a share of the PoS ticket pool and an associated share of the PoW hashpower market. Analysis of centralisation points for DCR suggest that a rational attack vector of 15% to 30% of the tickets is both unlikely and extremely difficult to sustain, requiring greater than 5x the honest hashpower. Attacks greater than this require significant capital outlay purchasing DCR off the market or a globally coordinated attack by all known centralisation points.
+
+Under the framework of marginal cost approaching marginal reward, the cummulative unforgeable costliness and 24hr security budget has been calculated and comapred as a finality metric to Bitcoin's equivalent. 
+
+Whilst Decred is 750x smaller in network value compared to Bitcoin, it competes at a remarkable level, firmly placing it as one of the most secure blockchains.
+
+> This study concludes that **Decred** boasts a settlement finality which ranks it, at a minimum and under most adverse conditions, in the top 10 blockchains. Given the conservatisms built into this analysis, under realistic attack conditions **Decred** performs as one of the top three most secure public blockchains, competing directly with Ethereum and Bitcoin.
 
 
+## Signature
+**Decred**
+> ![Dsmx4zrTuS6UJxGHNutc5pwH73VHx7JN5XE](images/dcr_qr.png)
+
+> [Dsmx4zrTuS6UJxGHNutc5pwH73VHx7JN5XE](https://explorer.dcrdata.org/address/Dsmx4zrTuS6UJxGHNutc5pwH73VHx7JN5XE)
+
+> Signed Message (Article Title): IKHo8ZwBegAIP9sf58EGRJAXfCDz4DABuYucEzZUSjqxXXfKoa5+sQ8cUvuKL6J0hL4y/AyFnN8leqK9phWhh7U=
 
 # References
-
-
 
 [1] The Well Deserved Fortune of Satoshi Nakamoto, Bitcoin creator, Visionary and Genius, https://bitslog.com/2013/04/17/, the-well-deserved-fortune-of-satoshi-nakamoto/, Sergio Demian Lerner, 2013
 
@@ -311,14 +336,13 @@ For attack vectors sporting <10% of the ticket pool, Decred matches to outperfor
 
 [9] Decred Assembly Ep 16 - Decred and ASICs Part II, https://youtu.be/8TPFIVYy_i4, Decred, 2017
 
+[10] Decred: Rethink Digital Currency, https://blog.companyzero.com/2015/12/decred-rethink-digital-currency/, Company Zero, 2015
 
 
+[11] Decred, Where did it all begin?, https://thedecreddigest.com/2017/06/10/decred-where-did-it-all-begin/, The Decred Digest, 2017
 
-[] Decred: Rethink Digital Currency, https://blog.companyzero.com/2015/12/decred-rethink-digital-currency/, Company Zero, 2015
+[12] Long Live Proof-of-Work, Long Live Mining, http://www.truthcoin.info/blog/pow-and-mining/, Sztorc, 2014
 
+[13] Nothing is Cheaper than Proof of Work, http://www.truthcoin.info/blog/pow-cheapest/, Sztorc, 2015
 
-[] Decred, Where did it all begin?, https://thedecreddigest.com/2017/06/10/decred-where-did-it-all-begin/, The Decred Digest, 2017
-
-[] Long Live Proof-of-Work, Long Live Mining, http://www.truthcoin.info/blog/pow-and-mining/, Sztorc, 2014
-
-[] Nothing is Cheaper than Proof of Work, http://www.truthcoin.info/blog/pow-cheapest/, Sztorc, 2015
+[14] Howmanyconfs.com, https://howmanyconfs.com/
