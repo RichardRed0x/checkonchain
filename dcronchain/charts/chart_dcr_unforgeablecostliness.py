@@ -119,7 +119,7 @@ dash_data = [
     'solid','solid',
     ]
 width_data = [
-    2,2,2,1,1,1,1,1,1,1,1
+    2,2,2,2,2,2,2,2,2,1,1
     ]
 opacity_data = [
     1,1,1,1,1,1,1,1,1,1,1
@@ -517,12 +517,12 @@ x_data = [
     DCR_temp['date'],
     ]
 y_data = [
-    DCR_temp['Finality_Ratio_5%'].rolling(7).mean()*2,
-    DCR_temp['Finality_Ratio_10%'].rolling(7).mean()*2,
-    DCR_temp['Finality_Ratio_15%'].rolling(7).mean()*2,
-    DCR_temp['Finality_Ratio_30%'].rolling(7).mean()*2,
-    DCR_temp['Finality_Ratio_50%'].rolling(7).mean()*2,
-    DCR_temp['Finality_Ratio_75%'].rolling(7).mean()*2,
+    DCR_temp['Finality_Ratio_5%'].rolling(7).mean(),
+    DCR_temp['Finality_Ratio_10%'].rolling(7).mean(),
+    DCR_temp['Finality_Ratio_15%'].rolling(7).mean(),
+    DCR_temp['Finality_Ratio_30%'].rolling(7).mean(),
+    DCR_temp['Finality_Ratio_50%'].rolling(7).mean(),
+    DCR_temp['Finality_Ratio_75%'].rolling(7).mean(),
     ]
 name_data = [
     'DCR Finality Ratio 5%','DCR Finality Ratio 10%',

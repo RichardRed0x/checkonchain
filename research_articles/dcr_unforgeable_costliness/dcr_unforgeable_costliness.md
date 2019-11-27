@@ -1,7 +1,7 @@
 # Decred, Hypersecure and Unforgeably Scarce
 *by Checkmate*
 
-*14-Oct-2019*
+*29-Nov-2019*
 
 **Decred** is one of the most promising cryptocurrency projects and a sound competitor next to **Bitcoin** in the free market for scarce digital money. At a minimum, strong market competition forces innovation and hardening of the strongest protocols whilst also providing a rational hedge for risk during the nascent development of digital money.
 
@@ -15,13 +15,13 @@ As **Bitcoin**  continues to assert it's market dominance, it is the correct ben
 
 # Background
 
-In [Part 1 of this series](https://medium.com/@_Checkmatey_/monetary-premiums-can-altcoins-compete-with-bitcoin-54c97a92c6d4), I established that a convincing relationship exists between **Decred's** scarcity, measured by stock-to-flow ratio, and its market valuation. The linear regression analysis suggests that there is an underlying demand for DCR which is of remarkably similar conviction to that for BTC during it's formative years.
+In [Part 1 of this series](https://medium.com/@_Checkmatey_/monetary-premiums-can-altcoins-compete-with-bitcoin-54c97a92c6d4), I established that a convincing relationship exists between **Decred's** scarcity, measured by stock-to-flow ratio, and its market valuation. The linear regression analysis suggests that there is an underlying demand for DCR which is of remarkably high conviction and similar to that for BTC during it's formative years.
 
-In fact the correlations between **Decred** and **Bitcoin** at an equivalent age of 3.67 years (50% coins mined) are so strong, additional work is justified to establish the depth to which **Decred** is following in **Bitcoin's** footsteps.
+In fact the correlations between **Decred** and **Bitcoin** at an equivalent age of 3.67 years (50% coins mined) are so strong that additional work is justified to establish the depth to which **Decred** is following in **Bitcoin's** footsteps.
 
-In this paper, I explore the **Security and Consensus** mechanisms of **Decred** and **Bitcoin** to quantify the unforgeable costliness of coin production, cost to attack each network and the finality of transactions. 
+In this paper, I explore the **Security and Consensus** mechanisms of **Decred** and **Bitcoin** to quantify the unforgeable costliness of coin production, cost to attack each network and the finality of transactions secured by each ledger. 
 
-Immutability and censorship resistance is the core value proposition of sound money protocols and that which truely enables the separation of money and state. As such, quantifying the security budgets, performance and finality will provide confidence for users, investors and speculators who chose to store their wealth in BTC or DCR, potentially for hundreds of years or more.
+Immutability and censorship resistance is the core value proposition of sound money protocols and that which truely enables the separation of money and state. As such, quantifying the security budgets, performance and finality will provide confidence for users, investors and speculators who choose to store their wealth in BTC or DCR, potentially for hundreds of years into the future.
 
 ## Disclosure
 
@@ -29,7 +29,7 @@ Immutability and censorship resistance is the core value proposition of sound mo
 
 # Unforgeable Costliness
 
-An essential characteristic of a digital sound money protocol is **Unforgeable Costliness**, that is the impossability of producing the asset without a provable expendature of capital, energy and/or time. Unforgeable Costliness stipulates that one of these scarce resources must be exchanged for production of another (capital being an abstraction of both energy and time). Without it, production may be gamed by those with greater access to the source, subsequently destroying the confidence and trust in future expectations of inflation.
+An essential characteristic of a digital sound money protocol is **Unforgeable Costliness**, that is the impossibility of producing the asset without a provable expendature of capital, energy and/or time. Unforgeable Costliness stipulates that one of these scarce resources must be exchanged for production of another (capital being an abstraction of both energy and time). Without it, production may be gamed by those with greater access to the source, subsequently destroying the confidence and trust in future expectations of inflation.
 
 Nick Szabo beautifully articulated the idea by describing the unavoidable and expensive costs of production which must exist for an asset to attain a monetary premium.
 
@@ -37,10 +37,10 @@ Nick Szabo beautifully articulated the idea by describing the unavoidable and ex
 
 >"Precious metals and collectibles have an unforgeable scarcity due to the costliness of their creation. This once provided money the value of which was largely independent of any trusted third party” Nick Szabo (2005)
 
-Notable Examples of unforgeable costliness and the impact on relative scarcity are presented in the following table. The scarcest assets which reliably store value over time, have a consistent feature set:
+Notable Examples of unforgeable costliness and the impact on relative scarcity are presented in the following table. The scarcest assets are those which reliably store value over time and can be see to have a consistent feature set:
 
 1. **Improbability of existence** due to mythology and skill of the creator, a low natural abundance or a hard coded fixed supply.
-2. **Requirement for expenditure  of capital, energy and time** during production in the form of physical mining, Proof-of-Work, capital expenditure  and human effort
+2. **Requirement for expenditure  of capital, energy and time** during production in the form of physical mining, Proof-of-Work, capital expenditure, time and human effort.
 3. **Soundness and resistance to arbitrary future inflation** and monopolistic capture due to the difficulty of production and/or counterfeiting.
 
 ![Scarcity_examples](images/image_1.png)
@@ -51,7 +51,7 @@ The remainder of this paper will explore the ***Unforgeable Costliness*** of **B
 
 **Gold**, due to it's atomic properties is of extremely low abundance relative to other commodities. It's existence and supply is a product of the laws of physics and thus may only be acquired via exploration and extraction or by purchasing it off the market. This manifests as a natural constraint on inflation given the demands of production.
 
-As a result, global civilisations have converged on gold as the monetary base throughout history and industrial uses represent only a small fraction of global gold demand. It seems a reasonable conclusion that gold's scarcity and monetary premium underlies its demand for jewelry, rather than the other way around.
+As a result, global civilisations have converged on gold as the monetary base throughout history and industrial uses represent only a small fraction of global gold demand. It seems a reasonable conclusion that gold's scarcity and monetary premium underlies its demand for jewelry as a status symbol, rather than the other way around.
 
 Scarce digital assets like **Bitcoin** and **Decred** differ to gold in that they are man-made and thus have a discrete, designed genesis event. The incentive model to secure these protocols relies on demand for the scarce native units (BTC and DCR). Thus, the initial distribution mechanism must be carefully designed to incentivise security during early life whilst simultaneously achieving a market perception of scarcity and fairness.
 
@@ -61,40 +61,44 @@ Appreciation for the initial distribution is important for man-made scarce asset
 
 For **Bitcoin**, Satoshi Nakamoto's design decision was to transparently release the Bitcoin whitepaper on 31 Oct 2018 and the v0.1 Bitcoin and mining code on 9 Jan 2009 to the cypherpunks public email list. This group of people were those most likely to engage with and nurture the protocol through its formative and most vulnerable years.
 
-Numerous studies into early hashrate indicate Satoshi was the dominant miner through the first year with estimates on the number of bitcoins mined ranging from 740k to 980k BTC (of which all are believed to have never been spent). Given there is no way to tell if these coins will ever move, public consensus appears to have accepted this uncertainty as a fair and reasonable thanks for Satoshi's skill and time ([1],[2],[3],[4],[5]).
+Numerous studies into early hashrate indicate Satoshi was the dominant miner through the first year with estimates on the number of bitcoins mined ranging from 740k to 980k BTC (of which all are believed to have never been spent). Given there is no way to tell if these coins will ever move, public consensus appears to have accepted this uncertainty as a fair and reasonable thanks for Satoshi's skill and time (Lerner, [2013a](https://bitslog.com/2013/04/17/), [2013b](https://bitslog.com/2013/04/24/satoshi-s-fortune-a-more-accurate-figure/), [2014](https://organofcorti.blogspot.com/2014/08/167-satoshis-hashrate.html); [BitMEX Research, 2018](https://blog.bitmex.com/satoshis-1-million-bitcoin/); [Held, 2018](https://blog.picks.co/bitcoins-distribution-was-fair-e2ef7bbbc892)).
 
-The evidence strongly suggests Satoshi deliberately reduced his share of network hashrate as new miners entered and the Bitcoin network gained strength. Thus **Bitcoin's** genesis is considered by many to be as fair as a decentralised scarce asset network launch could be.
+The evidence suggests that Satoshi was the dominant miner out of necessity however deliberately reduced his share of network hashrate as new miners entered and the network gained strength. It is estimated that Satishi's influence on the mining network persisted for around 16 months until signals of his distinctive mining signiature dissipated. Thus **Bitcoin's** genesis is considered by many to be as fair as a decentralised scarce asset network launch could be.
 
 [![Satoshis Hashrate share after Sergio Demian Lerner](images/image_02.png)](https://organofcorti.blogspot.com/2014/08/167-satoshis-hashrate.html)
-*Figure: Satoshis Hashrate share after Sergio Demian Lerner*
+[*Figure: Satoshis Hashrate share after Sergio Demian Lerner*](https://organofcorti.blogspot.com/2014/08/167-satoshis-hashrate.html)
 
 Key ingredients in **Bitcoin's** initial distribution may be reasonably summarised as follows:
 1. Complete transparency months in advance of releasing the code.
-2. Permissionless access with appropriate mining tools made available on launch.
+
+2. Permissionless access  to the code with appropriate mining tools made available on launch.
+
 3. Awareness raised of those people most likely to nurture the protocol through its most vulnerable early years.
-4. Appropriately gradual reduction in the role of the founder.
+
+4. Appropriately gradual reduction in the role of the founder as the network gained strength.
+
 5. A now formed public consensus that the founder owning around 4% of BTC supply is fair remuneration for their work (value of time and skill).
 
 ## Decreds Origin Story
-The whitepaper for **Decred's** primitive called [Memcoin2](https://www.decred.org/research/mackenzie2013.pdf) was [originally announced in in April 2013](https://bitcointalk.org/index.php?topic=169204.msg1760397#msg1760397) on the BitcoinTalk forums by an anonymous developer named [tacotime](https://bitcointalk.org/index.php?topic=169204.msg1759914#msg1759914). Paired with another anonymous individual [_ingsoc](https://bitcointalk.org/index.php?topic=169204.msg13024730#msg13024730), tacotime secretly developed the bones of what would ultimately become the Decred project whilst simultaneously working on the Monero project. _ingsoc recruited Company 0 in early 2014, being attracted by the quality of the code written for btcsuite, a process which culminated in the formal announcement of [Decred on 15 Dec 2015](https://bitcointalk.org/index.php?topic=1290358.0).
+The whitepaper for **Decred's** primitive called [Memcoin2](https://www.decred.org/research/mackenzie2013.pdf) was [originally announced in in April 2013](https://bitcointalk.org/index.php?topic=169204.msg1760397#msg1760397) on the BitcoinTalk forums by an anonymous developer named [tacotime](https://bitcointalk.org/index.php?topic=169204.msg1759914#msg1759914). Paired with another anonymous individual [_ingsoc](https://bitcointalk.org/index.php?topic=169204.msg13024730#msg13024730), tacotime secretly developed the bones of what would ultimately become the Decred project whilst simultaneously working on Monero. _ingsoc recruited Company 0 in early 2014, being attracted by the quality of the code written for btcsuite. This culminated in the formal announcement of [Decred on 15 Dec 2015](https://bitcointalk.org/index.php?topic=1290358.0).
 
-**Decred's** main-net launched on 8 Feb 2016 at which time the cryptocurrency market had by then reached an elevated state of maturity. **Bitcoin** had attained a market valuation over $6 billion and the market had significantly more participants and eyes (of friends and foes) than at the time of **Bitcoin's** launch. On one hand, these market conditions can benefit coin price appreciation and attract miners and investors, whilst on the other; pose challenges for bootstrapping security without compromising a 'fair initial distribution'. This was compounded by the established GPU mining industry which could have reasonably attacked **Decred** in it's early and vulnerable state. 
+**Decred's** main-net launched on 8 Feb 2016 at which time the cryptocurrency market had by then reached an elevated state of maturity. **Bitcoin** had attained a market valuation over $6 billion and the market had significantly more participants and eyes (of friends and foes) compared to the time of **Bitcoin's** launch. On one hand, these market conditions can benefit coin price appreciation and attract miners and investors, whilst on the other; pose challenges for bootstrapping security without compromising a 'fair initial distribution'. This was compounded by the established GPU mining industry which could have reasonably attacked **Decred** in it's early and vulnerable state.
 
 ## The Decred Pre-mine
 
-An important feature of **Decred** is it's Hybrid PoW/PoS security and consensus mechanism. In order to secure the chain at launch, it was necessary that a majority of honest actors, with an appreciation of the project's philosophy, participate in the Proof-of-Stake ticket system.
+An differentiating feature of **Decred** is it's unique hybridised PoW/PoS security and consensus mechanism. In order to secure the chain at launch, it was necessary that a majority of honest actors, with an appreciation of the project's philosophy, participate in the Proof-of-Stake ticket system.
 
-For **Decred's** launch, the design decision was to launch the protocol with a pre-mine totaling 1.68M DCR, equivalent to 8% of the total 21M supply. Half of the pre-mine (4%, 840k DCR) was airdropped free to community members to enhance coin distribution and bootstrap the security and governance system. The other half was  purchased by the founding team at a rate of $0.49/DCR either in exchange for their own money or their future development time.
+For **Decred's**, the design decision was to launch the protocol with a pre-mine totaling 1.68M DCR, equivalent to 8% of the total 21M supply. Half (4%, 840k DCR) was airdropped free to community members to enhance coin distribution and bootstrap security and governance. The other half was  purchased by the founding team at a rate of $0.49/DCR either in exchange for their own money or their future development time.
 
-Community registration to participate in the airdrop was [transparently publicised](https://bitcointalk.org/index.php?topic=1290358.0) one month prior to the window close and over 8,793 submissions were received and filtered to remove duplicates and false entries. Ultimately, [282.63795424 DCR was awarded to a total of 2,972 participants](https://docs.decred.org/advanced/premine/#airdrop) who showed a desire for supporting the young protocol. Community and founder participants in the airdrop committed to 12 and 24 month periods respectively where airdropped DCR were not to be exchanged and instead used to bootstrap the Proof-of-Stake ticket system.
+Community registration to participate in the airdrop was [transparently publicised](https://bitcointalk.org/index.php?topic=1290358.0) one month prior to the window close and over 8,793 submissions were received and filtered to remove duplicates and false entries. Airdrop participants were required to provide a Decred wallet address, as well as a link to a social media identity that showed some interest in cryptocurrency. Ultimately, [282.63795424 DCR was awarded to a total of 2,972 participants](https://docs.decred.org/advanced/premine/#airdrop).
 
-Airdrop participants were required to provide a Decred address, as well as a link to a social media identity that showed some interest in cryptocurrency. For miners, [v0.0.4 of cgminer](https://github.com/decred/cgminer/releases) was available at the time of **Decred's** launch and [ccminer v1.7.2 released 3 days later](https://github.com/tpruvot/ccminer/releases/tag/1.7.2-tpruvot) to ensure permissionless access to Proof-of-Work mining.
+For miners, [v0.0.4 of cgminer](https://github.com/decred/cgminer/releases) was available at the time of **Decred's** launch and [ccminer v1.7.2 released 3 days later](https://github.com/tpruvot/ccminer/releases/tag/1.7.2-tpruvot) to ensure permissionless access to Proof-of-Work mining. Decred code was available in almost all operating systems imaginable.
 
-Details of the **Decred** pre-mine is available in full as part of the [project documentation](https://docs.decred.org/advanced/premine/) and the [block 1 transaction](https://dcrdata.decred.org/tx/5e29cdb355b3fc7e76c98a9983cd44324b3efdd7815c866e33f6c72292cb8be6).
+Details of the **Decred** pre-mine are available in full as part of the [project documentation](https://docs.decred.org/advanced/premine/) and the [block 1 transaction](https://dcrdata.decred.org/tx/5e29cdb355b3fc7e76c98a9983cd44324b3efdd7815c866e33f6c72292cb8be6).
 
 Some notes regarding the **Decred** pre-mine as of the time of writing are: 
-- 54% of the pre-mined UTXO set has been spent of which 61% of this represents the community share of airdropped DCR. Thus 4.3% of the total 21M supply created at genesis is spent and considered circulating.
-- The unspent portion of the community airdrop is generally assumed to be lost coins representing 1.386% of the total 21M DCR supply
+- 54% of the pre-mined UTXO set has been spent of which 61% represents the community share. Thus 4.3% of the total 21M supply created at genesis is spent and considered circulating.
+- The unspent portion of the community airdrop is generally assumed to be lost coins representing 1.386% of the total 21M DCR supply.
 - Of the total founder's reward, 63% remains unspent representing 2.3% of the total 21M DCR supply.
 
 ![Decred Pre-mine Status](images/image_03.png)
@@ -108,11 +112,11 @@ The **Decred** block reward structure allocates 30% of the block-reward to Proof
 
 ![Decred Supply Dilution Curves](images/image_04.png)
 
-From this chart, it can be seen that the role of the pre-mined coins has been consistently reduced and diluted over time even under these most conservative conditions. The founder's coins have remained the minority position in the staking pool. During the early years, [Company 0 remained self-funded](https://youtu.be/bTD6_ZLOCMo?t=3430) and did not bill any additional work against the **Decred** treasury until the project had reached maturity and all spent treasury funds were paid to community contractors.
+From this chart, it can be seen that the role of the pre-mined coins (dashed lines) have been consistently diluted over time even under these most conservative conditions. The founder's coins have always remained the minority position in the staking pool. During the early years, [Company 0 remained self-funded](https://youtu.be/bTD6_ZLOCMo?t=3430) and did not bill any additional work against the **Decred** treasury until the project had reached maturity and works were approved by DCR holders. All spent treasury funds during these formative years were paid to community contractors, building a strong foundation of supporters.
 
-It is also immediately obvious that the ticket pool (blue) has strong correlation to the Proof-of-Work issuance curve (red). This indicates that a combination of miners and people buying coins sold by miners have historically been the dominant participants in the **Decred** ticket system. Blockchain analytics undertaken by Dave Collins [(2017)](https://youtu.be/7K2sDhyjQys?t=1675) suggest that early GPU miners predominantly [merged mined Decred with Ethereum](https://forum.decred.org/threads/claymores-dual-ethereum-decred-siacoin-lbry-pascal-blake2s-keccak-amd-nvidia-gpu-miner-11-6.5957/) and almost invariably distributed DCR to exchanges for sale. This insight adds further evidence of heavy distribution of voting rights away from the founders and into the community as well as a strong desire for participation.
+It is also immediately obvious that the ticket pool (blue) has strong correlation to the Proof-of-Work issuance curve (red). This indicates that a combination of miners and people buying coins sold by miners have historically been the dominant participants in the **Decred** ticket system. Blockchain analytics undertaken by Dave Collins [(2017)](https://youtu.be/7K2sDhyjQys?t=1675) suggest that early GPU miners predominantly [merged mined Decred with Ethereum](https://forum.decred.org/threads/claymores-dual-ethereum-decred-siacoin-lbry-pascal-blake2s-keccak-amd-nvidia-gpu-miner-11-6.5957/) and almost immediately distributed DCR to exchanges for sale. This insight adds further evidence of heavy distribution of voting rights away from the founders and miners and into the community as well as signals a strong desire for participation.
 
-In a very similar manner to Satoshi, the **Decred** founders have taken appropriate and reasonable steps to ensure their stake in the system is diluted, both by design and choice, as the protocol gained strength.
+In a very similar manner to Satoshi, the **Decred** developers (Company 0) have taken appropriate and reasonable steps to ensure their stake in the system is diluted, both by design and choice, as the protocol gained strength. The anonymous founders tacotime and _ingsoc have since disappeared.
 
 **Decred's** initial distribution thus iterated on **Bitcoin's** ideals to account for the new market dynamics in 2016 and the need for bootstrapping a Hybrid PoW/PoS consensus and security mechanism.
 
@@ -127,61 +131,65 @@ Key ingredients of **Decred's** initial distribution may be reasonably summarise
 
 5. An end of day founder's reward of 4% of the DCR supply which is consistent with that which public opinion deems fair remuneration for Satoshi's work on Bitcoin (value of time and skill).
 
-It is well known that some in the cryptocurrency industry view pre-mines as a dirty word which exist solely to unfairly benefit founding teams (with many unfortunate examples as evidence). The author has no expectation for changing those minds.
+## On Decreds Launch
 
-What is desireable is to impart on the more open minded reader that **Decred** was launched in very different environment to **Bitcoin**. By careful design, a small pre-mine acted to both bootstrap network security during the most vulnerable years, allow Decred to remain self-sovereign (no external funding) and reward the team for their skill and time at the same rate as Satoshi Nakamoto.
+It is well known that some folks in the cryptocurrency industry view pre-mines as a dirty word that exist solely to unfairly benefit founding teams (with many unfortunate examples as evidence). The author has no expectation of changing those minds.
+
+What is desireable is to impart on the more open minded reader that **Decred** was launched in very different environment to **Bitcoin**. By careful and intricate design, a small pre-mine acted to both bootstrap network security during the most vulnerable years, allow Decred to remain self-sovereign with no external funding or influence and reward the team for their skill and time at the same rate as Satoshi Nakamoto.
 
 # The Cost of Acquisition
 
-Whilst it's critical to understand the genesis event of sound money protocols to ensure fairness of launch, the costs associated with it are subjective. It is difficult to assign a consistent value beyond a portion of total coin supply acquired during the 'immaculate conception' of **Bitcoin** (4% Satoshi mine) or the intricate design decisions of **Decred** (8% pre-mine split 50/50). Both genesis events draw from respective cypher-punk roots, anonymous founders and the distribution mechanisms will appeal differently to each individual.
+Whilst it's critical to understand the genesis event of sound money protocols and ensure fairness of launch, the costs associated with it are subjective. It is difficult to assign a consistent value beyond a portion of total coin supply acquired during the 'immaculate conception' of **Bitcoin** (4% Satoshi mine) or the intricate design decisions of **Decred** (8% pre-mine split 50/50). Both genesis events draw from respective cypher-punk roots, anonymous founders and the distribution mechanisms will appeal differently to at an individual level.
 
-However, it is possible to attribute real world costs in the form of energy, capital and human time invested to quantify the unforgeable costliness of coin production. Cryptocurrency protocols are a global phenomenon secured by a complex and diverse range of isolated human interactions and thus a framework is required to simplify the problem. 
+However, it is possible to attribute real world costs in the form of energy, capital and human time invested, to quantify the unforgeable costliness of coin production. Cryptocurrency protocols are a global phenomenon secured by a complex and diverse range of isolated human interactions. As such, a framework is required to simplify the problem. 
 
-An appropriate assumption in this instance is to expect rational actors to behave in their own best interest. Over time this will tend toward an expenditure of exactly as much energy, capital and time in coin production as the value of the coins produced allow for. In other words, the marginal cost of production (MC) tends to equality with the marginal reward (MR). This concept is well covered by Sztorc ([2014](http://www.truthcoin.info/blog/pow-and-mining/) and [2015](http://www.truthcoin.info/blog/pow-cheapest/)) in relation to PoW and PoS systems.
+An appropriate assumption in this instance is to expect rational actors to behave in their own best interest. Over time this will tend toward an expenditure of exactly as much energy, capital and time in coin production as the value of the coins produced allow for. 
+
+In other words, the marginal cost of production (MC) tends to equality with the marginal reward (MR). This concept is well covered by Sztorc ([2014](http://www.truthcoin.info/blog/pow-and-mining/) and [2015](http://www.truthcoin.info/blog/pow-cheapest/)) in relation to PoW and PoS systems.
 
 > Marginal Cost = Marginal Reward.
 
-> If a protocol block reward issues $100 dollars worth of coins, producers will compete and expend up to $100 dollars to create it. If one producer achieves an efficient production cost of $99.00, another producer will eventually achieve a production cost $99.01, until another achieves $99.02.
+> If a protocol block reward issues $100 dollars worth of coins, producers will compete and expend up to $100 dollars to create it. If one producer achieves an efficient production cost of $99.00, another producer will eventually be willing to expend a production cost $99.01. Another will then out-bid with a cost of $99.02 until the cost approaches the reward.
 
-The following analysis aims to quantify each protocol's unforgeable costliness and finality using this framework and assessing the converse; the unavoidable costs required to forge coins in a minority chain attack.
+The following analysis quantifies each protocol's unforgeable costliness and settlment finality using this framework and assessing the converse; the unavoidable costs that are required to forge coins in a minority chain attack.
 
 ## Proof-of-Work
 
-**Bitcoin** and **Decred** share a common feature in Proof-of-Work (PoW) as the dominant mechanism for issuing new coins and an integral component of the security and incentive system. PoW ensures that the cost of coin production is rooted in the laws of physics with an associated energy consumption and computational requirement.
+**Bitcoin** and **Decred** share a common feature in Proof-of-Work (PoW) as the dominant mechanism for issuing new coins. PoW is an integral component of the security and incentive system and ensures the cost of coin production is rooted in the laws of physics with an energy and computation requirement.
 
-Miners are exposed to the following costs denominated in traditional fiat currencies:
-1. CAPEX - Cost of mining hardware, establishment costs, capital costs.
-2. OPEX - Electricity consumption, human resources, maintenance.
+Miners are therefore exposed to the following costs denominated in local fiat currencies:
+1. CAPEX - Cost of mining hardware, establishment costs, warehousing and logistics.
+2. OPEX - Electricity consumption, human resources, maintenance and capital costs.
 
-These unavoidable mining costs necessitate distribution of coins into the market which enhances wealth distribution and participation opportunity.
+**Bitcoin** mining has evolved through several stages with dominant mining hardware progressing through CPU, GPU, FPGA and finally to ASIC chips in 2012-13. **Decred** launched into a 2016 market where GPU miners were readily available and thus had an initial difficulty setting equivalent to the hashpower of 256 contemporary GPU chips. **Decred** mining has since progressed to become an ASIC dominated industry as of early 2018 [[8](https://youtu.be/7K2sDhyjQys)], [[9](https://youtu.be/8TPFIVYy_i4)].
 
-**Bitcoin** mining has evolved through several stages with dominant mining hardware progressing through CPUs, GPUs, FPGAs and finally to ASICs chips in 2012-13. **Decred** launched into a 2016 market where GPU miners were readily available and thus had an initial difficulty setting equivalent to the hashpower of 256 contemporary GPU chips. **Decred** mining has since progressed to become an ASIC dominated industry in early 2018 [[8](https://youtu.be/7K2sDhyjQys)], [[9](https://youtu.be/8TPFIVYy_i4)].
-
-The figure below shows the similarities in growth of the Proof-of-Work industries for **Bitcoin** and **Decred**. Both protocols have seen hashpower securing the network increase by five orders of magnitude over the first four years of operation (both weathering a bear market).
+The figure below shows the similarities in growth of the Proof-of-Work industries for **Bitcoin** and **Decred**. Both protocols have seen hashpower securing the network increase by five orders of magnitude over the first four years of operation with both weathering a bear market during this time.
 
 ![BTC and DCR Proof-of-Work Difficulty and Hashrate](images/image_05.png)
 
-The progression of a PoW cryptocurrency to an ASIC dominated mining industry is an important phase in the security lifecycle. These specific purpose chips are designed solely for mining the hash algorithm and thus lock in miner capital investment to securing the blockchain. ASICs enable massive economies of scale and long term planning of energy contracts and facilities which tends towards fewer and more centralised profitable entities who achieve a competitive MC = MR balance.
+The progression of a PoW cryptocurrency to an ASIC dominated mining industry is an important phase in the security lifecycle. These specific purpose chips are designed solely for mining the hash algorithm and thus lock in miner capital investment into securing the blockchain. ASICs enable massive economies of scale and long term planning of energy contracts and facilities. 
 
-> Applying the MC = MR framework, we can estimate the dollar denominated cost of coin production. By summing the quantity of coins issued in the block reward and network transaction fees priced at the time of creation, we can quantify the available security subsidy. This metric acts as a ceiling cost where miners carrying marginal costs higher than this level are, in theory, operating at a loss.
+The result of this is that mining tends towards fewer and more centralised but profitable entities who achieve a competitive MC = MR balance.
+
+> Applying the MC = MR framework, we can estimate the dollar denominated cost of coin production. By summing the quantity of coins issued in the block reward and network transaction fees priced at the time of creation, we quantify the total available security subsidy (MR). This metric acts as a ceiling cost where on aggregate, miners carrying marginal costs (MC) higher than this level are, in theory, operating at a loss and will eventually go out of business.
 
 # Quantifying the Security Budget
 
-The following analysis has been undertaken for two conditions:
+The analysis has been undertaken for two conditions:
 
-**Case 1** - Cummulative sum of block rewards and fees, representing the total **unforgeable costliness** of the protocol. This metric may be considered a measure of scarcity, accounting for the total value expended to produce the circulating supply.
+**Case 1** - Cummulative sum of block rewards and fees over time, representing the total **unforgeable costliness** of the protocol. This metric may be considered a measure of scarcity, accounting for the total value expended to produce the circulating supply.
 
-**Case 2** - Daily cost to attack the protocol considering only the available security budget within a 24hr period. This metric represents the minimum cost for a malicious actor to attack the network, generate coins on an alternative chain and undermine protocol integrity. This is key to understanding the **true finality** of transactions and value secured by the ledger.
+**Case 2** - Daily cost to attack the protocol considering only the available security budget within a 24hr period. This metric represents the minimum cost for a malicious actor to attack the network, generate coins on an alternative chain and undermine protocol integrity. This is key to understanding the **settlement finality** for transactions and value secured by the ledger.
 
 For **Bitcoin**, the calculation for both conditions is relatively straight forward with the unforgeable costliness of BTC simply equating to the running sum of daily security subsidy:
 
 ![Bitcoin Unforgeable Costliness](images/image_06a.png)
 
-Two Bitcoin cases have been considered for an apples-to-apples comparison:
+Two Bitcoin cases have been summarised for an apples-to-apples comparison:
 1) Bitcoin at 50% coins mined (the equivalent coin age as Decred)
 2) Bitcoin at 85.6% coins mined (present day)
 
-For **Decred**, the hybrid PoW/PoS security mechanism has a number of unique characteristics which affect the relative cost to create an alternative chain and forge DCR coins:
+For **Decred**, the hybrid PoW/PoS security mechanism has a number of unique characteristics that affect the relative cost to create a competing minority chain and forge DCR coins:
 
 - Each block requires initial PoW mining of a block by expenditure of energy and computation.
 
@@ -189,76 +197,96 @@ For **Decred**, the hybrid PoW/PoS security mechanism has a number of unique cha
 
 - A mined block requires 3/5 tickets to approve the block which if not attained, necessitates re-mining the previous block for new submission to validators. Thus a minority share of the PoS ticket pool requires a larger share of the hash-rate to re-mine invalidated blocks faster than the honest chain.
 
-- Spamming of the PoS network is constrained by a hard limit of 20 tickets available for sale in each 5min Decred block. Each ticket also has a 24hr period of maturation before entering the pool as well as a 24hr period immediately after voting.
+- Spamming of the PoS network is constrained by a hard limit of 20 tickets available for sale in each 5min Decred block. Each ticket also has a 24hr period of maturation before entering the pool as well as a 24hr period immediately after voting. This ensures tickets are exposed to price volatility and an attacker must assume their locked coin value becomes negligible if successful.
 
 - The ticket price in DCR adjusts every 144 blocks (approx 12hrs) to account for relative demand for a spot in the target pool size of 40,960 tickets (the stake difficulty).
 
 - Where an attacker's block receives less than 5/5 ticket approvals, their PoW block reward is reduced proportionately. This component has not been included in this analysis for simplicty however will act to make an attack even more costly as fewer mined/staked DCR are available to offset and sustain the attack.
 
-Production of a competing **Decred** block therefore requires a trade-off between share of the PoS ticket pool and a corresponding share of the PoW hash-rate market. 
+Production of a competing **Decred** block therefore requires a trade-off between a share of the PoS ticket pool and a corresponding share of the PoW hash-rate market. 
 
-The share of PoW/PoS required and cost to attack has been documented by Zubair Zia ([2018](https://medium.com/decred/decreds-hybrid-protocol-a-superior-deterrent-to-majority-attacks-9421bf486292)), Fiach_Dubh ([2019](https://medium.com/coinmonks/comparing-double-spend-resistance-decred-vs-bitcoin-part-1-330c8081b2a9)), Haon and Collins ([2018](https://medium.com/decred/detailed-analysis-of-decred-fork-resistance-93022e0bcde7)) and an invaluable paper by Stafford ([2019](https://github.com/buck54321/dcr-research/blob/master/paper/Attack-cost%20estimation.pdf)) which forms the basis for this analysis. The core relationship between the probability an attacker successfully validates a block and the hashpower required to match the honest chain is presented in the formulation and chart below.
+The share of PoW/PoS required and cost to attack has been documented by Zubair Zia ([2018](https://medium.com/decred/decreds-hybrid-protocol-a-superior-deterrent-to-majority-attacks-9421bf486292)), Fiach_Dubh ([2019](https://medium.com/coinmonks/comparing-double-spend-resistance-decred-vs-bitcoin-part-1-330c8081b2a9)), Haon and Collins ([2018](https://medium.com/decred/detailed-analysis-of-decred-fork-resistance-93022e0bcde7)) and an invaluable paper by Stafford ([2019](https://github.com/buck54321/dcr-research/blob/master/paper/Attack-cost%20estimation.pdf)) which forms part-basis for this analysis. The core relationship between the probability of an attacker successfully validating a block and the hashpower required to keep up with the honest chain is presented in the formulation and chart below.
 
 ![Bitcoin Unforgeable Costliness](images/image_06b.png)
 ![Decred Security Curve](images/image_07.png)
 
-The Decred security curve shows the multiple of honest hashpower required to 'forge' a **Decred** block for a given share of the ticket pool (orange). It also presents the amount of time (in days) to which an attacker would need to commit to buying all 20 tickets in every block to achieve that share of the pool (blue). 
+The Decred security curve shows the required multiple of honest hashpower an attacker needs to 'forge' a **Decred** block for a given share of the ticket pool (orange). It also presents the amount of time (in days) to which an attacker would need to commit to buying all 20 tickets in every block to achieve that share of the pool (blue). 
 
 This analysis does not account for honest ticket purchases diluting the attacker, nor the inevitable increase in the ticket price in DCR in response to the attacker's ticket demand.
 
-A hashpower multiple of 1.0 implies the attacker needs hashpower equal to the honest miners (a traditional 51% attack) in order to keep up with the honest chain [(Haon and Collins, 2019)](https://medium.com/coinmonks/comparing-double-spend-resistance-decred-vs-bitcoin-part-1-330c8081b2a9). The chart is curtailed at a 75% share of the ticket pool as this represents the threshold at which protocol governance decisions can be passed supporting a chain fork. Arguably, this point is better termed 'consensus' rather than an 'attack'.
+A hashpower multiple of 1.0 implies the attacker needs hashpower equal to the honest miners (a traditional 51% attack) in order to keep up with the honest chain [(Haon and Collins, 2019)](https://medium.com/coinmonks/comparing-double-spend-resistance-decred-vs-bitcoin-part-1-330c8081b2a9). The chart is curtailed at a 75% share of the ticket pool as this represents the threshold at which protocol governance decisions can be passed supporting a chain fork. Arguably, this point is better termed 'consensus' than an 'attack'.
 
-It can be seen that for a share of tickets less than 25%, the required hashpower to forge a **Decred** block increases exponentially and requires in excess of 10x the honest miner hashpower. At 50% of tickets, **Decred** security functions similar to a pure PoW chain requiring a 51% attack to double spend, albeit with the additional cost to acquire DCR amounting to 50% of the ticket pool.
+It can be seen that for a share of tickets less than 25%, the required hashpower to forge a **Decred** block increases exponentially and requires in excess of 10x the honest miner hashpower. At 50% of tickets, **Decred** security functions similar to a pure PoW chain still requiring a 51% attack to double spend, albeit with the additional cost to acquire DCR amounting to 50% of the ticket pool.
 
-> Decred's Hybrid security mechanism maintains the core value proposition of the pure PoW system employed by Bitcoin and overlays PoS validation akin to two-factor authentication. This enhances the actual security by orders of magnitude in the most probable scenarios of ticket ownership share by an attacker.
+> Decred's Hybrid security mechanism maintains the core value proposition of the pure PoW system employed by Bitcoin and overlays PoS validation akin to two-factor authentication. This enhances the actual security by orders of magnitude in the most probable scenarios whilst simultaneously mitigating the risk of the inevitable centralisation of miners.
 
 # Unforgeable Costliness of BTC and DCR
 
-Accounting for the relationship between **Decred's** hybrid PoW and PoS components, the Unforgeable Costliness of DCR may be calculated for any theoretical share of attacker tickets. 
+Accounting for the relationship between **Decred's** hybrid PoW and PoS components, the Unforgeable Costliness of DCR may be calculated for any theoretical share of attacking tickets. 
 
-To provide context and grounds for a rational attack scenario, the author has determined known points of DCR centralisation that could launch or supply a coordinated attack on the **Decred** network. This includes known large exchange wallets, the founder's pre-mine, operating stake-pools (holding 47.52% of tickets at the time of writing) and the protocol treasury (which equally could be deployed in defense by stakeholders in the most extreme scenario). 
+To provide context and grounds for a rational attack scenario, the author has determined known points of DCR centralisation that could launch or supply a coordinated attack on the **Decred** network. This includes known large exchange wallets, the founder pre-mine, operating stake-pools (holding an aggregate of 47.52% of tickets at the time of writing) and the protocol treasury (which equally could be deployed in defense by stakeholders in the most extreme scenario). 
 
-The analysis assumes that the entity purchases tickets at the current typical price of 140 DCR and is entering a target pool of 40,960 tickets. No penalty is considered for the unavoidable ticket price increase resulting from an attacker's ticket demand.
+The analysis assumes that for these 'potential vectors', the entity purchases tickets at the current typical price of 140 DCR and is entering a target pool of 40,960 tickets. No penalty is considered for the inevitable ticket price increase that would result from the attacker's ticket demand which would increase the required DCR coin supply.
 
 ![DCR centralisation vectors](images/image_10.png)
 
-The following representative cases have been used to calculate the cumulative Unforgeable Costliness of both **Bitcoin** and **Decred** through their history. Results are plotted against coin age (circ. supply / 21M) to normalise for the stage in the protocol lifespan. The market cap of Bitcoin and Decred at the time of writing are $141.2B and $188.0M for calculating the Unforgeable Costliness to Market Cap ratio (a metric of security to valuation).
+The representative cases have been used to calculate the cumulative Unforgeable Costliness of both **Bitcoin** and **Decred** through their history. Results are plotted against coin age (circ. supply / 21M) to normalise for the stage in protocol lifespan. 
+
+The current market caps for calculating the Unforgeable Costliness to Market Cap ratio (a metric of security to valuation) of each protocol are: 
+- Bitcoin at 50% coins mined =  $127.0M.
+- Bitcoin at time of writing = $141.2B.
+- Decred at time of writing = $188.0M.
 
 ![Analysis Cases Considered](images/image_08.png)
 ![Cummulative Unforgeable Costliness](images/image_09.png)
 
-It can quickly be ascertained that at a low but reasonable proportion of tickets held (<10%), the cumulative cost to forge DCR on a minority chain would be $16.6+ Billion, 11% higher than for Bitcoin across its entire lifespan. That minority Decred chain would also require consistent input of 115x of the current honest PoW hash-power which the author considers to be both unlikely and impractical.
+It is quickly ascertained that at a low but reasonable proportion of tickets held (<10%), the cumulative cost to forge DCR on a minority chain would be $16.6+ Billion, 11% higher than Bitcoin's lifetime cost of $14.87 Billion. That minority Decred chain would also require consistent input of 115x of the current honest PoW hash-power which the author considers to be both unlikely and impractical.
 
-In the instance of a malicious cartel including all stake-pools and exchanges, the unforgeable costliness of DCR (50% ticket case) reduces to around $0.179 Billion, approximately equal to the Market Cap of the Decred protocol. This attack necessitates a cost equal in value to that of the target (Decred) whilst also needing an amount of hashpower equal to the honest miners (a 51% attack).
+In the instance of a malicious cartel including all stake-pools and exchanges, the unforgeable costliness of DCR (50% ticket case) reduces to around $0.179 Billion, approximately equal to the Market Cap of the Decred protocol. This attack necessitates a cost equal in value to that of the target whilst also needing an amount of hashpower equal to the honest miners (a 51% attack).
 
-Bitcoin at an equivalent age of 50% coins mined boasted an unforgeable costliness of $38Million (30% of its Market Cap) is currently valued at $141 Billion, approximately 10x it's unforgeable costliness. This indicates a monetary premium gained over time and will be a valuable metric to observe for Decred as it continues its growth.
+Bitcoin at an equivalent age of 50% coins mined carried an unforgeable costliness of $37Million (30% of its Market Cap) and is currently valued at $141 Billion, approximately 10x it's unforgeable costliness. This indicates a measure of Bitcoin's monetary premium gained over time. It is notable that Decred currently carries a monetary premium 3.3x greater than Bitcoin did at 50% coins mined when considering the extreme case of a 50% ticket attack vector as an analogue for pure PoW.
 
-On the basis of this analysis, it can be argued that the Unforgeable Costliness for DCR is greater than the unit Unforgeable Costliness of BTC production for any attack with less than 10% of the ticket pool. At a rational, albeit extreme attack vector with 30% to 50% of the tickets, Decred has an unforgeable costliness of 5.0% and 1.2% of Bitcoin's. This is a remarkable feat for a protocol 750x smaller in market valuation that Bitcoin (0.12% in size).
+On the basis of this analysis, it can be argued that the Unforgeable Costliness for DCR in the is extremely competitive compared to the production cost of BTC, especially for the most probable attack vectors with less than 15% of the ticket pool.
+
+- For the most probable <15% share of offensive tickets, DCR costliness is greater than 28x the network value and actually exceeds the lifetime costliness of BTC for a ticket share <10%.
+
+- For an extreme case of a 30% to 50% share of offensive tickets, DCR costliness is 1x to 4x the network value and is at a premium of 20x and 2.2x the historic costliness of BTC at 50% coins mined.
+
+These are remarkable numbers for a protocol 750x smaller in market valuation (0.12% the size) of Bitcoin.
 
 # Finality of Bitcoin and Decred
 
-The second analysis considers the real-time cost to attack each protocol on a daily basis to establish a relative settlement finality of transactions. Whilst the cumulative protocol cost is a valuable metric for scarcity and long term security, the consistency and magnitude of network security day-to-day is of the utmost importance for a functional sound money protocol.
+The second analysis considers the cost to attack each protocol on a daily basis to establish a relative settlement finality for transactions. Whilst the cumulative protocol cost is a valuable metric for scarcity and long term security, the consistency and magnitude of network security day-to-day is of the utmost importance for a functional sound money protocol.
 
 ![Analysis Cases](images/image_12.png)
 ![Daily Cost to attack](images/image_11.png)
 
 **Decred** again shows remarkable performance:
-- Upper bound Decred 24hr security budget equivalent to 28% of network value at 5% ticket share
-- Lower bound Decred 24hr security budget equivalent to 0.02% of network value at 75% ticket share
-- Bitcoin at an equivalent age (50% mined) maintained a 24hr security budget of 2.4% of network value 
-- Bitcoin is currently supported by a 24hr security budget of 0.01% of network value.
+- Upper bound Decred 24hr security cost is equivalent to 28% of network value at 5% ticket share
+- Lower bound Decred 24hr security cost equivalent to 0.02% of network value at 75% ticket share
+- Bitcoin at 50% coins mined maintained a 24hr security cost of 2.4% of network value. 
+- Bitcoin is currently supported by a 24hr security cost of 0.01% of network value.
 
-> In the upper bound condition of 5% of tickets owned, Decred boasts a superior daily security cost and finality relative to Bitcoin, making the protocol the most secure blockchain known to the author. In the extreme lower bound case (level of PoS consensus), Decred matches Bitcoin in finality per unit of market cap.
+> In the upper bound condition of 5% of tickets owned, Decred boasts a superior daily security cost and finality relative to Bitcoin, making the Decred protocol the most secure blockchain known to the author. In the extreme lower bound case of 75% tickets (level of PoS consensus), Decred matches Bitcoin in security cost on a per unit of market cap basis.
 
-Based on the analysis undertaken, it is the author's opinion that an attacking ticket share of 30% is an appropriately feasible attack vector, albeit difficult to coordinate. The attack would require dominant centralised stakepools and exchanges to conspire and it remains important to note the following considerations that still make the attack vector unlikely:
-- The attack would require 5x the honest Decred hashpower with the associated logistics and on-chain signatures.
-- It would permanently damage the reputation of all centralised entities involved (a similar game theory logic often leveled in support of centralised Bitcoin mining operations).
-- The defensive actions of honest Decred participants are ignored and would make the attack more expensive.
+It is the author's opinion that an attacking ticket share of 30% is an appropriately feasible attack vector for establishing finality, albeit difficult to coordinate and sustain. The attack would require dominant centralised stakepools and exchanges to conspire and even then, the analysis has ignored numerous important considerations that would make the attack vector even more unlikely and expensive:
+- The attack would require a sustained 5x the honest Decred hashpower with the associated logistics and on-chain signatures.
+
+- It would permanently damage the reputation of all centralised entities involved (a similar game theory logic is often leveled in support of centralised Bitcoin mining operations).
+
+- The defensive actions of honest Decred participants are ignored such as purchasing friendly tickets, addition of honest hashpower and in the extreme case deploying tools available as a product of the governance system.
+
 - Notable conservatism is present in this analysis including ignoring the reduced block reward on a minority chain and assuming a static ticket price.
 
-The Decred Finality Ratio is thus defined as the real-time ratio between 24hr security budget of Decred compared to Bitcoin. A finality ratio of 2.0 indicates Decred settles twice as fast as Bitcoin whilst a ratio of 0.2 means Decred settles 5x slower. 
+The Decred Finality Ratio is thus defined as the real-time ratio between the 24hr security cost of Decred compared to Bitcoin. This ratio compares the actual, present day settlement finality of the Decred protocol. For context, a finality ratio of 2.0 indicates Decred settles twice as fast as Bitcoin whilst a ratio of 0.2 means Decred settles 5x slower.
+
 ![Analysis Cases](images/image_14.png)
 ![Analysis Cases](images/image_13.png)
+
+Decred is a cryptocurrency that is 750x smaller than Bitcoin. If we theorise a similarly sized, pure PoW protocol which issued an equivalent number of coins to Bitcoin per unit of time, we can expect settlement equivalent to 1 Bitcoin block to take around 5.34 days. In every scenario considered, Decred's security cost outperforms this theoretical Proof of work security system.
+
+For attack vectors sporting <10% of the ticket pool, Decred matches to outperforms Bitcoin for transaction finality. In the most adverse, rational scenarios of 30% and 50% adverse tickets, Decred is in fact the second to third most secure chain according to [howmanyconfs.com](https://howmanyconfs.com/)
+
 
 
 # References
