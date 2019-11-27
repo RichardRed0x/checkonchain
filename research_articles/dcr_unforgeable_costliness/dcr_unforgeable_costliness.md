@@ -23,6 +23,13 @@ In this paper, I explore the **Security and Consensus** mechanisms of **Decred**
 
 Immutability and censorship resistance is the core value proposition of sound money protocols and that which truely enables the separation of money and state. As such, quantifying the security budgets, performance and finality will provide confidence for users, investors and speculators who choose to store their wealth in BTC or DCR, potentially for hundreds of years into the future.
 
+## TL; DR
+- **Decred's** hybrid PoW/PoS security protocol requires an attacker to trade-off between a share of the ticket pool and an associated share of the hashpower market.
+
+- Assuming a framework of marginal cost = marginal reward, Decred not only competes with Bitcoin, it outpaces it in a number of metrics regarding blockchain security and finality.
+
+- Based on these studies, Decred can reasonably be considered one of the top three most secure and censorship resistant public ledgers in the market.
+
 ## Disclosure
 
 *This paper was written and researched as part of the author's [research proposal](https://proposals.decred.org/proposals/78b50f218106f5de40f9bd7f604b048da168f2afbec32c8662722b70d62e4d36) accepted by the Decred DAO. Thus, the writer was paid in DCR for their billed time undertaking the research. Nevertheless, the study aims to be objective and mathematically rigorous based on publicly available market and blockchain data. All findings can be readily verified by readers in the attached [spreadsheet](analysis/dcr_unforgeable_analysis.xlsx) and all assumptions shall be clearly stated.*
