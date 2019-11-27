@@ -70,7 +70,7 @@ For **Bitcoin**, Satoshi Nakamoto's design decision was to transparently release
 
 Numerous studies into early hashrate indicate Satoshi was the dominant miner through the first year with estimates on the number of bitcoins mined ranging from 740k to 980k BTC (of which all are believed to have never been spent). Given there is no way to tell if these coins will ever move, public consensus appears to have accepted this uncertainty as a fair and reasonable thanks for Satoshi's skill and time (Lerner, [2013a](https://bitslog.com/2013/04/17/), [2013b](https://bitslog.com/2013/04/24/satoshi-s-fortune-a-more-accurate-figure/), [2014](https://organofcorti.blogspot.com/2014/08/167-satoshis-hashrate.html); [BitMEX Research, 2018](https://blog.bitmex.com/satoshis-1-million-bitcoin/); [Held, 2018](https://blog.picks.co/bitcoins-distribution-was-fair-e2ef7bbbc892)).
 
-The evidence suggests that Satoshi was the dominant miner out of necessity however deliberately reduced his share of network hashrate as new miners entered and the network gained strength. It is estimated that Satishi's influence on the mining network persisted for around 16 months until signals of his distinctive mining signiature dissipated. Thus **Bitcoin's** genesis is considered by many to be as fair as a decentralised scarce asset network launch could be.
+The evidence suggests that Satoshi was the dominant miner out of necessity however deliberately reduced his share of network hashrate as new miners entered and the network gained strength. It is estimated that Satoshi's influence on the mining network persisted for around 16 months until signals of his distinctive mining signiature dissipated. Thus **Bitcoin's** genesis is considered by many to be as fair as a decentralised scarce asset network launch could be.
 
 [![Satoshis Hashrate share after Sergio Demian Lerner](images/image_02.png)](https://organofcorti.blogspot.com/2014/08/167-satoshis-hashrate.html)
 [*Figure: Satoshis Hashrate share after Sergio Demian Lerner*](https://organofcorti.blogspot.com/2014/08/167-satoshis-hashrate.html)
@@ -93,13 +93,13 @@ The whitepaper for **Decred's** primitive called [Memcoin2](https://www.decred.o
 
 ## The Decred Pre-mine
 
-An differentiating feature of **Decred** is it's unique hybridised PoW/PoS security and consensus mechanism. In order to secure the chain at launch, it was necessary that a majority of honest actors, with an appreciation of the project's philosophy, participate in the Proof-of-Stake ticket system.
+A differentiating feature of **Decred** is it's unique hybridised PoW/PoS security and consensus mechanism. In order to secure the chain at launch, it was necessary that a majority of honest actors, with an appreciation of the project's philosophy, participate in the Proof-of-Stake ticket system.
 
 For **Decred's**, the design decision was to launch the protocol with a pre-mine totaling 1.68M DCR, equivalent to 8% of the total 21M supply. Half (4%, 840k DCR) was airdropped free to community members to enhance coin distribution and bootstrap security and governance. The other half was  purchased by the founding team at a rate of $0.49/DCR either in exchange for their own money or their future development time.
 
 Community registration to participate in the airdrop was [transparently publicised](https://bitcointalk.org/index.php?topic=1290358.0) one month prior to the window close and over 8,793 submissions were received and filtered to remove duplicates and false entries. Airdrop participants were required to provide a Decred wallet address, as well as a link to a social media identity that showed some interest in cryptocurrency. Ultimately, [282.63795424 DCR was awarded to a total of 2,972 participants](https://docs.decred.org/advanced/premine/#airdrop).
 
-For miners, [v0.0.4 of cgminer](https://github.com/decred/cgminer/releases) was available at the time of **Decred's** launch and [ccminer v1.7.2 released 3 days later](https://github.com/tpruvot/ccminer/releases/tag/1.7.2-tpruvot) to ensure permissionless access to Proof-of-Work mining. Decred code was available in almost all operating systems imaginable.
+For miners, [v0.0.4 of cgminer](https://github.com/decred/cgminer/releases) was available at the time of **Decred's** launch and [ccminer v1.7.2 released 3 days later](https://github.com/tpruvot/ccminer/releases/tag/1.7.2-tpruvot) to ensure permissionless access to Proof-of-Work mining. Decred code was available on almost all operating systems imaginable.
 
 Details of the **Decred** pre-mine are available in full as part of the [project documentation](https://docs.decred.org/advanced/premine/) and the [block 1 transaction](https://dcrdata.decred.org/tx/5e29cdb355b3fc7e76c98a9983cd44324b3efdd7815c866e33f6c72292cb8be6).
 
@@ -128,7 +128,7 @@ In a very similar manner to Satoshi, the **Decred** developers (Company 0) have 
 **Decred's** initial distribution thus iterated on **Bitcoin's** ideals to account for the new market dynamics in 2016 and the need for bootstrapping a Hybrid PoW/PoS consensus and security mechanism.
 
 Key ingredients of **Decred's** initial distribution may be reasonably summarised as follows:
-1. Complete transparency of both the project genesis (as Memcoin2 and Decred) the conditions of pre-mine participation months in advance of releasing the code.
+1. Complete transparency of the project genesis (as Memcoin2 and Decred) and the conditions of pre-mine participation months in advance of releasing the code.
 
 2. An open application process for community members to participate with appropriate screening for false entries given heightened market awareness. Appropriate staking and mining tools made available at the time of launch across almost all operating systems.
 
@@ -142,7 +142,7 @@ Key ingredients of **Decred's** initial distribution may be reasonably summarise
 
 It is well known that some folks in the cryptocurrency industry view pre-mines as a dirty word that exist solely to unfairly benefit founding teams (with many unfortunate examples as evidence). The author has no expectation of changing those minds.
 
-What is desireable is to impart on the more open minded reader that **Decred** was launched in very different environment to **Bitcoin**. By careful and intricate design, a small pre-mine acted to both bootstrap network security during the most vulnerable years, allow Decred to remain self-sovereign with no external funding or influence and reward the team for their skill and time at the same rate as Satoshi Nakamoto.
+It is desireable is to impart on the more open minded reader that **Decred** was launched in very different environment to **Bitcoin**. By careful and intricate design, a small pre-mine acted to both bootstrap network security during the most vulnerable years, allow Decred to remain self-sovereign with no external funding or influence and reward the team for their skill and time at the same rate as Satoshi Nakamoto.
 
 # The Cost of Acquisition
 
