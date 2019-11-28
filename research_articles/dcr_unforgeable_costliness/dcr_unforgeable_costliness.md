@@ -11,7 +11,7 @@ As **Bitcoin**  continues to assert it's market dominance, it is the correct ben
 2. Cost of Security and Unforgeable Costliness (this paper)
 3. Governance, User Adoption and Resilience
 
-![Decred and Bitcoin](images/image_0.png)
+![Decred and Bitcoin](images/image_cover.png)
 
 # Background
 
