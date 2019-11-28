@@ -36,7 +36,7 @@ Immutability and censorship resistance is the core value proposition of sound mo
 
 # Unforgeable Costliness
 
-An essential characteristic of a digital sound money protocol is **Unforgeable Costliness**, that is the impossibility of producing the asset without a provable expendature of capital, energy and/or time. Unforgeable Costliness stipulates that one of these scarce resources must be exchanged for production of another (capital being an abstraction of both energy and time). Without it, production may be gamed by those with greater access to the source, subsequently destroying the confidence and trust in future expectations of inflation.
+An essential characteristic of a digital sound money protocol is **Unforgeable Costliness**, that is the impossibility of producing the asset without a provable expenditure of capital, energy and/or time. Unforgeable Costliness stipulates that one of these scarce resources must be exchanged for production of another (capital being an abstraction of both energy and time). Without it, production may be gamed by those with greater access to the source, subsequently destroying the confidence and trust in future expectations of inflation.
 
 Nick Szabo beautifully articulated the idea by describing the unavoidable and expensive costs of production which must exist for an asset to attain a monetary premium.
 
@@ -70,7 +70,7 @@ For **Bitcoin**, Satoshi Nakamoto's design decision was to transparently release
 
 Numerous studies into early hashrate indicate Satoshi was the dominant miner through the first year with estimates on the number of bitcoins mined ranging from 740k to 980k BTC (of which all are believed to have never been spent). Given there is no way to tell if these coins will ever move, public consensus appears to have accepted this uncertainty as a fair and reasonable thanks for Satoshi's skill and time (Lerner, [2013a](https://bitslog.com/2013/04/17/), [2013b](https://bitslog.com/2013/04/24/satoshi-s-fortune-a-more-accurate-figure/), [2014](https://organofcorti.blogspot.com/2014/08/167-satoshis-hashrate.html); [BitMEX Research, 2018](https://blog.bitmex.com/satoshis-1-million-bitcoin/); [Held, 2018](https://blog.picks.co/bitcoins-distribution-was-fair-e2ef7bbbc892)).
 
-The evidence suggests that Satoshi was the dominant miner out of necessity however deliberately reduced his share of network hashrate as new miners entered and the network gained strength. It is estimated that Satoshi's influence on the mining network persisted for around 16 months until signals of his distinctive mining signiature dissipated. Thus **Bitcoin's** genesis is considered by many to be as fair as a decentralised scarce asset network launch could be.
+The evidence suggests that Satoshi was the dominant miner out of necessity however deliberately reduced his share of network hashrate as new miners entered and the network gained strength. It is estimated that Satoshi's influence on the mining network persisted for around 16 months until signals of his distinctive mining signature dissipated. Thus **Bitcoin's** genesis is considered by many to be as fair as a decentralised scarce asset network launch could be.
 
 [![Satoshis Hashrate share after Sergio Demian Lerner](images/image_02.png)](https://organofcorti.blogspot.com/2014/08/167-satoshis-hashrate.html)
 [*Figure: Satoshis Hashrate share after Sergio Demian Lerner*](https://organofcorti.blogspot.com/2014/08/167-satoshis-hashrate.html)
@@ -158,7 +158,7 @@ In other words, the marginal cost of production (MC) tends to equality with the 
 
 > If a protocol block reward issues $100 dollars worth of coins, producers will compete and expend up to $100 dollars to create it. If one producer achieves an efficient production cost of $99.00, another producer will eventually be willing to expend a production cost $99.01. Another will then out-bid with a cost of $99.02 until the cost approaches the reward.
 
-The following analysis quantifies each protocol's unforgeable costliness and settlment finality using this framework and assessing the converse; the unavoidable costs that are required to forge coins in a minority chain attack.
+The following analysis quantifies each protocol's unforgeable costliness and settlement finality using this framework and assessing the converse; the unavoidable costs that are required to forge coins in a minority chain attack.
 
 ## Proof-of-Work
 
@@ -184,7 +184,7 @@ The result of this is that mining tends towards fewer and more centralised but p
 
 The analysis has been undertaken for two conditions:
 
-**Case 1** - Cummulative sum of block rewards and fees over time, representing the total **unforgeable costliness** of the protocol. This metric may be considered a measure of scarcity, accounting for the total value expended to produce the circulating supply.
+**Case 1** - Cumulative sum of block rewards and fees over time, representing the total **unforgeable costliness** of the protocol. This metric may be considered a measure of scarcity, accounting for the total value expended to produce the circulating supply.
 
 **Case 2** - Daily cost to attack the protocol considering only the available security budget within a 24hr period. This metric represents the minimum cost for a malicious actor to attack the network, generate coins on an alternative chain and undermine protocol integrity. This is key to understanding the **settlement finality** for transactions and value secured by the ledger.
 
@@ -208,7 +208,7 @@ For **Decred**, the hybrid PoW/PoS security mechanism has a number of unique cha
 
 - The ticket price in DCR adjusts every 144 blocks (approx 12hrs) to account for relative demand for a spot in the target pool size of 40,960 tickets (the stake difficulty).
 
-- Where an attacker's block receives less than 5/5 ticket approvals, their PoW block reward is reduced proportionately. This component has not been included in this analysis for simplicty however will act to make an attack even more costly as fewer mined/staked DCR are available to offset and sustain the attack.
+- Where an attacker's block receives less than 5/5 ticket approvals, their PoW block reward is reduced proportionately. This component has not been included in this analysis for simplicity however will act to make an attack even more costly as fewer mined/staked DCR are available to offset and sustain the attack.
 
 Production of a competing **Decred** block therefore requires a trade-off between a share of the PoS ticket pool and a corresponding share of the PoW hash-rate market. 
 
@@ -285,6 +285,8 @@ It is the author's opinion that an attacking ticket share of 30% is an appropria
 
 - Notable conservatism is present in this analysis including ignoring the reduced block reward on a minority chain and assuming a static ticket price.
 
+## Decred Finality Ratio
+
 The Decred Finality Ratio is thus defined as the real-time ratio between the 24hr security cost of Decred compared to Bitcoin. This ratio compares the actual, present day settlement finality of the Decred protocol. For context, a finality ratio of 2.0 indicates Decred settles twice as fast as Bitcoin whilst a ratio of 0.2 means Decred settles 5x slower.
 
 ![Analysis Cases](images/image_14.png)
@@ -294,7 +296,7 @@ Decred is a cryptocurrency that is 750x smaller than Bitcoin. If we theorise a s
 
 In every ticket share scenario considered, Decred's security cost outperforms this theoretical Proof of work security system by at least 2x.
 
-This analysis assumes that a single Bitcoin block is considered a finality bechmark and the author has compared the settlement times to the the pure PoW cryptocurrency finality rankings on [howmanyconfs.com](https://howmanyconfs.com/).
+This analysis assumes that a single Bitcoin block is considered a finality benchmark and the author has compared the settlement times to the the pure PoW cryptocurrency finality rankings on [howmanyconfs.com](https://howmanyconfs.com/).
 
 - For attacks with <10% ticket share, Decred matches to outperforms Bitcoin for transaction finality making it the most secure ledger the author is aware of.
 
@@ -308,11 +310,11 @@ The Unforgeable Costliness of a sound money protocol is a valuable metric for as
 
 An attacker seeking to forge DCR coins must make a trade-off decision between a share of the PoS ticket pool and an associated share of the PoW hashpower market. Analysis of centralisation points for DCR suggest that a rational attack vector of 15% to 30% of the tickets is both unlikely and extremely difficult to sustain, requiring greater than 5x the honest hashpower. Attacks greater than this require significant capital outlay purchasing DCR off the market or a globally coordinated attack by all known centralisation points.
 
-Under the framework of marginal cost approaching marginal reward, the cummulative unforgeable costliness and 24hr security budget has been calculated and comapred as a finality metric to Bitcoin's equivalent. 
+Under the framework of marginal cost approaching marginal reward, the cumulative unforgeable costliness and 24hr security budget has been calculated and compared as a finality metric to Bitcoin's equivalent. 
 
 Whilst Decred is 750x smaller in network value compared to Bitcoin, it competes at a remarkable level, firmly placing it as one of the most secure blockchains.
 
-> This study concludes that **Decred** boasts a settlement finality which ranks it, at a minimum and under most adverse conditions, in the top 10 blockchains. Given the conservatisms built into this analysis, under realistic attack conditions **Decred** performs as one of the top three most secure public blockchains, competing directly with Ethereum and Bitcoin.
+> This study concludes that **Decred** boasts a settlement finality which ranks it, at a minimum and under most adverse conditions, in the top 10 blockchains. Given the conservatism built into this analysis, under realistic attack conditions **Decred** performs as one of the top three most secure public blockchains, competing directly with Ethereum and Bitcoin.
 
 
 ## Signature

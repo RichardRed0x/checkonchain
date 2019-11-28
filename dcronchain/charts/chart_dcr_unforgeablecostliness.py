@@ -482,47 +482,47 @@ Ratio on date
 DCR Daily cost / BTC Daily Cost --> block for block (x2 for time for time or btc blocks)
 """
 
-BTC_temp = BTC_subs[['date','Unforg_Cost_Daily']]
-BTC_temp.columns = ['date','BTC_Unforg_Cost_Daily']
+BTC_final = BTC_subs[['date','Unforg_Cost_Daily']]
+BTC_final.columns = ['date','BTC_Unforg_Cost_Daily']
 
-DCR_temp = DCR_subs.merge(BTC_temp,left_on='date',right_on='date')
+DCR_final = DCR_subs.merge(BTC_final,left_on='date',right_on='date')
 
-DCR_temp['Finality_Ratio_5%']  = (
-    DCR_temp['Unforg_Cost_5%_Daily'] / DCR_temp['BTC_Unforg_Cost_Daily']
+DCR_final['Finality_Ratio_5%']  = (
+    DCR_final['Unforg_Cost_5%_Daily'] / DCR_final['BTC_Unforg_Cost_Daily']
 )
-DCR_temp['Finality_Ratio_10%'] = (
-    DCR_temp['Unforg_Cost_10%_Daily'] / DCR_temp['BTC_Unforg_Cost_Daily']
+DCR_final['Finality_Ratio_10%'] = (
+    DCR_final['Unforg_Cost_10%_Daily'] / DCR_final['BTC_Unforg_Cost_Daily']
 )
-DCR_temp['Finality_Ratio_15%'] = (
-    DCR_temp['Unforg_Cost_15%_Daily'] / DCR_temp['BTC_Unforg_Cost_Daily']
+DCR_final['Finality_Ratio_15%'] = (
+    DCR_final['Unforg_Cost_15%_Daily'] / DCR_final['BTC_Unforg_Cost_Daily']
 )
-DCR_temp['Finality_Ratio_30%'] = (
-    DCR_temp['Unforg_Cost_30%_Daily'] / DCR_temp['BTC_Unforg_Cost_Daily']
+DCR_final['Finality_Ratio_30%'] = (
+    DCR_final['Unforg_Cost_30%_Daily'] / DCR_final['BTC_Unforg_Cost_Daily']
 )
-DCR_temp['Finality_Ratio_50%'] = (
-    DCR_temp['Unforg_Cost_50%_Daily'] / DCR_temp['BTC_Unforg_Cost_Daily']
+DCR_final['Finality_Ratio_50%'] = (
+    DCR_final['Unforg_Cost_50%_Daily'] / DCR_final['BTC_Unforg_Cost_Daily']
 )
-DCR_temp['Finality_Ratio_75%'] = (
-    DCR_temp['Unforg_Cost_75%_Daily'] / DCR_temp['BTC_Unforg_Cost_Daily']
+DCR_final['Finality_Ratio_75%'] = (
+    DCR_final['Unforg_Cost_75%_Daily'] / DCR_final['BTC_Unforg_Cost_Daily']
 )
 
 
 loop_data = [[0,1,2,3,4,5],[]]
 x_data = [
-    DCR_temp['date'],
-    DCR_temp['date'],
-    DCR_temp['date'],
-    DCR_temp['date'],
-    DCR_temp['date'],
-    DCR_temp['date'],
+    DCR_final['date'],
+    DCR_final['date'],
+    DCR_final['date'],
+    DCR_final['date'],
+    DCR_final['date'],
+    DCR_final['date'],
     ]
 y_data = [
-    DCR_temp['Finality_Ratio_5%'].rolling(7).mean(),
-    DCR_temp['Finality_Ratio_10%'].rolling(7).mean(),
-    DCR_temp['Finality_Ratio_15%'].rolling(7).mean(),
-    DCR_temp['Finality_Ratio_30%'].rolling(7).mean(),
-    DCR_temp['Finality_Ratio_50%'].rolling(7).mean(),
-    DCR_temp['Finality_Ratio_75%'].rolling(7).mean(),
+    DCR_final['Finality_Ratio_5%'].rolling(7).mean(),
+    DCR_final['Finality_Ratio_10%'].rolling(7).mean(),
+    DCR_final['Finality_Ratio_15%'].rolling(7).mean(),
+    DCR_final['Finality_Ratio_30%'].rolling(7).mean(),
+    DCR_final['Finality_Ratio_50%'].rolling(7).mean(),
+    DCR_final['Finality_Ratio_75%'].rolling(7).mean(),
     ]
 name_data = [
     'DCR Finality Ratio 5%','DCR Finality Ratio 10%',
@@ -566,4 +566,3 @@ fig = check_standard_charts().subplot_lines_singleaxis(
 #Increase tick spacing
 #fig.update_xaxes(dtick=0.1)
 fig.show()
-
