@@ -103,7 +103,7 @@ y_data = [
     DCR_subs['Fund_income_btc'].cumsum()/DCR_subs['SplyCur'],
     DCR_subs['Total_income_btc'].cumsum()/DCR_subs['SplyCur'],
     DCR_subs['PriceBTC'],
-    DCR_subs['dcr_tic_sply']
+    DCR_subs['dcr_tic_sply_avg']
     ]
 name_data = [
     'POW (BTC)','POS (BTC)','Treasury (BTC)','Total (BTC)',
