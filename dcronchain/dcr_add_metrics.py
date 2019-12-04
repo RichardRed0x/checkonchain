@@ -396,29 +396,29 @@ class dcr_add_metrics():
         #df['dcr_hodl_posideal'] = df['dcr_hodl']*df['SplyCur']*self.blkrew_ratio[1]*df['PriceUSD']
         return df
 
-        def dcr_multiples(self):
-            df = self.dcr_ticket_models()
-            """
-            Calculates DataFrame columns for ratios
-                Starting df = dcr_ticket_models
-            """
-            #Block Subsidy Multiples
-            #   Calculates Ratio of Market value to block subsidy Income
-            df['PoW_multiple']  = df['CapMrktCurUSD'] / df['PoW_income_usd'].cumsum()
-            df['PoS_multiple']  = df['CapMrktCurUSD'] / df['PoS_income_usd'].cumsum()
-            df['Fund_multiple'] = df['CapMrktCurUSD'] / df['Fund_income_usd'].cumsum()
-            df['Subs_multiple'] = df['CapMrktCurUSD'] / df['Total_income_usd'].cumsum()
-            
-            #Ticket Cap Mutliples
-            
-            
-            #Pricing Multiples
-            df['mayer_multiple'] = df['PriceUSD']/df['PriceUSD'].rolling(200).mean()
-            df['S2F_multiple']  = (
-                df['PriceUSD'] / math.exp(-1.84) * df['S2F']**3.36
-            )
-        #df['diff_multiple'] = 1
-        return df
+    def dcr_multiples(self):
+        df = self.dcr_ticket_models()
+        """
+        Calculates DataFrame columns for ratios
+            Starting df = dcr_ticket_models
+        """
+        #Block Subsidy Multiples
+        #   Calculates Ratio of Market value to block subsidy Income
+        df['PoW_multiple']  = df['CapMrktCurUSD'] / df['PoW_income_usd'].cumsum()
+        df['PoS_multiple']  = df['CapMrktCurUSD'] / df['PoS_income_usd'].cumsum()
+        df['Fund_multiple'] = df['CapMrktCurUSD'] / df['Fund_income_usd'].cumsum()
+        df['Subs_multiple'] = df['CapMrktCurUSD'] / df['Total_income_usd'].cumsum()
+        
+        #Ticket Cap Mutliples
+        
+        
+        #Pricing Multiples
+        df['mayer_multiple'] = df['PriceUSD']/df['PriceUSD'].rolling(200).mean()
+        df['S2F_multiple']  = (
+            df['PriceUSD'] / math.exp(-1.84) * df['S2F']**3.36
+        )
+    #df['diff_multiple'] = 1
+    return df
 
     def dcr_pricing_models(self):
         print('...Calculating Decred pricing models...')
@@ -482,3 +482,4 @@ class dcr_add_metrics():
 #DCR_natv = dcr_add_metrics().dcr_natv()
 #DCR_real = dcr_add_metrics().dcr_real()
 #DCR_sply = dcr_add_metrics().dcr_sply(500000)
+#DCR_tics = dcr_add_metrics().dcr_ticket_models()

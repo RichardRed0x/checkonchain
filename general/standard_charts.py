@@ -54,8 +54,10 @@ class check_standard_charts():
                 x=x_data[i], 
                 y=y_data[i],
                 mode='lines',
+                stackgroup='one',
                 name=name_data[i]),
-                secondary_y=False)
+                secondary_y=False
+                )
 
         for i in loop_data[1]:
             fig.add_trace(go.Scatter(

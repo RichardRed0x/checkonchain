@@ -8,33 +8,36 @@ DCR_subs = dcr_add_metrics().dcr_ticket_models()
                     DCR USD BLOCK SUBSIDY MODELS
 #############################################################################
 """
-loop_data = [[0,1,2,3,4],[5]]
+loop_data = [[0,1,2,3,4,6],[5]]
 x_data = [
     DCR_subs['date'],
     DCR_subs['date'],
     DCR_subs['date'],
     DCR_subs['date'],
     DCR_subs['date'],
-    DCR_subs['date']
+    DCR_subs['date'],
+    DCR_subs['date'],
     ]
 y_data = [
     DCR_subs['PoW_income_usd'].cumsum()/DCR_subs['SplyCur'],
     DCR_subs['PoS_income_usd'].cumsum()/DCR_subs['SplyCur'],
     DCR_subs['Fund_income_usd'].cumsum()/DCR_subs['SplyCur'],
     DCR_subs['Total_income_usd'].cumsum()/DCR_subs['SplyCur'],
-    DCR_subs['PriceUSD'],DCR_subs['DiffMean']
+    DCR_subs['PriceUSD'],DCR_subs['DiffMean'],
+    DCR_subs['PriceUSD'].rolling(200).mean()
     ]
 name_data = [
     'POW-USD','POS-USD','Treasury-USD','Total-USD',
-    'DCR/USD Price', 'Difficulty Ribbon'
+    'DCR/USD Price', 'Difficulty Ribbon','200DMA'
     ]
 color_data = [
     'rgb(250, 38, 53)' ,'rgb(114, 49, 163)','rgb(255, 192, 0)',
-    'rgb(20, 169, 233)','rgb(239, 125, 50)','rgb(156,225,143)']
-dash_data = ['solid','solid','solid','solid','solid','solid']
-width_data = [2,2,2,2,2,1]
-opacity_data = [1,1,1,1,1,1]
-legend_data = [True,True,True,True,True,True]#
+    'rgb(20, 169, 233)','rgb(239, 125, 50)','rgb(156,225,143)',
+    'rgb(0,176,80)']
+dash_data = ['solid','solid','solid','solid','solid','solid','solid']
+width_data = [2,2,2,2,2,1,1]
+opacity_data = [1,1,1,1,1,1,1]
+legend_data = [True,True,True,True,True,True,True]#
 title_data = ['Decred Miner Subsidy Models','Date','DCR/USD Pricing','Difficulty']
 range_data = [['01-02-2016','01-02-2020'],[-2,3],[5,11]]
 autorange_data = [True,False,False]
@@ -88,14 +91,15 @@ fig.show()
                     DCR BTC BLOCK SUBSIDY MODELS
 #############################################################################
 """
-loop_data = [[0,1,2,3,4],[5]]
+loop_data = [[0,1,2,3,4,6],[5]]
 x_data = [
     DCR_subs['date'],
     DCR_subs['date'],
     DCR_subs['date'],
     DCR_subs['date'],
     DCR_subs['date'],
-    DCR_subs['date']
+    DCR_subs['date'],
+    DCR_subs['date'],
     ]
 y_data = [
     DCR_subs['PoW_income_btc'].cumsum()/DCR_subs['SplyCur'],
@@ -103,19 +107,21 @@ y_data = [
     DCR_subs['Fund_income_btc'].cumsum()/DCR_subs['SplyCur'],
     DCR_subs['Total_income_btc'].cumsum()/DCR_subs['SplyCur'],
     DCR_subs['PriceBTC'],
-    DCR_subs['dcr_tic_sply_avg']
+    DCR_subs['dcr_tic_sply_avg'],
+    DCR_subs['PriceBTC'].rolling(200).mean()
     ]
 name_data = [
     'POW (BTC)','POS (BTC)','Treasury (BTC)','Total (BTC)',
-    'DCR/BTC Price','Ticket Pool Value (DCR)'
+    'DCR/BTC Price','Ticket Pool Value (DCR)','200DMA'
     ]
 color_data = [
     'rgb(250, 38, 53)' ,'rgb(114, 49, 163)','rgb(255, 192, 0)',
-    'rgb(20, 169, 233)','rgb(239, 125, 50)','rgb(156,225,143)']
-dash_data = ['solid','solid','solid','solid','solid','solid']
-width_data = [2,2,2,2,2,2]
-opacity_data = [1,1,1,1,1,1]
-legend_data = [True,True,True,True,True,True]#
+    'rgb(20, 169, 233)','rgb(239, 125, 50)','rgb(156,225,143)',
+    'rgb(0,176,80)']
+dash_data = ['solid','solid','solid','solid','solid','solid','solid']
+width_data = [2,2,2,2,2,2,1]
+opacity_data = [1,1,1,1,1,1,1]
+legend_data = [True,True,True,True,True,True,True]#
 title_data = ['Decred Stakeholder Subsidy Models','Date','Network Valuation (BTC)','Total DCR in Tickets']
 range_data = [['01-02-2016','01-02-2020'],[-4,-1],[0,1]]
 autorange_data = [True,False,True]

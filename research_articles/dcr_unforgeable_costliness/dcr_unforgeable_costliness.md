@@ -56,7 +56,7 @@ The remainder of this paper will explore the ***Unforgeable Costliness*** of **B
 
 # Value in Authenticity
 
-**Gold**, due to its atomic properties, is of extremely low abundance relative to other commodities. It's existence and supply is a product of the laws of physics and thus may only be acquired via exploration and extraction or by purchasing it off the market. This manifests as a natural constraint on inflation, given the demands of production.
+**Gold**, due to it's atomic properties is of extremely low abundance relative to other commodities. Its existence and supply is a product of the laws of physics and thus may only be acquired via exploration and extraction or by purchasing it off the market. This manifests as a natural constraint on inflation given the demands of production.
 
 As a result, global civilisations have converged on gold as the monetary base throughout history, and industrial uses represent only a small fraction of global gold demand. It seems a reasonable conclusion that gold's scarcity and monetary premium underlies its demand for jewelry as a status symbol, rather than the other way around.
 
@@ -66,7 +66,7 @@ Appreciation for the initial distribution is important for scarce man-made asset
 
 ## Bitcoin
 
-For **Bitcoin**, Satoshi Nakamoto's design decision was to transparently release the Bitcoin whitepaper on 31 Oct 2018 and the v0.1 Bitcoin and mining code on 9 Jan 2009 to the cypherpunks public email list. This group of people were those most likely to engage with and nurture the protocol through its formative and most vulnerable years.
+For **Bitcoin**, Satoshi Nakamoto's design decision was to transparently release the Bitcoin whitepaper on 31 Oct 2008 and the v0.1 Bitcoin and mining code on 9 Jan 2009 to the cypherpunks public email list. This group of people were those most likely to engage with and nurture the protocol through its formative and most vulnerable years.
 
 Numerous studies into early hashrate indicate Satoshi was the dominant miner out of necessity through the first year with estimates on the number of bitcoins mined ranging from 740k to 980k BTC (of which all are believed to have never been spent). Given there is no way to tell if these coins will ever move, public consensus appears to have accepted this uncertainty as a fair and reasonable thanks for Satoshi's skill and time (Lerner, [2013a](https://bitslog.com/2013/04/17/), [2013b](https://bitslog.com/2013/04/24/satoshi-s-fortune-a-more-accurate-figure/), [2014](https://organofcorti.blogspot.com/2014/08/167-satoshis-hashrate.html); [BitMEX Research, 2018](https://blog.bitmex.com/satoshis-1-million-bitcoin/); [Held, 2018](https://blog.picks.co/bitcoins-distribution-was-fair-e2ef7bbbc892)).
 
@@ -274,7 +274,7 @@ These are remarkable numbers for a protocol 750x smaller in market valuation (0.
 
 The second analysis considers the cost to attack each protocol daily to establish a relative settlement finality for transactions. Whilst the cumulative protocol cost is a valuable metric for scarcity and long term security, the consistency and magnitude of network security day-to-day is of the utmost importance for a functional sound money protocol.
 
-Finality represents how resistant a blockchain is to being re-organised during an attack that ing to censor or roll-back a transaction [unclear sentence]. A blockchain with a significant security budget implies each transaction is settled by significant honest costliness which acts as a deterrent that an attacker must overcome (Carter, 2019, Permabull Nino,2018) 
+Finality represents how resistant a blockchain is to being re-organised during an attack intended to censor or roll-back transactions. A blockchain with a significant security budget implies each transaction is settled by significant honest costliness which acts as a deterrent that an attacker must overcome (Carter, 2019, Permabull Nino,2018) 
 
 A blockchain with a $100M daily security budget can be considered to settle $100M/day. Sending a $500M transaction remains profitable for an attacker to re-organise until it costs more than the target value to do so. Finality is the most critical functional characteristic of a blockchain, and it is irrespective of block-time. A rational actor will consider a single Bitcoin confirmation equivalent to hundreds to thousands of a less secure blockchain. 
 
