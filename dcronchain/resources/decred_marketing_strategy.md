@@ -26,7 +26,7 @@ People want to learn. Get them down the Decred rabbit hole and holding a fractio
 - When something new shows up (new tech, new analysis etc) rinse it
 - Old topics can be recycled (origin story, Upcoming features, Updates on performance)
 - Decred team should develop a repo of resources (old reddit posts, papers, research) to draw inspiration from. Start with the aggregator.
-- Get Thematic - Every month we emphasis a new topic of Decreds design.
+- Get Thematic - Every month we emphasise a new topic of Decreds design.
 
 ## Two approaches to social
 
