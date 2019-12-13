@@ -57,3 +57,7 @@ People want to learn. Get them down the Decred rabbit hole and holding a fractio
 - Highlight aligned incentives
 
 Have fun out there. The more unique voices with interesting ideas we have, the faster this thing grows. Be Stakey.
+
+If in doubt, take a look at Bitcoin's marketing strategy. 
+
+[**This is the competition.**](https://www.youtube.com/watch?v=PBAuHv5cPl8)
