@@ -379,12 +379,21 @@ class dcr_add_metrics():
         df['tic_tfr_vol_ratio'] = df['dcr_tic_vol'] / df['TxTfrValNtv']
 
         #Ticket Investment Metrics
-        #   Daily USD Spend on Tickets
+        #   Daily USD and BTC Spent on Tickets
         df['tic_usd_cost']  = df['dcr_tic_vol'] * df['PriceUSD']
+        df['tic_btc_cost']  = df['dcr_tic_vol'] * df['PriceBTC']
         #   Ticket Cap = cummulative spend on tickets
         df['CapTicUSD']     = df['tic_usd_cost'].cumsum()
+        df['CapTicBTC']     = df['tic_btc_cost'].cumsum()
         #   Ticket Investment Price = Ticket Cap / Circulating Supply
-        df['CapTicPrice']   = df['CapTicUSD'] / df['SplyCur']
+        df['CapTicPriceUSD']   = df['CapTicUSD'] / df['SplyCur']
+        df['CapTicPriceBTC']   = df['CapTicBTC'] / df['SplyCur']
+
+        #Ticket Oscillators after Permabull Nino
+        #SOURCE:
+        #% DCR moved onchain attribted to tickets - % DCR SUpply in Ticket Pool
+        #df['dcr_tic_surplus'] = df['dcr_tic_vol']
+
 
         #Calculate Aggregate Stakeholder Ticket Risk-Reward
         #[UNDER CONSTRUCTION]
@@ -417,8 +426,8 @@ class dcr_add_metrics():
         df['S2F_multiple']  = (
             df['PriceUSD'] / math.exp(-1.84) * df['S2F']**3.36
         )
-    #df['diff_multiple'] = 1
-    return df
+        #df['diff_multiple'] = 1
+        return df
 
     def dcr_pricing_models(self):
         print('...Calculating Decred pricing models...')
@@ -482,4 +491,46 @@ class dcr_add_metrics():
 #DCR_natv = dcr_add_metrics().dcr_natv()
 #DCR_real = dcr_add_metrics().dcr_real()
 #DCR_sply = dcr_add_metrics().dcr_sply(500000)
-#DCR_tics = dcr_add_metrics().dcr_ticket_models()
+DCR_tics = dcr_add_metrics().dcr_ticket_models()
+
+DCR_tics.columns
+
+
+
+DCR_tics['dcr_tic_surplus'] = (
+    DCR_tics['dcr_tic_vol'].rolling(142).mean() / DCR_tics['TxTfrValNtv'].rolling(142).mean()
+    - 
+    DCR_tics['dcr_tic_sply_avg']/ DCR_tics['SplyCur']
+)
+
+from checkonchain.general.standard_charts import *
+
+
+loop_data = [[1],[0]]
+x_data = [
+    DCR_tics['blk'],
+    DCR_tics['blk'],
+]
+y_data = [
+    DCR_tics['PriceBTC'],
+    DCR_tics['dcr_tic_surplus'],
+]
+name_data = [
+    'PriceBTC','dcr_tic_surplus'
+]
+title_data = [
+    'Analysis','Date','Variable','Price BTC'
+]
+type_data = [
+    'linear','linear','linear'
+]
+fig = check_standard_charts().basic_chart(
+    x_data,
+    y_data,
+    name_data,
+    loop_data,
+    title_data,
+    type_data
+)
+fig.update_yaxes(range=[-0.4,0.4],secondary_y=False)
+fig.show()
