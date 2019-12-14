@@ -61,3 +61,45 @@ Have fun out there. The more unique voices with interesting ideas we have, the f
 If in doubt, take a look at Bitcoin's marketing strategy. 
 
 [**This is the competition.**](https://www.youtube.com/watch?v=PBAuHv5cPl8)
+
+
+# Decred Narratives and Memetics
+
+## 1) Store of Value / Financial Instrument
+
+### **Platinum to Bitcoin's gold**: 
+DCR iterates on Bitcoin where it meaningfully counts
+- Security with Hybrid PoW/PoS and resistance to miner centralisation
+- Adaptability with capacity to controlled hard-fork and retain community
+- Self-sustaining and resistance to external capture with the treasury
+
+### **Financial Hedge**: 
+Bitcoin's design optimises for remaining the same, however, this does have inevitable, high profile instabilities around the need to hard fork. 
+
+The World will not put all their eggs in one digital money basket as software still needs upgrades. Bitcoin's coordination is constrained due to it's pure PoW and node based consensus. Thus, value will need to flow between Bitcoin and an alternative but equally sound protocol. Decred is best placed to fill this role.
+
+### **Symbiosis with Bitcoin**:
+Bitcoin is a hardcore organism whose strength is in it's resistance to change.
+
+Decred iterates by implementing a hive mind of stake-holders with skin-in-the game.
+
+Decred is Bitcoin with a brain.
+
+The Two co-exist and are in fact symbiotic. The patch each other's weaknesses and in combination, there are no sound money gaps to fill.
+
+## 2) Decred's Elegant Design
+
+### **Decred fixes this**
+Bitcoin weaknesses
+- Miner centralisation which is inevitable for PoW (Hybrid PoW/PoS is 2FA).
+- Consensus by upgrade leads to many [outdated nodes](http://luke.dashjr.org/programs/bitcoin/files/charts/security.html?201817144) which are security holes (Soft forks trick old nodes to the new rules via trust in new nodes)
+- Central planning committe in Bitcoin Core and Blockstream working to their VC backed agenda of sidechains as a product (hypocrasy of BTSE ICO token) (Every Decred stakeholder decides whether to activate a change to consensus) 
+- Subject to external capture by funding (Decred is entirely self-funded)
+- Soft Forks are security holes. They are used on Bitcoin to avoid contentious Hard Forks but this constrains development and leads to performance trade-offs. (Decred can controlled Hard Fork whilst maintaining consensus)
+
+###
+
+
+## 3) Digital Nation State
+
+### **Decred**
