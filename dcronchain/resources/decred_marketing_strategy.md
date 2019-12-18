@@ -81,21 +81,24 @@ The World will not put all their eggs in one digital money basket as software st
 ### **Symbiosis with Bitcoin**:
 Bitcoin is a hardcore organism whose strength is in it's resistance to change.
 
-Decred iterates by implementing a hive mind of stake-holders with skin-in-the game.
+Decred organism iterates by implementing a hive mind of stake-holders with skin-in-the game. Decred is Bitcoin with a brain.
 
-Decred is Bitcoin with a brain.
-
-The Two co-exist and are in fact symbiotic. The patch each other's weaknesses and in combination, there are no sound money gaps to fill.
+The Two co-exist and are in fact symbiotic. The patch each other's weaknesses and in combination, there are no sound money gaps to fill. Decred's infrastructure (privacy, LN, DEX, Atomic Swaps) expands the realm of what is possible with Bitcoin.
 
 ## 2) Decred's Elegant Design
 
 ### **Decred fixes this**
-Bitcoin weaknesses
+**Bitcoin weaknesses**
 - Miner centralisation which is inevitable for PoW (Hybrid PoW/PoS is 2FA).
 - Consensus by upgrade leads to many [outdated nodes](http://luke.dashjr.org/programs/bitcoin/files/charts/security.html?201817144) which are security holes (Soft forks trick old nodes to the new rules via trust in new nodes)
 - Central planning committe in Bitcoin Core and Blockstream working to their VC backed agenda of sidechains as a product (hypocrasy of BTSE ICO token) (Every Decred stakeholder decides whether to activate a change to consensus) 
 - Subject to external capture by funding (Decred is entirely self-funded)
 - Soft Forks are security holes. They are used on Bitcoin to avoid contentious Hard Forks but this constrains development and leads to performance trade-offs. (Decred can controlled Hard Fork whilst maintaining consensus)
+
+**Decred weaknesses**
+- Liquidity (MMs are live, Liquidity is thin everywhere, captain obvious BTC is 7yrs older)
+
+
 
 ###
 

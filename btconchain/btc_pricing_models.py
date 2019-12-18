@@ -133,20 +133,20 @@ for i in range(0,7):
         row=1,col=1)
 
 """Create Secondary - Transaction Volume"""
-for i in range(7,8):
-    fig.add_trace(go.Scatter(
-        mode='lines',
-        x=x_data_1[i], 
-        y=y_data_1[i],
-        name=names_1[i],
-        opacity=opacity_1[i],
-        line=dict(
-            width=line_size_1[i],
-            color=color_data_1[i],
-            dash=dash_type_1[i]
-            )),
-        secondary_y=True,
-        row=1,col=1)
+#for i in range(7,8):
+#    fig.add_trace(go.Scatter(
+#        mode='lines',
+#        x=x_data_1[i], 
+#        y=y_data_1[i],
+#        name=names_1[i],
+#        opacity=opacity_1[i],
+#        line=dict(
+#            width=line_size_1[i],
+#            color=color_data_1[i],
+#            dash=dash_type_1[i]
+#            )),
+#        secondary_y=True,
+#        row=1,col=1)
 
 """Create NVT Plots"""
 for i in range(0,6):
