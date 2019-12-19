@@ -76,7 +76,5 @@ The issue is that the outcome is a smaller addressable market when compared to a
 
 The author challenges readers to consider how far advanced Bitcoin is in achieving the goals of sound, immutable money whilst Ethereum has ventured down numerous dead end rabbit holes. There is a general misunderstanding of the potential of systems like Lightning network and sidechains to enhancing the capabilities of Bitcoin as a global reserve asset.
 
-Intuitively, building an immensely secure and immutable base layer with the sole purpose of transaction settlement makes sense. Indeed, this is what the Ethereum 2.0 beacon chain is designed to do, finality and settlement only, no bloat. 2.0 shards simply replicate what Bitcoin second layer solutions achieve however without the liquidity, reputation and security premium that Bitcoin has developed.
-
-
+Intuitively, building an immensely secure and immutable base layer with the sole purpose of transaction settlement makes sense. More complex layers with reduced security and consensus demand should be isolated to layers higher in the stack. Indeed, this is what the Ethereum 2.0 beacon chain is designed to do, finality and settlement only, no bloat. 2.0 shards simply replicate what Bitcoin second layer solutions achieve however without the liquidity, reputation and security premium that Bitcoin has developed.
 
