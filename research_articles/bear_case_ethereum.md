@@ -45,9 +45,13 @@ Ethereum is in many ways the perfect example of Second System Syndrome. This is 
 With the rebuild of Ethereum 2.0 under a new consensus mechanism being the latest solution to this problem, it again paints an uncertain future for holders of the ETH token. This new blockchain will ultimately reset any developed Lindy effect from the existing chain and it can be reasonably expected that more research and problems discovered will be the outcome.
 
 ## RELIANCE ON THE APPLICATION LAYER FOR VALUE
-Whilst the Open finance ecosystem present impressive technological and engineering successes, there remains a lingering risk of over reliance on third party protocols for value accrual to the ETH token. In recent times, a number of high profile ‘unstoppable’ applications including MakerDAO, Compound Finance and 0x have been discovered to have security measures enabling zero delay drains of collateral, developer back-doors and emergency shut-down functions. 
+Whilst the Open finance ecosystem present impressive technological and engineering successes, there remains a lingering risk of over reliance on third party protocols for value accrual to the ETH token. In recent times, a number of high profile ‘unstoppable’ applications have been found to be custodial solutions with administrator back-door access: 
 
-This challenges the ‘unstoppable’ narrative and whilst valid during the early research and development phase, it sounds remarkably like second system syndrome. Perpetual research supporting an ‘almost ready’ development timeline.
+- [MakerDAO was found to be custodial and host a zero delay drain risk for any wallet holding 40,000MKR](https://medium.com/coinmonks/how-to-turn-20m-into-340m-in-15-seconds-48d161a42311?)
+- [Compound Finance was found to be custodial, at risk of bank-run liquidity issues and host an administrative access back-door](https://medium.com/@ameensol/what-you-should-know-before-putting-half-a-million-dai-in-compound-fafdb2645f77)
+- [0x had the emergency shut-down functions activated after a bug was disovered during the rollout of v2 contracts](https://samczsun.com/the-0x-vulnerability-explained/)
+
+These examples challenge the ‘unstoppable’ narrative and whilst valid during the early research and development phase, it sounds remarkably like second system syndrome. Perpetual research supporting an ‘almost ready’ development timeline. There is also a layer of disingenious marketing where DeFi projects pitch themselves as decentralised, unstoppable and non-custodial when the reality is quite different.
 
 The centrepiece of the ‘DeFi’ ecosystem, MakerDAO is driven by the MKR governance token. One can argue that without Maker and the issued DAI/SAI tokens, much of the ‘DeFi’ ecosystem becomes reliant on centralised and permissioned stablecoin infrastructure like USDT and USDC. Furthermore, a vast majority of the ecosystem are reliant on the centrally controlled Maker ETH/USD price oracle which is a problem not easily fixed in a permission-less manner.
 
