@@ -1,7 +1,7 @@
 # Our Network - Week 1
 
 ## Insight 1 - The Decred Security Curve
-The Decred blockchain is secured by a unique Hybrid PoW/PoS consensus mechanism. Each block must be validated by at least 3 out of 5 psuedo-randomly selected PoS tickets. Where a block fails validation, it must be re-mined forfeiting the PoW expendature and block reward. The chart below presents the relative magnitude of honest hashpower required to successfully double spend DCR for a given share of the ticket pool (Y-axis value of 1.0 equates to a standard 51% attack with added cost of holding 50% of tickets).
+The Decred blockchain is secured by a unique Hybrid PoW/PoS consensus mechanism. Each block must be validated by at least 3 out of 5 psuedo-randomly selected PoS tickets. Where a block fails validation, it must be re-mined, forfeiting the PoW expendature and block reward. The chart below presents the relative magnitude of honest hashpower required to successfully double spend DCR for a given share of the ticket pool (Y-axis value of 1.0 equates to a standard 51% attack with added cost of holding 50% of tickets).
 
 ![insight_1.png](images/insight_1.png)
 
@@ -11,7 +11,7 @@ The Decred protocol issues a block reward split 60% to miners, 30% to stakeholde
 ![insight_2.png](images/insight_2.png)
 
 ## Insight 3 - Miner Squeeze
-Similar to the DCR/BTC price which characterises the investor class, block subsidy models priced in USD space are more representative of Miner behaviour. Decred is an ASIC dominated chain and miner costs are denominated in fiat currency. The PoW subsidy line (red) indicates when miner profits are being tested which was recently confirmed by a squeeze in the difficulty ribbon.
+Similar to the DCR/BTC price that characterises the investor class, block subsidy models priced in USD are more representative of Miner behaviour. Decred is an ASIC dominated chain and miner costs are denominated in fiat currency. The PoW subsidy line (red) thus indicates when miner profitability is being tested. This was recently confirmed by a squeeze in the difficulty ribbon.
 
 ![insight_3.png](images/insight_3.png)
 
