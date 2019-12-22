@@ -391,7 +391,7 @@ type_data = ['linear','log','linear']
 range_data = [[0,0.75],[-1,5],[0,6]]
 autorange_data = [False,False,False]
 legend_data = [True,True,True]
-fig = check_standard_charts().subplot_lines_doubleaxis(
+fig = check_standard_charts().subplot_lines_singleaxis(
     title_data, range_data ,autorange_data ,type_data,
     loop_data,x_data,y_data,name_data,color_data,
     dash_data,width_data,opacity_data,legend_data

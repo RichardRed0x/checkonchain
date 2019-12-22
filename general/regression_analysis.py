@@ -99,7 +99,11 @@ class regression_analysis():
         print('...Calculating ln-ln Linear Regression for '+self.x_metric+'-'+self.y_metric+'...')
 
         #Subset of dataset, drop na values
-        df = self.dataframe[[self.time_metric,self.x_metric,self.y_metric]].dropna(axis=0)
+        df = self.dataframe[[
+            self.time_metric,
+            self.x_metric,
+            self.y_metric
+        ]].dropna(axis=0)
         df = df.reset_index(drop=True)
 
         #Create arrays for x and y in regression
