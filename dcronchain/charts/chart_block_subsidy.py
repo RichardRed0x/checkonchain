@@ -47,6 +47,7 @@ fig = check_standard_charts().subplot_lines_doubleaxis(
     loop_data,x_data,y_data,name_data,color_data,
     dash_data,width_data,opacity_data,legend_data
     )
+
 """ =================================
     ADD DIFFICULTY RIBBON BAR CHARTS
 ================================="""
@@ -126,7 +127,7 @@ title_data = ['Decred Stakeholder Subsidy Models','Date','Network Valuation (BTC
 range_data = [['01-02-2016','01-02-2020'],[-4,-1],[0,1]]
 autorange_data = [True,False,True]
 type_data = ['date','log','linear']#
-fig = check_standard_charts().subplot_lines_doubleaxis(
+fig = check_standard_charts().subplot_lines_singleaxis(
     title_data, range_data ,autorange_data ,type_data,
     loop_data,
     x_data,

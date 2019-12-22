@@ -6,17 +6,17 @@ The Decred blockchain is secured by a unique Hybrid PoW/PoS consensus mechanism.
 ![insight_1.png](images/insight_1.png)
 
 ## Insight 2 - Block Subsidy Models
-The Decred protocol issues a block reward split 60% to miners, 30% to ticket holders and 10% to the project treasury. Considered with the hybrid consensus mechanism, Decred functions as a high assurance, triple entry accounting system. @PermabullNino released a paper studying this mechanism via the cummulative block reward paid to the PoW/PoS/Fund split. It revealed strong links between profitability of miners, stakeholders and network value that identify points of support and resistance
+The Decred protocol issues a block reward split 60% to miners, 30% to stakeholders and 10% to the project treasury. Considered with the hybrid consensus mechanism, Decred functions as a high assurance, triple entry accounting ledger. @PermabullNino released a paper studying this mechanism via the cummulative block reward paid to the PoW/PoS/Fund split. It revealed strong links between the DCR/BTC Price and investor behaviour where the PoS subsidy (purple) has acted as strong support for trend reversals.
 
-
+![insight_2.png](images/insight_2.png)
 
 ## Insight 3 - Miner Squeeze
-
+Similar to the DCR/BTC price which characterises the investor class, block subsidy models priced in USD space are more representative of Miner behaviour. Decred is an ASIC dominated chain and miner costs are denominated in fiat currency. The PoW subsidy line (red) indicates when miner profits are being tested which was recently confirmed by a squeeze in the difficulty ribbon.
 
 ![insight_3.png](images/insight_3.png)
 
 
-## Insight 4 - 
+## Insight 4 - Politeia in Review
 
 
 
