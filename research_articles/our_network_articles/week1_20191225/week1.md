@@ -23,6 +23,6 @@ Similar to the DCR/BTC price that characterises the investor class, block subsid
 
 
 ## Insight 5 - Privacy Mixing Performance
-Decred rolled out the first phase of it's privacy implementation based on the CoinShuffle++ protocol this August. Privacy mixing is integrated with the PoS Ticket system, given tickets are a consistent denomination, constantly in circulation and pseudo-randomly selected to validate. This makes for a strong and large anonymity set. In the four months since launch, over 20% of the DCR supply has participated in privacy mixing.
+Decred rolled out the first phase of it's privacy implementation based on the CoinShuffle++ protocol in August. Privacy mixing has been integrated with the PoS Ticket system to take advantage of consistency in DCR denominations, consistent circulation and pseudo-random selection. This makes for a consistently large and rotating anonymity set. In the four months since launch, over 20% of the DCR supply has participated in privacy mixing.
 
 ![insight_5.png](images/insight_5.jpg)
